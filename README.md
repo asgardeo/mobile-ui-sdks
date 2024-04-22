@@ -16,7 +16,7 @@ This repository holds the mobile SDKs to support the integreation of your mobile
 
 | Technology | Version |
 | --- | --- |
-| [`Android`](./android) | ![npm](https://img.shields.io/npm/v/@oxygen-ui/primitives?color=blue) |
+| [`Android`](./android) | In Development |
 | [`iOS`](./iOS) | In Development |
 | [`Flutter`](./flutter) | In Development |
 
