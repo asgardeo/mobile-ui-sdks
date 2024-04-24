@@ -1,3 +1,5 @@
+import java.net.URI
+
 /*
  * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
@@ -78,4 +80,106 @@ dependencies {
 
     // Data store
     implementation(libs.androidx.datastore.preferences)
+}
+
+extra.apply {
+    set("artifactId", "core")
+    set("artifactName", "core")
+    set("artifactDescription", "A library that provides all the necessary authentication functionality to integrate your Android application with the Asgardeo and WSO2 Identity Server.")
+    set("versionNumber", properties["CORE_VERSION"])
+}
+
+//apply("${rootDir}/publish.gradle")
+// publish.gradle.kts
+
+// TOOD: the following code block to a separate gradle.kts file. Currently placed here due to an Android Studio bug, where new gradle.kts files are not recognized.
+
+// artificial related variables
+val groupName: String = rootProject.extra.get("groupName") as String
+val packagingType: String = rootProject.extra.get("groupName") as String
+var publishArtifactId: String = project.extra.get("artifactId") as String
+val artifactName = project.extra.get("artifactName") as String
+val artifactDescription = project.extra.get("artifactDescription") as String
+val versionNumber = project.extra.get("versionNumber") as String
+
+//POM related variables
+val pomUrl: String = properties["POM_URL"].toString()
+val pomLicenseName: String = properties["POM_LICENCE_NAME"].toString()
+val pomLicenseUrl: String = properties["POM_LICENCE_URL"].toString()
+val pomLicenseDistribution: String = properties["POM_LICENCE_DISTRIBUTION"].toString()
+
+//SCM related variables
+val scmConnection: String = properties["POM_SCM_CONNECTION"].toString()
+val scmDeveloperConnection: String = properties["POM_SCM_DEV_CONNECTION"].toString()
+val scmUrl: String = properties["POM_SCM_URL"].toString()
+
+fun getReleaseRepositoryUrl(): URI = URI.create(System.getenv("NEXUS_RELEASE_URL") ?: "")
+
+fun getSnapshotRepositoryUrl(): URI = URI.create(System.getenv("NEXUS_SNAPSHOT_URL") ?: "")
+
+fun getRepositoryUsername(): String = System.getenv("NEXUS_USERNAME") ?: ""
+
+fun getRepositoryPassword(): String = System.getenv("NEXUS_PASSWORD") ?: ""
+
+val androidSourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets["main"].java.srcDirs)
+}
+
+artifacts {
+    archives(androidSourcesJar)
+}
+
+afterEvaluate {
+    configure<PublishingExtension> {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = groupName// Access groupId from rootProject.ext
+                artifactId = publishArtifactId
+                version = versionNumber
+
+                artifact("${layout.buildDirectory.get()}/outputs/aar/${artifactName}-release.aar")
+                artifact(androidSourcesJar)
+
+                pom {
+                    name.set(publishArtifactId)
+                    description.set(artifactDescription)
+                    packaging = packagingType
+                    url.set(pomUrl)
+                    licenses {
+                        license {
+                            name.set(pomLicenseName)
+                            url.set(pomLicenseUrl)
+                            distribution.set(pomLicenseDistribution)
+                        }
+                    }
+                    // Version control info.
+                    scm {
+                        connection.set(scmConnection)
+                        developerConnection.set(scmDeveloperConnection)
+                        url.set(scmUrl)
+                    }
+                }
+            }
+        }
+
+//        signing {
+//            isRequired = gradle.taskGraph.hasTask("publish")
+//            useGpgCmd()
+//            sign(publishing.publications["release"])
+//        }
+
+        repositories {
+            mavenLocal()
+            maven {
+                credentials {
+                    username = getRepositoryUsername()
+                    password = getRepositoryPassword()
+                }
+
+                url = if (versionNumber.endsWith("SNAPSHOT")) getSnapshotRepositoryUrl()
+                else getReleaseRepositoryUrl()
+            }
+        }
+    }
 }

@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+import java.time.Duration
+
 /*
  * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
@@ -21,4 +24,55 @@ plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
     alias(libs.plugins.androidLibrary) apply false
+
+    id("org.jetbrains.dokka") version "1.9.20"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+}
+
+apply(plugin = "org.jetbrains.dokka")
+apply(plugin = "io.github.gradle-nexus.publish-plugin")
+apply(plugin = "java-library")
+
+subprojects {
+    apply(plugin = "maven-publish")
+    apply(plugin = "signing")
+}
+
+val groupName: String = properties["GROUP"] as String
+
+nexusPublishing {
+    packageGroup = groupName
+
+    repositories {
+        create("wso2Nexus") {
+            nexusUrl.set(uri("https://your-server.com/staging"))
+            snapshotRepositoryUrl.set(uri("https://your-server.com/snapshots"))
+            username.set("your-username") // defaults to project.properties["myNexusUsername"]
+            password.set("your-password") // defaults to project.properties["myNexusPassword"]
+        }
+    }
+
+    clientTimeout = Duration.ofMinutes(5)
+    connectTimeout = Duration.ofMinutes(1)
+
+    transitionCheckOptions {
+        maxRetries.set(40)
+        delayBetween.set(Duration.ofSeconds(10))
+    }
+}
+
+tasks.dokkaHtmlMultiModule.configure {
+    outputDirectory.set(File("${project.rootDir}/docs"))
+}
+
+tasks.register<Jar>("dokkaJavadocJar") {
+    dependsOn(tasks.dokkaJavadoc)
+    from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
+    archiveClassifier.set("javadoc")
+}
+
+extra.apply {
+    set("groupName", groupName)
+    set("compileSdkVersion", properties["COMPILE_SDK_VERSION"])
+    set("packagingType", properties["PACKAGING_TYPE"])
 }
