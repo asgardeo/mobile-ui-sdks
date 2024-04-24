@@ -240,7 +240,7 @@ You can also use client attestation with the SDK as well.
 #### How to setup client attestation for your application
 1. In the created mobile application in the WSO2 Identity Server/Asgardeo, go to the advanced section and enable the client attestation.
 2. You need to subscribe to the "Google Play Integrity API" from your Google cloud project, you can do this from Enabled API's & Services in your Google cloud project.
-3. After that you need to create a new service account in the google project. You can create a Service Account for yourself with the following scopes.
+3. After that you need to create a new service account in the google project. You can create a Service Account for yourself with the following steps.
 
     1. Go to IAM& Admin -> Service Accounts
     2. Click Create Service Account.
