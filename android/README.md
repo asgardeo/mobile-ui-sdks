@@ -419,7 +419,7 @@ android.defaultConfig.manifestPlaceholders = [
 ]
 ```
 
-After authenticating with the federated IdP, normally, the IdP will redirect the user to the WSO2 Identity Server/Asgardeo's common auth endpoint to continue the flow. However, with API-based authentication, this is changed. The IdP should redirect to the application. To support this, you should configure the deep link in the federated IdP side. Add that deep link in the `<data>` section. For example, if you are using the `wso2sample://oauth2` deep link, you should fill the `<data>` section as follows:
+After authenticating with the federated IdP, normally, the IdP will redirect the user to Asgardeo commonauth endpoint to continue the flow. However, with application-native authentication, this is changed. The IdP should redirect to the application. To support this, you should configure the deep link in the federated IdP side. Add that deep link in the `<data>` section. For example, if you are using the `wso2sample://oauth2` deep link, you should fill the `<data>` section as follows:
 
 ```xml
 <data
