@@ -8,7 +8,7 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 
 - Supports Android applications written in Kotlin programming language.
 - The minimum supported SDK is API level 26, compiled to API level 34. However, there are certain limitations when using specific authentication methods:
-    - Passkeys are supported on API level 34 and above.
+    - Passkeys are only supported on API level 34 and above.
     - Google authentication using the Credential Manager API is supported on API level 34 and above.
 
 ## Getting Started
