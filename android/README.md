@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) to utilize OpenID Connect (OIDC) authentication with the WSO2 Identity Server/Asgardeo serving as the Consumer Identity and Access Management (CIAM) Provider through API-based authentication. This SDK assists you in creating custom login flows directly within the applications themselves, without relying on browser redirects, thereby prioritizing user experience.
+The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) to utilize OpenID Connect (OIDC) authentication with the WSO2 Identity Server/Asgardeo serving as the Consumer Identity and Access Management (CIAM) Provider through application-native authentication. This SDK assists you in creating custom login flows directly within the applications themselves, without relying on browser redirects, thereby prioritizing user experience.
 
 ## Prerequisite
 
