@@ -13,7 +13,7 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 
 ## Getting Started
 
-### Register your application in /WSO2 Identity Server/Asgardeo
+### Register your application in Asgardeo
 
 #### WSO2 Identity Server
 
