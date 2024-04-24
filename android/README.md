@@ -242,7 +242,7 @@ You can also use client attestation with the SDK as well.
 2. You need to subscribe to the "Google Play Integrity API" from your Google cloud project, you can do this from Enabled API's & Services in your Google cloud project.
 3. After that you need to create a new service account in the google project. You can create a Service Account for yourself with the following steps.
 
-    1. Go to IAM& Admin -> Service Accounts
+    1. Go to `IAM & Admin` -> `Service Accounts`.
     2. Click Create Service Account.
     3. Fill the name and click create and continue.
     4. You need to grant your service account the roles of Service Account User and Service Usage Consumer.
