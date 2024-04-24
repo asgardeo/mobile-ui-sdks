@@ -1,4 +1,4 @@
-# Contributing for the WSO2 Identity Access Management Mobile SDKs
+# Contributing to Asgardeo Mobile SDKs
 
 We would love for you to contribute to our mobile SDKs and help make it even better than it is today!
 As a contributor, here are the guidelines we would like you to follow:
