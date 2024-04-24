@@ -1,4 +1,4 @@
-# Contributing for the WSO2 Identity Access Management Mobile SDKs
+# Contributing to Asgardeo Mobile SDKs
 
 We would love for you to contribute to our mobile SDKs and help make it even better than it is today!
 As a contributor, here are the guidelines we would like you to follow:
@@ -67,4 +67,4 @@ The following is the list of supported scopes:
 
 * `android` - Changes to the main `android` package.
 * `android-core` - Changes to the `android-core` package.
-* `docs-<document-file-name>` - Changes to the documentation files. The document file name should be in kebab case.
+* `docs` - Changes to the documentation files.

@@ -2,18 +2,18 @@
 
 ## Introduction
 
-The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) to utilize OpenID Connect (OIDC) authentication with the WSO2 Identity Server/Asgardeo serving as the Consumer Identity and Access Management (CIAM) Provider through API-based authentication. This SDK assists you in creating custom login flows directly within the applications themselves, without relying on browser redirects, thereby prioritizing user experience.
+The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) to utilize OpenID Connect (OIDC) authentication with the WSO2 Identity Server/Asgardeo serving as the Consumer Identity and Access Management (CIAM) Provider through application-native authentication. This SDK assists you in creating custom login flows directly within the applications themselves, without relying on browser redirects, thereby prioritizing user experience.
 
 ## Prerequisite
 
 - Supports Android applications written in Kotlin programming language.
 - The minimum supported SDK is API level 26, compiled to API level 34. However, there are certain limitations when using specific authentication methods:
-    - Passkeys are supported on API level 34 and above.
+    - Passkeys are only supported on API level 34 and above.
     - Google authentication using the Credential Manager API is supported on API level 34 and above.
 
 ## Getting Started
 
-### Register your application in /WSO2 Identity Server/Asgardeo
+### Register your application in Asgardeo
 
 #### WSO2 Identity Server
 
@@ -25,7 +25,7 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 
 1. Register to Asgardeo and create an organization if you don't already have one. The organization name you choose will be referred to as `<org_name>` throughout this document.
 2. Register a Mobile Application in Asgardeo to integrate your application with Asgardeo. You will obtain a `client_ID` from Asgardeo for your application which will need to be embedded later for the SDK integration. Also note the redirect URI that you used to create the application, this is also required for the SDK integration.
-3. In the created mobile application go to the "Advanced" section and enable the application native authentication for your Android application.
+3. In the created mobile application, go to the "Advanced" section and enable the application native authentication for your Android application.
 
 ### Installing the SDK
 
@@ -56,7 +56,7 @@ android.defaultConfig.manifestPlaceholders = [
 ```kotlin
 private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
     AuthenticationCoreConfig(
-        discoveryEndpoint = "https://localhost:9443//oauth2/token/.well-known/openid-configuration",
+        discoveryEndpoint = "https://localhost:9443/oauth2/token/.well-known/openid-configuration",
         redirectUri = "wso2sample://oauth2",
         clientId = "<client_id>",
         scope = "openid"
@@ -69,7 +69,6 @@ private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
 > Also if you are using an emulator to test out your application with a locally hosted IS instance, make sure to replace localhost with 10.0.2.2.
 >
 > Also in the above scenario having only the discovery endpoint will not work, you need to have other endpoints setup as well, because from the discovery endpoint it will sent other endpoints with “localhost” which will not work with a locally hosted instance of IS.
-
 
 `AuthenticationCoreConfig` holds the configuration details that are required to set up the communication between the SDK and the WSO2 Identity Server/Asgardeo.
 
@@ -241,9 +240,9 @@ You can also use client attestation with the SDK as well.
 #### How to setup client attestation for your application
 1. In the created mobile application in the WSO2 Identity Server/Asgardeo, go to the advanced section and enable the client attestation.
 2. You need to subscribe to the "Google Play Integrity API" from your Google cloud project, you can do this from Enabled API's & Services in your Google cloud project.
-3. After that you need to create a new service account in the google project. You can create a Service Account for yourself with the following scopes.
+3. After that you need to create a new service account in the google project. You can create a Service Account for yourself with the following steps.
 
-    1. Go to IAM& Admin -> Service Accounts
+    1. Go to `IAM & Admin` -> `Service Accounts`.
     2. Click Create Service Account.
     3. Fill the name and click create and continue.
     4. You need to grant your service account the roles of Service Account User and Service Usage Consumer.
@@ -419,7 +418,7 @@ android.defaultConfig.manifestPlaceholders = [
 ]
 ```
 
-After authenticating with the federated IdP, normally, the IdP will redirect the user to the WSO2 Identity Server/Asgardeo's common auth endpoint to continue the flow. However, with API-based authentication, this is changed. The IdP should redirect to the application. To support this, you should configure the deep link in the federated IdP side. Add that deep link in the `<data>` section. For example, if you are using the `wso2sample://oauth2` deep link, you should fill the `<data>` section as follows:
+After authenticating with the federated IdP, normally, the IdP will redirect the user to Asgardeo commonauth endpoint to continue the flow. However, with application-native authentication, this is changed. The IdP should redirect to the application. To support this, you should configure the deep link in the federated IdP side. Add that deep link in the `<data>` section. For example, if you are using the `wso2sample://oauth2` deep link, you should fill the `<data>` section as follows:
 
 ```xml
 <data
