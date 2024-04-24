@@ -22,7 +22,7 @@ This repository holds the mobile SDKs to support the integreation of your mobile
 
 ## Documentation
 
-For more information on how to use each SDK, check out the following documentation,
+For more information on how to use each SDK, check out the following documentation.
 
 - [Android Document](./android/README.md)
 
