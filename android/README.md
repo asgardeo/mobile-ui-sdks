@@ -59,7 +59,7 @@ private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
         discoveryEndpoint = "https://localhost:9443/oauth2/token/.well-known/openid-configuration",
         redirectUri = "wso2sample://oauth2",
         clientId = "<client_id>",
-        scope = "openid"
+        scope = "openid profile email"
     )
 )
 ```
