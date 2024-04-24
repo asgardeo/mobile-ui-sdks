@@ -25,7 +25,7 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 
 1. Register to Asgardeo and create an organization if you don't already have one. The organization name you choose will be referred to as `<org_name>` throughout this document.
 2. Register a Mobile Application in Asgardeo to integrate your application with Asgardeo. You will obtain a `client_ID` from Asgardeo for your application which will need to be embedded later for the SDK integration. Also note the redirect URI that you used to create the application, this is also required for the SDK integration.
-3. In the created mobile application go to the "Advanced" section and enable the application native authentication for your Android application.
+3. In the created mobile application, go to the "Advanced" section and enable the application native authentication for your Android application.
 
 ### Installing the SDK
 
