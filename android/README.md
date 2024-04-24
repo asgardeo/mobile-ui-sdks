@@ -70,7 +70,6 @@ private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
 >
 > Also in the above scenario having only the discovery endpoint will not work, you need to have other endpoints setup as well, because from the discovery endpoint it will sent other endpoints with “localhost” which will not work with a locally hosted instance of IS.
 
-
 `AuthenticationCoreConfig` holds the configuration details that are required to set up the communication between the SDK and the WSO2 Identity Server/Asgardeo.
 
 2. After that, you need to get the `AuthenticationProvider` from the created `AsgardeoAuth` instance. This will assist you in handling the authentication process.
