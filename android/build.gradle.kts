@@ -1,8 +1,3 @@
-import com.android.build.gradle.internal.tasks.factory.dependsOn
-import java.net.URI
-import java.time.Duration
-import java.util.Properties
-
 /*
  * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
@@ -20,6 +15,10 @@ import java.util.Properties
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
+import java.net.URI
+import java.time.Duration
+import java.util.Properties
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

@@ -1,5 +1,3 @@
-import java.net.URI
-
 /*
  * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
@@ -17,6 +15,8 @@ import java.net.URI
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
+import java.net.URI
 
 plugins {
     alias(libs.plugins.androidLibrary)

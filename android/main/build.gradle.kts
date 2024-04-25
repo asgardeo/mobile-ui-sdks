@@ -1,5 +1,3 @@
-import java.net.URI
-
 /*
  * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
@@ -17,6 +15,8 @@ import java.net.URI
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
+import java.net.URI
 
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -71,7 +71,7 @@ extra.apply {
         "artifactDescription",
         "A library that provides all the necessary functionalities to integrate your Android application with Asgardeo."
     )
-    set("versionNumber", properties["ANDROID_VERSION"])
+    set("versionNumber", properties["MAIN_VERSION"])
 }
 
 // apply("${rootDir}/publish.gradle")
