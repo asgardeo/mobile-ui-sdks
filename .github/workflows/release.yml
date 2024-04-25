@@ -8,10 +8,10 @@ on:
       version:
         type: choice
         description: Choose which sdk want to create a release
-        default: '@mobile-ui-sdks/android'
+        default: 'android'
         options:
-        - @mobile-ui-sdks/android
-        - @mobile-ui-sdks/android-core
+        - android
+        - android-core
       version:
         type: choice
         description: Choose which version to bump before release
