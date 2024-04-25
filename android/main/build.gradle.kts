@@ -1,6 +1,4 @@
-import org.jetbrains.dokka.utilities.cast
 import java.net.URI
-import java.util.Properties
 
 /*
  * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
