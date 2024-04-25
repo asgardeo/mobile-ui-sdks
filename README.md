@@ -1,5 +1,5 @@
 <h1 align="center" style="color: #343a40;margin: 20px 0;">
-  <p align="center" style="font-weight: 200;">The <span style="color: #47EBD8">Mobile SDKs</span> for <a href="https://wso2.com">WSO2</a>'s identity and access management products,  <a href="https://wso2.com">WSO2 Identity Server</a> and <a href="https://wso2.com">Asgardeo</a></p>
+  <p align="center" style="font-weight: 200;">The <span style="color: #47EBD8">Mobile SDKs</span> for <a href="https://wso2.com" style="color:#ff6923">Asgardeo</a></p>
 </h1>
 
 <div align="center">
