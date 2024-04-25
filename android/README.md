@@ -17,9 +17,9 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 
 #### Asgardeo
 
-1. Register to Asgardeo and create an organization if you don't already have one. The organization name you choose will be referred to as `<org_name>` throughout this document.
-2. Register a Mobile Application in Asgardeo to integrate your application with Asgardeo. You will obtain a `client_ID` from Asgardeo for your application which will need to be embedded later for the SDK integration. Also note the redirect URI that you used to create the application, this is also required for the SDK integration.
-3. In the created mobile application, go to the "Advanced" section and enable the application native authentication for your Android application.
+1. [Register to Asgardeo and create an organization if you don't already have one](https://wso2.com/asgardeo/docs/get-started/create-asgardeo-account/). The organization name you choose will be referred to as `<org_name>` throughout this document.
+2. [Register a Mobile Application in Asgardeo to integrate your application with Asgardeo](https://wso2.com/asgardeo/docs/guides/applications/register-mobile-app/). You will obtain a `client_id` from Asgardeo for your application which will need to be embedded later for the SDK integration. Also note the redirect URI that you used to create the application, this is also required for the SDK integration.
+3. In the created mobile application, go to the "Advanced" section and [enable the application native authentication for your Android application](https://is.docs.wso2.com/en/latest/guides/authentication/add-application-native-login/#enable-app-native-authentication).
 
 ### Installing the SDK
 
@@ -50,7 +50,7 @@ android.defaultConfig.manifestPlaceholders = [
 ```kotlin
 private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
     AuthenticationCoreConfig(
-        discoveryEndpoint = "https://localhost:9443/oauth2/token/.well-known/openid-configuration",
+        discoveryEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/token/.well-known/openid-configuration",
         redirectUri = "wso2sample://oauth2",
         clientId = "<client_id>",
         scope = "openid profile email"
