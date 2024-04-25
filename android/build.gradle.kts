@@ -1,5 +1,7 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
+import java.net.URI
 import java.time.Duration
+import java.util.Properties
 
 /*
  * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
@@ -40,15 +42,39 @@ subprojects {
 
 val groupName: String = properties["GROUP"] as String
 
+// Read local.properties file to get the Nexus credentials
+val localPropertiesFile = rootProject.file("local.properties")
+val localProperties = Properties()
+
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { stream ->
+        localProperties.load(stream)
+    }
+}
+
+// Get the WSO2 Nexus repository URL
+fun getWSO2NexusReleaseRepositoryUrl(): URI =
+    URI.create((properties["NEXUS_RELEASE_URL"] ?: "").toString())
+
+// Get the WSO2 Nexus snapshot repository URL
+fun getWSO2NexusSnapshotRepositoryUrl(): URI =
+    URI.create((properties["NEXUS_SNAPSHOT_URL"] ?: "").toString())
+
+// Get the WSO2 Nexus repository username
+fun getWSO2NexusRepositoryUsername(): String = localProperties.getProperty("NEXUS_USERNAME") ?: ""
+
+// Get the WSO2 Nexus repository password
+fun getWSO2NexusRepositoryPassword(): String = localProperties.getProperty("NEXUS_PASSWORD") ?: ""
+
 nexusPublishing {
     packageGroup = groupName
 
     repositories {
         create("wso2Nexus") {
-            nexusUrl.set(uri("https://your-server.com/staging"))
-            snapshotRepositoryUrl.set(uri("https://your-server.com/snapshots"))
-            username.set("your-username") // defaults to project.properties["myNexusUsername"]
-            password.set("your-password") // defaults to project.properties["myNexusPassword"]
+            nexusUrl.set(getWSO2NexusReleaseRepositoryUrl())
+            snapshotRepositoryUrl.set(getWSO2NexusSnapshotRepositoryUrl())
+            username.set(getWSO2NexusRepositoryUsername())
+            password.set(getWSO2NexusRepositoryPassword())
         }
     }
 
@@ -75,4 +101,8 @@ extra.apply {
     set("groupName", groupName)
     set("compileSdkVersion", properties["COMPILE_SDK_VERSION"])
     set("packagingType", properties["PACKAGING_TYPE"])
+    set("wso2NexusReleaseRepositoryUrl", getWSO2NexusReleaseRepositoryUrl())
+    set("wso2NexusSnapshotRepositoryUrl", getWSO2NexusSnapshotRepositoryUrl())
+    set("wso2NexusRepositoryUsername", getWSO2NexusRepositoryUsername())
+    set("wso2NexusRepositoryPassword", getWSO2NexusRepositoryPassword())
 }

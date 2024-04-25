@@ -84,7 +84,7 @@ dependencies {
 }
 
 extra.apply {
-    set("artifactId", "core")
+    set("artifactId", "android.core")
     set("artifactName", "core")
     set(
         "artifactDescription",
@@ -93,7 +93,7 @@ extra.apply {
     set("versionNumber", properties["CORE_VERSION"])
 }
 
-//apply("${rootDir}/publish.gradle")
+// apply("${rootDir}/publish.gradle")
 // publish.gradle.kts
 
 // TOOD: the following code block to a separate gradle.kts file. Currently placed here due to an Android Studio bug, where new gradle.kts files are not recognized.
@@ -121,29 +121,15 @@ val scmUrl: String = properties["POM_SCM_URL"].toString()
 val developerId: String = properties["POM_DEVELOPER_ID"].toString()
 val developerName: String = properties["POM_DEVELOPER_NAME"].toString()
 
-// Read local.properties file to get the Nexus credentials
-val localPropertiesFile = rootProject.file("local.properties")
-val localProperties = Properties()
-
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.inputStream().use { stream ->
-        localProperties.load(stream)
-    }
-}
-
-// Get the Nexus repository URL
-fun getReleaseRepositoryUrl(): URI =
-    URI.create((properties["NEXUS_RELEASE_URL"] ?: "").toString())
-
-// Get the Nexus snapshot repository URL
-fun getSnapshotRepositoryUrl(): URI =
-    URI.create((properties["NEXUS_SNAPSHOT_URL"] ?: "").toString())
-
-// Get the Nexus repository username
-fun getRepositoryUsername(): String = localProperties.getProperty("NEXUS_USERNAME") ?: ""
-
-// Get the Nexus repository password
-fun getRepositoryPassword(): String = localProperties.getProperty("NEXUS_PASSWORD") ?: ""
+// WSO2 nexus repository related variables
+val wso2NexusReleaseRepositoryUrl: URI =
+    rootProject.extra.get("wso2NexusReleaseRepositoryUrl") as URI
+val wso2NexusSnapshotRepositoryUrl: URI =
+    rootProject.extra.get("wso2NexusSnapshotRepositoryUrl") as URI
+val wso2NexusRepositoryUsername: String =
+    rootProject.extra.get("wso2NexusRepositoryUsername") as String
+val wso2NexusRepositoryPassword: String =
+    rootProject.extra.get("wso2NexusRepositoryPassword") as String
 
 val androidSourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
@@ -202,15 +188,14 @@ afterEvaluate {
 //        }
 
         repositories {
-            mavenLocal()
             maven {
                 credentials {
-                    username = getRepositoryUsername()
-                    password = getRepositoryPassword()
+                    username = wso2NexusRepositoryUsername
+                    password = wso2NexusRepositoryPassword
                 }
 
-                url = if (versionNumber.endsWith("SNAPSHOT")) getSnapshotRepositoryUrl()
-                else getReleaseRepositoryUrl()
+                url = if (versionNumber.endsWith("SNAPSHOT")) wso2NexusSnapshotRepositoryUrl
+                else wso2NexusReleaseRepositoryUrl
             }
         }
     }
