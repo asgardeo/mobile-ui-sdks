@@ -1,5 +1,6 @@
 import org.jetbrains.dokka.utilities.cast
 import java.net.URI
+import java.util.Properties
 
 /*
  * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
@@ -68,7 +69,10 @@ dependencies {
 extra.apply {
     set("artifactId", "android")
     set("artifactName", "main")
-    set("artifactDescription", "A library that provides all the necessary functionalities to integrate your Android application with the Asgardeo and WSO2 Identity Server.")
+    set(
+        "artifactDescription",
+        "A library that provides all the necessary functionalities to integrate your Android application with Asgardeo."
+    )
     set("versionNumber", properties["ANDROID_VERSION"])
 }
 
@@ -77,7 +81,7 @@ extra.apply {
 
 // TOOD: the following code block to a separate gradle.kts file. Currently placed here due to an Android Studio bug, where new gradle.kts files are not recognized.
 
-// artificial related variables
+// artifact related variables
 val groupName: String = rootProject.extra.get("groupName") as String
 val packagingType: String = rootProject.extra.get("groupName") as String
 var publishArtifactId: String = project.extra.get("artifactId") as String
@@ -85,24 +89,44 @@ val artifactName = project.extra.get("artifactName") as String
 val artifactDescription = project.extra.get("artifactDescription") as String
 val versionNumber = project.extra.get("versionNumber") as String
 
-//POM related variables
+// POM related variables
 val pomUrl: String = properties["POM_URL"].toString()
 val pomLicenseName: String = properties["POM_LICENCE_NAME"].toString()
 val pomLicenseUrl: String = properties["POM_LICENCE_URL"].toString()
 val pomLicenseDistribution: String = properties["POM_LICENCE_DISTRIBUTION"].toString()
 
-//SCM related variables
+// SCM related variables
 val scmConnection: String = properties["POM_SCM_CONNECTION"].toString()
 val scmDeveloperConnection: String = properties["POM_SCM_DEV_CONNECTION"].toString()
 val scmUrl: String = properties["POM_SCM_URL"].toString()
 
-fun getReleaseRepositoryUrl(): URI = URI.create(System.getenv("NEXUS_RELEASE_URL") ?: "")
+// Developer related variables
+val developerId: String = properties["POM_DEVELOPER_ID"].toString()
+val developerName: String = properties["POM_DEVELOPER_NAME"].toString()
 
-fun getSnapshotRepositoryUrl(): URI = URI.create(System.getenv("NEXUS_SNAPSHOT_URL") ?: "")
+// Read local.properties file to get the Nexus credentials
+val localPropertiesFile = rootProject.file("local.properties")
+val localProperties = Properties()
 
-fun getRepositoryUsername(): String = System.getenv("NEXUS_USERNAME") ?: ""
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { stream ->
+        localProperties.load(stream)
+    }
+}
 
-fun getRepositoryPassword(): String = System.getenv("NEXUS_PASSWORD") ?: ""
+// Get the Nexus repository URL
+fun getReleaseRepositoryUrl(): URI =
+    URI.create((properties["NEXUS_RELEASE_URL"] ?: "").toString())
+
+// Get the Nexus snapshot repository URL
+fun getSnapshotRepositoryUrl(): URI =
+    URI.create((properties["NEXUS_SNAPSHOT_URL"] ?: "").toString())
+
+// Get the Nexus repository username
+fun getRepositoryUsername(): String = localProperties.getProperty("NEXUS_USERNAME") ?: ""
+
+// Get the Nexus repository password
+fun getRepositoryPassword(): String = localProperties.getProperty("NEXUS_PASSWORD") ?: ""
 
 val androidSourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
@@ -121,7 +145,9 @@ afterEvaluate {
                 artifactId = publishArtifactId
                 version = versionNumber
 
-                artifact("${layout.buildDirectory.get()}/outputs/aar/${artifactName}-release.aar")
+                artifact(
+                    "${layout.buildDirectory.get()}/outputs/aar/${artifactName}-release.aar"
+                )
                 artifact(androidSourcesJar)
 
                 pom {
@@ -141,6 +167,12 @@ afterEvaluate {
                         connection.set(scmConnection)
                         developerConnection.set(scmDeveloperConnection)
                         url.set(scmUrl)
+                    }
+                    developers {
+                        developer {
+                            id = developerId
+                            name = developerName
+                        }
                     }
                 }
             }
