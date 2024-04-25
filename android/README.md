@@ -58,12 +58,6 @@ private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
 )
 ```
 
-
-> [!IMPORTANT]
-> Also if you are using an emulator to test out your application with a locally hosted IS instance, make sure to replace localhost with 10.0.2.2.
->
-> Also in the above scenario having only the discovery endpoint will not work, you need to have other endpoints setup as well, because from the discovery endpoint it will sent other endpoints with “localhost” which will not work with a locally hosted instance of IS.
-
 `AuthenticationCoreConfig` holds the configuration details that are required to set up the communication between the SDK and the Asgardeo.
 
 2. After that, you need to get the `AuthenticationProvider` from the created `AsgardeoAuth` instance. This will assist you in handling the authentication process.
