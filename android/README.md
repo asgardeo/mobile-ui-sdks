@@ -1,8 +1,8 @@
-# Developer Documentation - For Android SDK
+# Asgardeo Android SDK
 
 ## Introduction
 
-The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) to utilize OpenID Connect (OIDC) authentication with the WSO2 Identity Server/Asgardeo serving as the Consumer Identity and Access Management (CIAM) Provider through application-native authentication. This SDK assists you in creating custom login flows directly within the applications themselves, without relying on browser redirects, thereby prioritizing user experience.
+The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) to utilize OpenID Connect (OIDC) authentication with the Asgardeo serving as the Consumer Identity and Access Management (CIAM) Provider through application-native authentication. This SDK assists you in creating custom login flows directly within the applications themselves, without relying on browser redirects, thereby prioritizing user experience.
 
 ## Prerequisite
 
@@ -14,12 +14,6 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 ## Getting Started
 
 ### Register your application in Asgardeo
-
-#### WSO2 Identity Server
-
-1. Download the latest version of WSO2 Identity Server, and start the WSO2 Identity Server.
-2. Register a Mobile Application to integrate your application with WSO2 Identity Server. You will obtain a `client_ID` from WSO2 Identity Server for your application which will need to be embedded later for the SDK integration. Also note the redirect URI that you used to create the application, this is also required for the SDK integration.
-3. In the created mobile application go to the "Advanced" section and enable the application native authentication for your Android application.
 
 #### Asgardeo
 
@@ -33,13 +27,13 @@ Add the latest released SDK in the `build.gradle` file of your Android applicati
 
 ```groovy
 dependencies {
-    implementation 'io.asgardeo.android:1.0.0'
+    implementation 'io.asgardeo:android:1.0.0'
 }
 ```
 
 Add a redirect scheme in the Android application. You need to add the `appAuthRedirectScheme` in the application `build.gradle` file.
 
-This should be consistent with the CallBack Url of the Service Provider that you configured in the WSO2 Identity Server/Asgardeo.
+This should be consistent with the CallBack Url of the Service Provider that you configured in the Asgardeo.
 
 For example, if you have configured the `callBackUrl` as `wso2sample://oauth2`, then the `appAuthRedirectScheme` should be `wso2sample`.
 
@@ -70,7 +64,7 @@ private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
 >
 > Also in the above scenario having only the discovery endpoint will not work, you need to have other endpoints setup as well, because from the discovery endpoint it will sent other endpoints with “localhost” which will not work with a locally hosted instance of IS.
 
-`AuthenticationCoreConfig` holds the configuration details that are required to set up the communication between the SDK and the WSO2 Identity Server/Asgardeo.
+`AuthenticationCoreConfig` holds the configuration details that are required to set up the communication between the SDK and the Asgardeo.
 
 2. After that, you need to get the `AuthenticationProvider` from the created `AsgardeoAuth` instance. This will assist you in handling the authentication process.
 
@@ -238,7 +232,7 @@ authenticationProvider.logout(context)
 You can also use client attestation with the SDK as well.
 
 #### How to setup client attestation for your application
-1. In the created mobile application in the WSO2 Identity Server/Asgardeo, go to the advanced section and enable the client attestation.
+1. In the created mobile application in the Asgardeo, go to the advanced section and enable the client attestation.
 2. You need to subscribe to the "Google Play Integrity API" from your Google cloud project, you can do this from Enabled API's & Services in your Google cloud project.
 3. After that you need to create a new service account in the google project. You can create a Service Account for yourself with the following steps.
 
