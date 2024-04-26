@@ -10,7 +10,7 @@
 
 <br>
 
-This repository holds the mobile SDKs to support the integreation of your mobile application with the WSO2's identity and access management products, WSO2 Identity Server and Asgardeo
+This repository holds the mobile SDKs to support the integreation of your mobile application with Asgardeo.
 
 ## Packages
 

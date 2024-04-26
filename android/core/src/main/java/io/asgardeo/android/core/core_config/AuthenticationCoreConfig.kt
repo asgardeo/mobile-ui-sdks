@@ -26,19 +26,19 @@ import okhttp3.OkHttpClient
 /**
  * Holds the configuration related to the [AuthenticationCoreDef].
  *
- * @property discoveryEndpoint Discovery endpoint of the WSO2 identity server
- * @property authorizeEndpoint Authorization endpoint of the WSO2 identity server - optional
- * @property tokenEndpoint Token endpoint of the WSO2 identity server - optional
- * @property userInfoEndpoint User info endpoint of the WSO2 identity server - optional
- * @property logoutEndpoint Logout endpoint of the WSO2 identity server - optional
- * @property authnEndpoint Authentication endpoint of the WSO2 identity server - optional
+ * @property discoveryEndpoint Discovery endpoint of Asgardeo.
+ * @property authorizeEndpoint Authorization endpoint of Asgardeo - optional
+ * @property tokenEndpoint Token endpoint of Asgardeo - optional
+ * @property userInfoEndpoint User info endpoint of Asgardeo - optional
+ * @property logoutEndpoint Logout endpoint of Asgardeo - optional
+ * @property authnEndpoint Authentication endpoint of Asgardeo - optional
  * @property redirectUri Redirect uri of the application
  * @property clientId Client id of the application
  * @property scope Scope of the application (ex: openid profile email)
  * @property integrityToken Client attestation integrity token - optional
  * @property googleWebClientId Google web client id - optional
  * This is required when the application needs to authenticate with Google, add the client id of the
- * Google connection that is used to create the connection in the WSO2 identity server.
+ * Google connection that is used to create the connection in Asgardeo.
  * @property isDevelopment The flag to check whether the app is in development mode or not.
  * If true, the [LessSecureHttpClient] instance will be returned. Otherwise, the default
  * [OkHttpClient] instance will be returned. Default value is `false`. It is not recommended to
@@ -93,14 +93,14 @@ class AuthenticationCoreConfig(
     /**
      * @sample `https://localhost:9443/oauth2/token/.well-known/openid-configuration`
      *
-     * @return Discovery endpoint of the WSO2 identity server.
+     * @return Discovery endpoint of Asgardeo.
      */
     fun getDiscoveryEndpoint(): String? = discoveryEndpoint
 
     /**
      * @sample `https://localhost:9443/oauth2/authorize`
      *
-     * @return Authorization url of the WSO2 identity server.
+     * @return Authorization url of Asgardeo.
      */
     fun getAuthorizeUrl(): String =
         authorizeEndpoint
@@ -109,7 +109,7 @@ class AuthenticationCoreConfig(
     /**
      * @sample `https://localhost:9443/oauth2/authn`
      *
-     * @return Authentication url of the WSO2 identity server.
+     * @return Authentication url of Asgardeo.
      */
     fun getAuthnUrl(): String =
         authnEndpoint ?: "${getBaseEndpointFromDiscoveryEndpoint(discoveryEndpoint!!)}/oauth2/authn"
@@ -117,7 +117,7 @@ class AuthenticationCoreConfig(
     /**
      * @sample `https://localhost:9443/oauth2/token`
      *
-     * @return Token url of the WSO2 identity server.
+     * @return Token url of Asgardeo.
      */
     fun getTokenUrl(): String =
         tokenEndpoint ?: "${getBaseEndpointFromDiscoveryEndpoint(discoveryEndpoint!!)}/oauth2/token"
@@ -125,7 +125,7 @@ class AuthenticationCoreConfig(
     /**
      * @sample `https://localhost:9443/oidc/logout`
      *
-     * @return Logout url of the WSO2 identity server.
+     * @return Logout url of Asgardeo.
      */
     fun getLogoutUrl(): String =
         logoutEndpoint ?: "${getBaseEndpointFromDiscoveryEndpoint(discoveryEndpoint!!)}/oidc/logout"
@@ -133,7 +133,7 @@ class AuthenticationCoreConfig(
     /**
      * @sample `https://localhost:9443/oauth2/userinfo`
      *
-     * @return Me endpoint of the WSO2 identity server.
+     * @return Me endpoint of Asgardeo.
      */
     fun getUserinfoEndpoint(): String =
         userInfoEndpoint

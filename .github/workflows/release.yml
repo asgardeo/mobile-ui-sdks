@@ -22,11 +22,13 @@ on:
         - patch
 
 env:
-    # GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
+    GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
     BRANCH: master
     WORKING_DIR: ./android
-    # BOT_USERNAME: ${{ secrets.RELEASE_BOT_USER_NAME }}
-    # BOT_EMAIL: ${{ secrets.RELEASE_BOT_EMAIL }}
+    BOT_USERNAME: ${{ secrets.RELEASE_BOT_USER_NAME }}
+    BOT_EMAIL: ${{ secrets.RELEASE_BOT_EMAIL }}
+    NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+    NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
 jobs:
   release:
@@ -38,10 +40,10 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
 
-      # - name: 🤖 Set up Git Bot
-      #   run: |
-      #     git config user.name ${{ env.BOT_USERNAME }}}
-      #     git config user.email ${{ env.BOT_EMAIL }}}
+      - name: 🤖 Set up Git Bot
+        run: |
+          git config user.name ${{ env.BOT_USERNAME }}}
+          git config user.email ${{ env.BOT_EMAIL }}}
 
       - name: 📇 Set Artifact Name
         run: |

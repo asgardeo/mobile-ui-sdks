@@ -67,4 +67,3 @@ The following is the list of supported scopes:
 
 * `android` - Changes to the main `android` package.
 * `android-core` - Changes to the `android-core` package.
-* `docs` - Changes to the documentation files.

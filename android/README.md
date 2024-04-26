@@ -250,10 +250,10 @@ You can also use client attestation with the SDK as well.
 ```kotlin
 private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
     AuthenticationCoreConfig(
-        baseUrl = "https://localhost:9443",
+        discoveryEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/token/.well-known/openid-configuration",
         redirectUri = "wso2sample://oauth2",
         clientId = "<client_id>",
-        scope = "openid",
+        scope = "openid profile",
         integrityToken = "<integrity_token>"
     )
 )
@@ -273,13 +273,12 @@ This can be used in two ways:
 
 #### Authenticator parameters are known
 
-If you are aware of the authenticator parameters required for the authenticator (which can be found in the following link), you can directly call this function to authenticate the user with this authenticator.
+If you are aware of the authenticator parameters required for the authenticator, you can directly call this function to authenticate the user with this authenticator.
 
 ```kotlin
 authenticationProvider.authenticate(
     context,
-    authenticatorId = authenticator.authenticatorId,
-    authenticatorTypeString = authenticator.authenticator,
+    authenticator = authenticator,
     authParams = < as a LinkedHashMap<String, String> >
 )
 ```
@@ -289,9 +288,8 @@ authenticationProvider.authenticate(
 If you are not aware of the authenticator parameters required for the authenticator, you first need to retrieve the parameters required to authenticate the user with this authenticator. For this, you can use the following function:
 
 ```kotlin
-val detailedAuthenticator: Authenticator = authenticationProvider.authenticateWithAuthenticator(
-    authenticatorId = authenticator.authenticatorId,
-    authenticatorTypeString = authenticator.authenticator
+val detailedAuthenticator: Authenticator = authenticationProvider.selectAuthenticator(
+    authenticator = authenticator
 )
 ```
 
@@ -306,8 +304,7 @@ After that, you can manually set the relevant required authentication parameters
 ```kotlin
 authenticationProvider.authenticate(
     context,
-    authenticatorId = authenticator.authenticatorId,
-    authenticatorTypeString = authenticator.authenticator,
+    authenticator = authenticator,
     authParams = < as a LinkedHashMap<String, String> >
 )
 ```

@@ -58,7 +58,7 @@ internal object AuthenticatorManagerImplContainer {
             : AuthenticatorManagerImplRequestBuilder = AuthenticatorManagerImplRequestBuilder
 
     /**
-     * Returns the authn url of the WSO2 identity server.
+     * Returns the authn url of Asgardeo.
      *
      * @property authnUrl The authorization url.
      *
