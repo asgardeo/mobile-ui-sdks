@@ -1,0 +1,122 @@
+# This workflow will release the packages.
+
+name: 🚀 Release - 🤖 Android SDKs
+
+on:
+  workflow_dispatch:
+    inputs:
+      sdkType:
+        type: choice
+        description: Choose which sdk you want to release
+        default: 'android'
+        options:
+        - android
+        - android-core
+      version:
+        type: choice
+        description: Choose which version to bump before release
+        default: 'patch'
+        options:
+        - major
+        - minor
+        - patch
+
+env:
+    GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
+    BRANCH: master
+    WORKING_DIR: ./android
+    BOT_USERNAME: ${{ secrets.RELEASE_BOT_USER_NAME }}
+    BOT_EMAIL: ${{ secrets.RELEASE_BOT_EMAIL }}
+    NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+    NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+
+jobs:
+  release:
+    name: 📦 Release
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v3
+
+      - name: 🤖 Set up Git Bot
+        run: |
+          git config user.name ${{ env.BOT_USERNAME }}}
+          git config user.email ${{ env.BOT_EMAIL }}}
+
+      - name: 📇 Set Artifact Name
+        run: |
+          if [ "${{ github.event.inputs.sdkType }}" == "android" ]; then
+            artifact_name="main"
+          elif [ "${{ github.event.inputs.sdkType }}" == "android-core" ]; then
+            artifact_name="core"
+          else
+            echo "Invalid SDK Type"
+            exit 1
+          fi
+          echo "ARTIFACT_NAME=$artifact_name" >> $GITHUB_ENV
+
+      - name: 🆙 Update Versions
+        working-directory: .github/workflows/scripts/android
+        run: |
+          bash version.sh ${{ env.ARTIFACT_NAME }} ${{ github.event.inputs.version }}
+
+      - name: 🔭 Verify Version Bump
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          new_version=$(grep -E "^${artifact_name^^}_VERSION=.*$" ./gradle.properties | cut -d'=' -f2)
+          echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
+
+      - name: ☕️ Set up Adopt JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "adopt"
+        
+      - name: 🔁 Regenerate Gradle Wrapper
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          ./gradlew wrapper
+
+      - name: ✅ Check Gradle Wrapper
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          # Check if gradlew wrapper exists
+          if [ ! -f "./gradlew" ]; then
+            echo "Gradle wrapper (./gradlew) not found. Please regenerate using './gradlew wrapper'"
+            exit 1
+          fi
+
+          echo "Gradle Wrapper - OK"
+
+          # Check if gradlew.bat exists (for Windows compatibility)
+          if [ ! -f "./gradlew.bat" ]; then
+            echo "Gradle wrapper (./gradlew.bat) not found. Please regenerate using './gradlew wrapper'"
+            exit 1
+          fi
+
+          echo "Gradle Wrapper (Windows) - OK"
+
+          # Try running gradle version check to ensure wrapper works
+          ./gradlew --version
+          if [ $? -ne 0 ]; then
+            echo "Error: Gradle wrapper execution failed. Please check Gradle installation and configuration."
+            exit 1
+          fi
+          echo "Gradle Wrapper - OK"
+      
+      - name: 🧱 Gradle Build
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          ./gradlew clean build
+      
+      - name: 🏗️ Gradle Assemble
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          ./gradlew :${{ env.ARTIFACT_NAME }}:assembleRelease
+
+      - name: 📜 Generate API Docs
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          ./gradlew dokkaHtmlMultiModule
