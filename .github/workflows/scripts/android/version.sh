@@ -35,6 +35,7 @@ bump_version() {
   echo "$major.$minor.$patch"
 }
 
+# Go to android sdk directory
 go_to_android_sdk_dir
 
 # Get current version based on sdkType

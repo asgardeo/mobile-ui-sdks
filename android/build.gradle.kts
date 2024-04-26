@@ -37,6 +37,7 @@ apply(plugin = "java-library")
 subprojects {
     apply(plugin = "maven-publish")
     apply(plugin = "signing")
+    apply(plugin = "org.jetbrains.dokka")
 }
 
 val groupName: String = properties["GROUP"] as String
