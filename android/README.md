@@ -23,42 +23,42 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 
 ### Installing the SDK
 
-Add the latest released SDK in the `build.gradle` file of your Android application.
+1. Add the latest released SDK in the `build.gradle` file of your Android application.
 
-```groovy
-dependencies {
-    implementation 'io.asgardeo:android:1.0.0'
-}
-```
+    ```groovy
+    dependencies {
+        implementation 'io.asgardeo:android:1.0.0'
+    }
+    ```
 
-Add a redirect scheme in the Android application. You need to add the `appAuthRedirectScheme` in the application `build.gradle` file.
+2. Add a redirect scheme in the Android application. You need to add the `appAuthRedirectScheme` in the application `build.gradle` file.
 
-This should be consistent with the CallBack Url of the Service Provider that you configured in the Asgardeo.
+    This should be consistent with the CallBack Url of the Service Provider that you configured in the Asgardeo.
 
-For example, if you have configured the `callBackUrl` as `wso2sample://oauth2`, then the `appAuthRedirectScheme` should be `wso2sample`.
+    For example, if you have configured the `callBackUrl` as `wso2sample://oauth2`, then the `appAuthRedirectScheme` should be `wso2sample`.
 
-```groovy
-android.defaultConfig.manifestPlaceholders = [
-    'appAuthRedirectScheme': 'wso2sample'
-]
-```
+    ```groovy
+    android.defaultConfig.manifestPlaceholders = [
+        'appAuthRedirectScheme': 'wso2sample'
+    ]
+    ```
 
 ### Start the authentication process
 
 1. First, you need to initialize the SDK object, `AsgardeoAuth`, to authenticate users into your application. This can be done in a repository if you are using an MVVM pattern in your application.
 
-```kotlin
-private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
-    AuthenticationCoreConfig(
-        discoveryEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/token/.well-known/openid-configuration",
-        redirectUri = "wso2sample://oauth2",
-        clientId = "<client_id>",
-        scope = "openid profile email"
+    ```kotlin
+    private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
+        AuthenticationCoreConfig(
+            discoveryEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/token/.well-known/openid-configuration",
+            redirectUri = "wso2sample://oauth2",
+            clientId = "<client_id>",
+            scope = "openid profile email"
+        )
     )
-)
-```
+    ```
 
-`AuthenticationCoreConfig` holds the configuration details that are required to set up the communication between the SDK and the Asgardeo.
+    `AuthenticationCoreConfig` holds the configuration details that are required to set up the communication between the SDK and the Asgardeo.
 
 2. After that, you need to get the `AuthenticationProvider` from the created `AsgardeoAuth` instance. This will assist you in handling the authentication process.
 
@@ -75,7 +75,7 @@ val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticat
 
 3. To start the authentication process, call `authenticationProvider.isLoggedInStateFlow`, this will check if there is an active session available and if available, the authentication state will emit `AuthenticationState.Authenticated`, else will emit `AuthenticationState.Initial`.
 
-After that, you can call the `authenticationProvider.initializeAuthentication` to initialize the authentication process.
+    After that, you can call the `authenticationProvider.initializeAuthentication` to initialize the authentication process.
 
 ```kotlin
 @Composable
