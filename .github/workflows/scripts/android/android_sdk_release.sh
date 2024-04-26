@@ -21,6 +21,8 @@
 #!/bin/bash
 
 VERSION_TYPE=$1
+NEXUS_USERNAME=$2
+NEXUS_PASSWORD=$3
 
 # Go to android sdk directory
 go_to_android_sdk_dir() {
@@ -36,6 +38,12 @@ go_to_scripts_dir() {
 update_versions() {
   echo 
   bash version.sh $VERSION_TYPE
+}
+
+# Function to update Nexus credentials
+update_nexus_credentials() {
+  echo 
+  bash update_local_properties.sh $NEXUS_USERNAME $NEXUS_PASSWORD
 }
 
 # Function to regenerate Gradle wrapper
@@ -81,6 +89,12 @@ gradle_assemble() {
   ./gradlew assembleRelease
 }
 
+# Release Android SDKs WSO2 nexus repository
+gradle_publish_release_to_wso2_nexus() {
+  echo 
+  ./gradlew publishReleasePublicationToWso2NexusRepository
+}
+
 # Function to generate API docs
 generate_api_docs() {
   echo
@@ -96,6 +110,7 @@ release_android_sdks() {
     check_gradle_wrapper
     gradle_build
     gradle_assemble
+    #gradle_publish_release_to_wso2_nexus
     generate_api_docs
 
     # Go to scripts directory
@@ -110,5 +125,6 @@ update_snapshot_version() {
 
 # Call the functions in sequence
 update_versions
+update_nexus_credentials
 release_android_sdks
 update_snapshot_version
