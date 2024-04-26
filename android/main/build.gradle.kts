@@ -31,7 +31,7 @@ android {
         minSdk = 26
 
         aarMetadata {
-            minCompileSdk = properties["COMPILE_SDK_VERSION"].toString().toInt()
+            minCompileSdk = rootProject.extra.get("minCompileSdkVersion").toString().toInt()
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -1,3 +1,23 @@
+# -------------------------------------------------------------------------------------
+#
+# Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+#
+# WSO2 LLC. licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+# --------------------------------------------------------------------------------------
+
 # This workflow will release the packages.
 
 name: 🚀 Release
@@ -11,7 +31,6 @@ on:
         default: 'android'
         options:
         - android
-        - android-core
       version:
         type: choice
         description: Choose which version to bump before release
@@ -40,91 +59,19 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
 
-      - name: 🤖 Set up Git Bot
+      - name: 🦾 Set up Git Bot
         run: |
           git config user.name ${{ env.BOT_USERNAME }}}
           git config user.email ${{ env.BOT_EMAIL }}}
 
-      - name: 📇 Set Artifact Name
-        run: |
-          if [ "${{ github.event.inputs.sdkType }}" == "android" ]; then
-            artifact_name="main"
-          elif [ "${{ github.event.inputs.sdkType }}" == "android-core" ]; then
-            artifact_name="core"
-          else
-            echo "Invalid SDK Type"
-            exit 1
-          fi
-          echo "ARTIFACT_NAME=$artifact_name" >> $GITHUB_ENV
-
-      - name: 🆙 Update Versions
-        working-directory: .github/workflows/scripts/android
-        run: |
-          bash version.sh ${{ env.ARTIFACT_NAME }} ${{ github.event.inputs.version }}
-
-      - name: 🔭 Verify Version Bump
-        working-directory: ${{ env.WORKING_DIR }}
-        run: |
-          artifact_name=${{ env.ARTIFACT_NAME }}
-          new_version=$(grep -E "^${artifact_name^^}_VERSION=.*$" ./gradle.properties | cut -d'=' -f2)
-          echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
-
       - name: ☕️ Set up Adopt JDK 17
+        if: ${{ github.event.inputs.sdkType == 'android'}}
         uses: actions/setup-java@v3
         with:
           java-version: "17"
           distribution: "adopt"
-        
-      - name: 🔁 Regenerate Gradle Wrapper
-        working-directory: ${{ env.WORKING_DIR }}
-        run: |
-          ./gradlew wrapper
 
-      - name: ✅ Check Gradle Wrapper
-        working-directory: ${{ env.WORKING_DIR }}
-        run: |
-          # Check if gradlew wrapper exists
-          if [ ! -f "./gradlew" ]; then
-            echo "Gradle wrapper (./gradlew) not found. Please regenerate using './gradlew wrapper'"
-            exit 1
-          fi
-
-          echo "Gradle Wrapper - OK"
-
-          # Check if gradlew.bat exists (for Windows compatibility)
-          if [ ! -f "./gradlew.bat" ]; then
-            echo "Gradle wrapper (./gradlew.bat) not found. Please regenerate using './gradlew wrapper'"
-            exit 1
-          fi
-
-          echo "Gradle Wrapper (Windows) - OK"
-
-          # Try running gradle version check to ensure wrapper works
-          ./gradlew --version
-          if [ $? -ne 0 ]; then
-            echo "Error: Gradle wrapper execution failed. Please check Gradle installation and configuration."
-            exit 1
-          fi
-          echo "Gradle Wrapper - OK"
-      
-      - name: 🧱 Gradle Build
-        working-directory: ${{ env.WORKING_DIR }}
-        run: |
-          ./gradlew clean build
-      
-      - name: 🏗️ Gradle Assemble
-        working-directory: ${{ env.WORKING_DIR }}
-        run: |
-          ./gradlew :${{ env.ARTIFACT_NAME }}:assembleRelease
-
-    # PUBLISH
-
-      - name: 📜 Generate API Docs
-        working-directory: ${{ env.WORKING_DIR }}
-        run: |
-          ./gradlew dokkaHtmlMultiModule
-
-      - name: Update SNAPSHOT Version
+      - name: 🤖 Release Android SDKs
         working-directory: .github/workflows/scripts/android
-        run: |
-          bash update_snapshot_version.sh "${NEW_VERSION}"
+        if: ${{ github.event.inputs.sdkType == 'android' }}
+        run: bash ./android_sdk_release.sh ${{ github.event.inputs.version }}
