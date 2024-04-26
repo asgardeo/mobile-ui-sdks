@@ -20,9 +20,23 @@
 
 #!/bin/bash
 
+# version type: major, minor, patch
 VERSION_TYPE=$1
+# nexus username
 NEXUS_USERNAME=$2
+# nexus password
 NEXUS_PASSWORD=$3
+# Github token
+GH_TOKEN=$4
+# Github action run number
+GITHUB_RUN_NUMBER=$5
+# The release branch name
+RELEASE_BRANCH=release-action-$GITHUB_RUN_NUMBER
+
+# Main version
+MAIN_VERSION=""
+# Core version
+CORE_VERSION=""
 
 # Go to android sdk directory
 go_to_android_sdk_dir() {
@@ -34,10 +48,23 @@ go_to_scripts_dir() {
   cd ../.github/workflows/scripts/android
 }
 
+# Go to common scripts directory
+go_to_common_scripts_dir() {
+  cd ../common
+}
+
 # Function to update versions
 update_versions() {
   echo 
   bash version.sh $VERSION_TYPE
+
+  go_to_android_sdk_dir
+  source updated_versions.txt
+  # Access the versions as variables
+  MAIN_VERSION=${MAIN_VERSION}
+  CORE_VERSION=${CORE_VERSION}
+
+  go_to_scripts_dir
 }
 
 # Function to update Nexus credentials
@@ -101,6 +128,7 @@ generate_api_docs() {
   ./gradlew dokkaHtmlMultiModule
 }
 
+# run gradle tasks to release Android SDKs to WSO2 nexus repository
 release_android_sdks() {
     # Go to android sdk directory
     go_to_android_sdk_dir
@@ -110,7 +138,7 @@ release_android_sdks() {
     check_gradle_wrapper
     gradle_build
     gradle_assemble
-    #gradle_publish_release_to_wso2_nexus
+    gradle_publish_release_to_wso2_nexus
     generate_api_docs
 
     # Go to scripts directory
@@ -123,8 +151,33 @@ update_snapshot_version() {
   bash update_snapshot_version.sh $NEW_VERSION
 }
 
+# Function to commit and push
+commit_and_push() {
+  echo 
+  bash commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH
+}
+
+# Function to create GitHub release
+create_github_release() {
+  echo 
+  
+  # Go to common scripts directory
+  go_to_common_scripts_dir
+
+  # Create the release tag
+  local release_tag="android-v$MAIN_VERSION"
+  # Get the current date in YYYY-MM-DD format
+  local release_date=$(date +'%Y-%m-%d')
+  # Create the release body
+  local release_body="Released on: $release_date\n\nReleased Versions:\nandroid: $MAIN_VERSION\nandroid-core: $CORE_VERSION"
+
+  bash create_github_release.sh $GH_TOKEN $release_tag $release_body
+}
+
 # Call the functions in sequence
 update_versions
 update_nexus_credentials
 release_android_sdks
 update_snapshot_version
+commit_and_push
+create_github_release

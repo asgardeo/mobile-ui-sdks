@@ -30,6 +30,9 @@ go_to_scripts_dir() {
   cd ../.github/workflows/scripts/android
 }
 
+# Initialize an array to store version names and their updated versions
+declare -A updated_versions
+
 # Function to bump version based on type
 bump_version() {
   local current_version=$1
@@ -75,6 +78,14 @@ go_to_android_sdk_dir
     # Update version in gradle.properties
     sed -i "s/$version_name=.*/$version_name=$new_version/" ./gradle.properties
     echo "Updated $version_name to: $new_version"
+
+    # Store the updated version in the array
+    updated_versions["$version_name"]=$new_version
   done < gradle.properties
+
+# Write the updated versions to a file
+for key in "${!updated_versions[@]}"; do
+    echo "$key=${updated_versions[$key]}" >> updated_versions.txt
+done
 
 go_to_scripts_dir
