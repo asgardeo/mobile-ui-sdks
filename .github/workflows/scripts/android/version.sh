@@ -11,10 +11,15 @@ get_current_version() {
   grep -E "^$VERSION_NAME=.*$" ./gradle.properties | cut -d'=' -f2
 }
 
+# Function to remove -SNAPSHOT from version string
+strip_snapshot_suffix() {
+  local version="$1"
+  echo "${version%-SNAPSHOT}"
+}
 
 # Function to bump version based on type
 bump_version() {
-  local current_version="$1"
+  local current_version=$(strip_snapshot_suffix "$1")  # Remove -SNAPSHOT before bumping
   local bump_type="$2"
   IFS="." read -r major minor patch <<< "$current_version"
 
@@ -26,7 +31,7 @@ bump_version() {
     minor=$((minor + 1))
     patch=0
   elif [ "$bump_type" == "patch" ]; then
-    patch=$((patch + 1))
+    patch=$((patch))
   else
     echo "Invalid bump type: $bump_type"
     exit 1
@@ -35,7 +40,6 @@ bump_version() {
   echo "$major.$minor.$patch"
 }
 
-# Go to android sdk directory
 go_to_android_sdk_dir
 
 # Get current version based on sdkType
@@ -54,5 +58,5 @@ new_version=$(bump_version "$current_version" "$VERSION_TYPE")
 echo "Updating $VERSION_NAME to: $new_version"
 sed -i "s/$VERSION_NAME=.*/$VERSION_NAME=$new_version/" ./gradle.properties
 
-bumped_version=$(get_current_version "${VERSION_NAME}")
-echo "Current version is: $bumped_version"
+# Set output variable for next steps
+echo "NEW_VERSION=$new_version"

@@ -1,6 +1,6 @@
 # This workflow will release the packages.
 
-name: 🚀 Release - 🤖 Android SDKs
+name: 🚀 Release
 
 on:
   workflow_dispatch:
@@ -65,6 +65,7 @@ jobs:
       - name: 🔭 Verify Version Bump
         working-directory: ${{ env.WORKING_DIR }}
         run: |
+          artifact_name=${{ env.ARTIFACT_NAME }}
           new_version=$(grep -E "^${artifact_name^^}_VERSION=.*$" ./gradle.properties | cut -d'=' -f2)
           echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
 
@@ -116,7 +117,14 @@ jobs:
         run: |
           ./gradlew :${{ env.ARTIFACT_NAME }}:assembleRelease
 
+    # PUBLISH
+
       - name: 📜 Generate API Docs
         working-directory: ${{ env.WORKING_DIR }}
         run: |
           ./gradlew dokkaHtmlMultiModule
+
+      - name: Update SNAPSHOT Version
+        working-directory: .github/workflows/scripts/android
+        run: |
+          bash update_snapshot_version.sh "${NEW_VERSION}"
