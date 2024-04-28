@@ -42,8 +42,6 @@ on:
 
 env:
     GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
-    BRANCH: master
-    WORKING_DIR: ./android
     BOT_USERNAME: ${{ secrets.RELEASE_BOT_USER_NAME }}
     BOT_EMAIL: ${{ secrets.RELEASE_BOT_EMAIL }}
     NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
