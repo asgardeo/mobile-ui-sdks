@@ -87,7 +87,7 @@ dependencies {
 }
 
 extra.apply {
-    set("artifactId", "android.core")
+    set("artifactId", properties["MAIN_PACKAGE_NAME"].toString()+".core")
     set("artifactName", "core")
     set(
         "artifactDescription",

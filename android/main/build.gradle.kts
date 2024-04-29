@@ -65,7 +65,7 @@ dependencies {
 }
 
 extra.apply {
-    set("artifactId", "android")
+    set("artifactId", properties["MAIN_PACKAGE_NAME"])
     set("artifactName", "main")
     set(
         "artifactDescription",
