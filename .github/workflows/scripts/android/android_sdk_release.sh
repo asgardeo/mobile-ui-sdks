@@ -148,13 +148,20 @@ release_android_sdks() {
 # Function to update snapshot version
 update_snapshot_version() {
   echo 
-  bash update_snapshot_version.sh $NEW_VERSION
+  bash update_snapshot_version.sh
 }
 
 # Function to commit and push
 commit_and_push() {
   echo 
-  bash commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH
+
+  # Go to common scripts directory
+  go_to_common_scripts_dir
+
+  bash commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH "Bump versions of Mobile-SKDs Android SDKs"
+
+  # Go to android scripts directory
+  cd .github/workflows/scripts/android
 }
 
 # Function to create GitHub release
@@ -172,6 +179,9 @@ create_github_release() {
   local release_body="Released on: $release_date\n\nReleased Versions:\nandroid: $MAIN_VERSION\nandroid-core: $CORE_VERSION"
 
   bash create_github_release.sh $GH_TOKEN $release_tag $release_body
+
+  # Go to android scripts directory
+  cd .github/workflows/scripts/android
 }
 
 # Call the functions in sequence

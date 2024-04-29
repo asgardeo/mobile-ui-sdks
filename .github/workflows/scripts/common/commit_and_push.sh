@@ -22,16 +22,12 @@
 
 $GITHUB_RUN_NUMBER=$1
 $RELEASE_BRANCH=$2
+$RELEASE_COMMIT_MESSAGE=$3
 $MASTER_BRANCH="master"
 
 # Go to root directory
 go_to_root_dir() {
   cd ../../../../
-}
-
-# Go to scripts directory
-go_to_scripts_dir() {
-  cd .github/workflows/scripts/android
 }
 
 # Create and checkout a new branch for the release.
@@ -45,7 +41,7 @@ commit_and_push() {
     git add android/gradle.properties
 
     # Commit the changes
-    git commit -m "Bump version of Mobile-SKDs Android SDKs"
+    git commit -m $RELEASE_COMMIT_MESSAGE
 
     # Push changes to the release branch
     git push origin "$RELEASE_BRANCH"
@@ -59,7 +55,7 @@ merge_to_master() {
     git pull origin "$MASTER_BRANCH"
 
     # Merge release branch into master with a merge commit
-    git merge --no-ff "$RELEASE_BRANCH" -m "[Mobile-SKDs Android SDKs Release] [GitHub Action #$GITHUB_RUN_NUMBER] [Release] [skip ci] Merge release branch $RELEASE_BRANCH"
+    git merge --no-ff "$RELEASE_BRANCH" -m "[Mobile-SDKs Release] [GitHub Action #$GITHUB_RUN_NUMBER] [Release] [skip ci] Merge release branch $RELEASE_BRANCH"
 
     # Push the merge commit to master
     git push origin "$MASTER_BRANCH"
@@ -87,5 +83,3 @@ commit_and_push
 merge_to_master
 # Delete the release branch.
 delete_release_branch
-
-go_to_scripts_dir

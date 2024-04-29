@@ -26,10 +26,13 @@ GH_TOKEN=$1
 RELEASE_TAG=$2
 RELEASE_BODY=$3
 
-# Go to android scripts directory
-go_to_scripts_dir() {
-  cd ../android
+# Go to root directory
+go_to_root_dir() {
+  cd ../../../../
 }
+
+# Go to root directory
+go_to_root_dir
 
 # Create a release
 RELEASE_NAME=$RELEASE_TAG
@@ -40,6 +43,3 @@ RELEASE_URL=$(curl -s -X POST \
   | jq -r '.html_url')
 
 echo "Release created: $RELEASE_URL"
-
-# Go to android scripts directory
-go_to_scripts_dir
