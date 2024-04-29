@@ -26,7 +26,7 @@ $MASTER_BRANCH="master"
 
 # Go to root directory
 go_to_root_dir() {
-  cd cd ../../../../
+  cd ../../../../
 }
 
 # Go to scripts directory
