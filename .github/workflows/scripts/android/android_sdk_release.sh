@@ -119,7 +119,9 @@ gradle_assemble() {
 # Release Android SDKs WSO2 nexus repository
 gradle_publish_release_to_wso2_nexus() {
   echo 
-  ./gradlew publishToWso2Nexus closeWso2NexusStagingRepository
+  ./gradlew publishToWso2Nexus -Dorg.gradle.internal.publish.checksums.insecure=true
+  ./gradlew findWso2NexusStagingRepository closeWso2NexusStagingRepository -Dorg.gradle.internal.publish.checksums.insecure=true
+  ./gradlew findWso2NexusStagingRepository releaseWso2NexusStagingRepository -Dorg.gradle.internal.publish.checksums.insecure=true
 }
 
 # Function to generate API docs
@@ -161,7 +163,7 @@ commit_and_push() {
   bash ./commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH "Bump versions of Mobile-SKDs Android SDKs"
 
   # Go to android scripts directory
-  cd .github/workflows/scripts/android
+  #cd .github/workflows/scripts/android
 }
 
 # Function to create GitHub release
@@ -181,13 +183,13 @@ create_github_release() {
   bash ./create_github_release.sh $GH_TOKEN $release_tag $release_body
 
   # Go to android scripts directory
-  cd .github/workflows/scripts/android
+  #cd .github/workflows/scripts/android
 }
 
 # Call the functions in sequence
 update_versions
 update_nexus_credentials
-release_android_sdks
+#release_android_sdks
 update_snapshot_version
 commit_and_push
 create_github_release
