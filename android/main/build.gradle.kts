@@ -163,8 +163,6 @@ afterEvaluate {
         }
 
 //        signing {
-//            isRequired = gradle.taskGraph.hasTask("publish")
-//            useGpgCmd()
 //            sign(publishing.publications["release"])
 //        }
 
