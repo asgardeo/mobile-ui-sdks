@@ -69,7 +69,7 @@ fun getWSO2NexusRepositoryPassword(): String =
     (localProperties.getProperty("NEXUS_PASSWORD") ?: "").toString()
 
 nexusPublishing {
-    packageGroup = groupName
+    group = groupName
 
     repositories {
         create("wso2Nexus") {
