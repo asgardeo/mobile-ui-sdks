@@ -23,7 +23,7 @@
 GITHUB_RUN_NUMBER=$1
 RELEASE_BRANCH=$2
 RELEASE_COMMIT_MESSAGE=$3
-MASTER_BRANCH="master"
+MASTER_BRANCH="main"
 
 # Go to root directory
 go_to_root_dir() {
@@ -41,7 +41,7 @@ commit_and_push() {
     git add android/gradle.properties
 
     # Commit the changes
-    git commit -m $RELEASE_COMMIT_MESSAGE
+    git commit -m "$RELEASE_COMMIT_MESSAGE"
 
     # Push changes to the release branch
     git push origin "$RELEASE_BRANCH"

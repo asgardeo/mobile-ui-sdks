@@ -197,8 +197,7 @@ afterEvaluate {
                     password = wso2NexusRepositoryPassword
                 }
 
-                url = if (versionNumber.endsWith("SNAPSHOT")) wso2NexusSnapshotRepositoryUrl
-                else wso2NexusReleaseRepositoryUrl
+                url = wso2NexusReleaseRepositoryUrl
             }
         }
     }
