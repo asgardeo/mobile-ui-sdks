@@ -47,11 +47,23 @@ go_to_android_sdk_dir
 # Check if local.properties exists in the android sdk directory
 check_local_properties_file
 
-# Update NEXUS_USERNAME property
-sed -i "s/^NEXUS_USERNAME=.*/NEXUS_USERNAME=$NEXUS_USERNAME/" local.properties
+# Update NEXUS_USERNAME property in local.properties. Check if the variable is already present, if not add it. Update the value to $NEXUS_USERNAME
+if grep -q '^NEXUS_USERNAME=' local.properties; then
+  echo "NEXUS_USERNAME already exists in local.properties. Updating the value."
+  sed -i "s/^NEXUS_USERNAME=.*/NEXUS_USERNAME=$NEXUS_USERNAME/" local.properties
+else
+  echo "NEXUS_USERNAME does not exist in local.properties. Adding the property."
+  echo "NEXUS_USERNAME=$NEXUS_USERNAME" >>local.properties
+fi
 
-# Update NEXUS_PASSWORD property
-sed -i "s/^NEXUS_PASSWORD=.*/NEXUS_PASSWORD=$NEXUS_PASSWORD/" local.properties
+# Update NEXUS_PASSWORD property in local.properties. Check if the variable is already present, if not add it. Update the value to $NEXUS_PASSWORD
+if grep -q '^NEXUS_PASSWORD=' local.properties; then
+  echo "NEXUS_PASSWORD already exists in local.properties. Updating the value."
+  sed -i "s/^NEXUS_PASSWORD=.*/NEXUS_PASSWORD=$NEXUS_PASSWORD/" local.properties
+else
+  echo "NEXUS_PASSWORD does not exist in local.properties. Adding the property."
+  echo "NEXUS_PASSWORD=$NEXUS_PASSWORD" >>local.properties
+fi
 
 echo "Updated local.properties with NEXUS credentials."
 
