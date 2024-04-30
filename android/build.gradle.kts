@@ -74,6 +74,7 @@ nexusPublishing {
     repositories {
         create("wso2Nexus") {
             nexusUrl.set(getWSO2NexusReleaseRepositoryUrl())
+            snapshotRepositoryUrl.set(getWSO2NexusSnapshotRepositoryUrl())
             username.set(getWSO2NexusRepositoryUsername())
             password.set(getWSO2NexusRepositoryPassword())
         }
