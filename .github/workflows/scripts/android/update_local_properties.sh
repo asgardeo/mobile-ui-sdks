@@ -65,8 +65,6 @@ else
   echo "NEXUS_PASSWORD=$NEXUS_PASSWORD" >>local.properties
 fi
 
-sed -i "s/^NEXUS_PASSWORD=.*/NEXUS_PASSWORD=$NEXUS_PASSWORD/" local.properties
-
 echo "Updated local.properties with NEXUS credentials."
 
 # Go to scripts directory
