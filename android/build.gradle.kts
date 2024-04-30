@@ -99,7 +99,7 @@ tasks.register<Jar>("dokkaJavadocJar") {
 
 extra.apply {
     set("groupName", groupName)
-    set("compileSdkVersion", properties["COMPILE_SDK_VERSION"])
+    set("minCompileSdkVersion", properties["MIN_COMPILE_SDK"])
     set("packagingType", properties["PACKAGING_TYPE"])
     set("wso2NexusReleaseRepositoryUrl", getWSO2NexusReleaseRepositoryUrl())
     set("wso2NexusSnapshotRepositoryUrl", getWSO2NexusSnapshotRepositoryUrl())

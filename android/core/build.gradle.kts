@@ -30,6 +30,10 @@ android {
     defaultConfig {
         minSdk = 26
 
+        aarMetadata {
+            minCompileSdk = rootProject.extra.get("minCompileSdkVersion").toString().toInt()
+        }
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -83,7 +87,7 @@ dependencies {
 }
 
 extra.apply {
-    set("artifactId", "android.core")
+    set("artifactId", properties["MAIN_PACKAGE_NAME"].toString()+".core")
     set("artifactName", "core")
     set(
         "artifactDescription",

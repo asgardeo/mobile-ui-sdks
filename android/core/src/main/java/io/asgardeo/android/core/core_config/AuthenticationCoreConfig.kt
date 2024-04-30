@@ -91,14 +91,14 @@ class AuthenticationCoreConfig(
     }
 
     /**
-     * @sample `https://localhost:9443/oauth2/token/.well-known/openid-configuration`
+     * example `https://localhost:9443/oauth2/token/.well-known/openid-configuration`
      *
      * @return Discovery endpoint of Asgardeo.
      */
     fun getDiscoveryEndpoint(): String? = discoveryEndpoint
 
     /**
-     * @sample `https://localhost:9443/oauth2/authorize`
+     * example `https://localhost:9443/oauth2/authorize`
      *
      * @return Authorization url of Asgardeo.
      */
@@ -107,7 +107,7 @@ class AuthenticationCoreConfig(
             ?: "${getBaseEndpointFromDiscoveryEndpoint(discoveryEndpoint!!)}/oauth2/authorize"
 
     /**
-     * @sample `https://localhost:9443/oauth2/authn`
+     * example `https://localhost:9443/oauth2/authn`
      *
      * @return Authentication url of Asgardeo.
      */
@@ -115,7 +115,7 @@ class AuthenticationCoreConfig(
         authnEndpoint ?: "${getBaseEndpointFromDiscoveryEndpoint(discoveryEndpoint!!)}/oauth2/authn"
 
     /**
-     * @sample `https://localhost:9443/oauth2/token`
+     * example `https://localhost:9443/oauth2/token`
      *
      * @return Token url of Asgardeo.
      */
@@ -123,7 +123,7 @@ class AuthenticationCoreConfig(
         tokenEndpoint ?: "${getBaseEndpointFromDiscoveryEndpoint(discoveryEndpoint!!)}/oauth2/token"
 
     /**
-     * @sample `https://localhost:9443/oidc/logout`
+     * example `https://localhost:9443/oidc/logout`
      *
      * @return Logout url of Asgardeo.
      */
@@ -131,7 +131,7 @@ class AuthenticationCoreConfig(
         logoutEndpoint ?: "${getBaseEndpointFromDiscoveryEndpoint(discoveryEndpoint!!)}/oidc/logout"
 
     /**
-     * @sample `https://localhost:9443/oauth2/userinfo`
+     * example `https://localhost:9443/oauth2/userinfo`
      *
      * @return Me endpoint of Asgardeo.
      */
@@ -140,7 +140,7 @@ class AuthenticationCoreConfig(
             ?: "${getBaseEndpointFromDiscoveryEndpoint(discoveryEndpoint!!)}/oauth2/userinfo"
 
     /**
-     * @sample `https://example-app.com/redirect`
+     * example `https://example-app.com/redirect`
      *
      * @return Redirect uri of the application.
      */
