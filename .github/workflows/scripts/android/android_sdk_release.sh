@@ -70,7 +70,7 @@ update_versions() {
 # Function to update Nexus credentials
 update_nexus_credentials() {
   echo 
-  bash update_local_properties.sh $NEXUS_USERNAME $NEXUS_PASSWORD
+  bash ./update_local_properties.sh $NEXUS_USERNAME $NEXUS_PASSWORD
 }
 
 # Function to regenerate Gradle wrapper
@@ -148,7 +148,7 @@ release_android_sdks() {
 # Function to update snapshot version
 update_snapshot_version() {
   echo 
-  bash update_snapshot_version.sh
+  bash ./update_snapshot_version.sh
 }
 
 # Function to commit and push
@@ -158,7 +158,7 @@ commit_and_push() {
   # Go to common scripts directory
   go_to_common_scripts_dir
 
-  bash commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH "Bump versions of Mobile-SKDs Android SDKs"
+  bash ./commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH "Bump versions of Mobile-SKDs Android SDKs"
 
   # Go to android scripts directory
   cd .github/workflows/scripts/android
@@ -178,7 +178,7 @@ create_github_release() {
   # Create the release body
   local release_body="Released on: $release_date\n\nReleased Versions:\nandroid: $MAIN_VERSION\nandroid-core: $CORE_VERSION"
 
-  bash create_github_release.sh $GH_TOKEN $release_tag $release_body
+  bash ./create_github_release.sh $GH_TOKEN $release_tag $release_body
 
   # Go to android scripts directory
   cd .github/workflows/scripts/android
