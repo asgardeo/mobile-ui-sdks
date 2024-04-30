@@ -61,10 +61,12 @@ fun getWSO2NexusSnapshotRepositoryUrl(): URI =
     URI.create((properties["NEXUS_SNAPSHOT_URL"] ?: "").toString())
 
 // Get the WSO2 Nexus repository username
-fun getWSO2NexusRepositoryUsername(): String = localProperties.getProperty("NEXUS_USERNAME") ?: ""
+fun getWSO2NexusRepositoryUsername(): String =
+    (localProperties.getProperty("NEXUS_USERNAME") ?: "").toString()
 
 // Get the WSO2 Nexus repository password
-fun getWSO2NexusRepositoryPassword(): String = localProperties.getProperty("NEXUS_PASSWORD") ?: ""
+fun getWSO2NexusRepositoryPassword(): String =
+    (localProperties.getProperty("NEXUS_PASSWORD") ?: "").toString()
 
 nexusPublishing {
     packageGroup = groupName
@@ -72,7 +74,6 @@ nexusPublishing {
     repositories {
         create("wso2Nexus") {
             nexusUrl.set(getWSO2NexusReleaseRepositoryUrl())
-            snapshotRepositoryUrl.set(getWSO2NexusSnapshotRepositoryUrl())
             username.set(getWSO2NexusRepositoryUsername())
             password.set(getWSO2NexusRepositoryPassword())
         }
