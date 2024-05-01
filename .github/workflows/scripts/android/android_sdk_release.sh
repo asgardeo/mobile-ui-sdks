@@ -120,8 +120,8 @@ gradle_assemble() {
 gradle_publish_release_to_wso2_nexus() {
   echo 
   ./gradlew publishToWso2Nexus 
-  ./gradlew closeWso2NexusStagingRepository
-  ./gradlew releaseWso2NexusStagingRepository
+  ./gradlew findWso2NexusStagingRepository closeWso2NexusStagingRepository
+  ./gradlew findWso2NexusStagingRepository releaseWso2NexusStagingRepository
 }
 
 # Function to generate API docs
