@@ -75,6 +75,7 @@ nexusPublishing {
         create("wso2Nexus") {
             nexusUrl.set(getWSO2NexusReleaseRepositoryUrl())
             snapshotRepositoryUrl.set(getWSO2NexusSnapshotRepositoryUrl())
+            stagingProfileId.set(groupName)
             username.set(getWSO2NexusRepositoryUsername())
             password.set(getWSO2NexusRepositoryPassword())
         }
