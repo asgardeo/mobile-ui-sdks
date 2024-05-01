@@ -15,7 +15,7 @@
   ~  KIND, either express or implied. See the License for the
   ~  specific language governing permissions and limitations
   ~  under the License.
-  -->
+-->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -31,8 +31,7 @@
             android:name="io.asgardeo.android.core.core.ui.RedirectUriReceiverActivity"
             android:exported="true"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboard|keyboardHidden"
-            android:theme="@style/Theme.AppCompat.Translucent.NoTitleBar"
-            >
+            android:theme="@style/Theme.AppCompat.Translucent.NoTitleBar">
             <intent-filter>
                 <category android:name="android.intent.category.BROWSABLE" />
                 <action android:name="android.intent.action.VIEW" />

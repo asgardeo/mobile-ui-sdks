@@ -87,7 +87,7 @@ class AuthenticationCoreConfigManagerImpl private constructor(
         discoveryEndpoint: String?,
         authenticationCoreConfig: AuthenticationCoreConfig
     ): AuthenticationCoreConfig {
-        if (updatedAuthenticationCoreConfig == null || discoveryEndpoint == null) {
+        if (updatedAuthenticationCoreConfig == null || discoveryEndpoint != null) {
             var discoveryResponse: JsonNode?
             try {
                 discoveryResponse = discoveryManager.callDiscoveryEndpoint(discoveryEndpoint!!)
