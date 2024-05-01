@@ -70,6 +70,7 @@ fun getWSO2NexusRepositoryPassword(): String =
 
 nexusPublishing {
     group = groupName
+    packageGroup = groupName
 
     repositories {
         create("wso2Nexus") {
