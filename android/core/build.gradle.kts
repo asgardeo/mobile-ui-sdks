@@ -57,7 +57,7 @@ android {
 }
 
 dependencies {
-
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar, *.aar"))))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -103,7 +103,7 @@ extra.apply {
 
 // artifact related variables
 val groupName: String = rootProject.extra.get("groupName") as String
-val packagingType: String = rootProject.extra.get("groupName") as String
+val packagingType: String = rootProject.extra.get("packagingType") as String
 var publishArtifactId: String = project.extra.get("artifactId") as String
 val artifactName = project.extra.get("artifactName") as String
 val artifactDescription = project.extra.get("artifactDescription") as String
@@ -135,7 +135,6 @@ val wso2NexusRepositoryPassword: String =
     rootProject.extra.get("wso2NexusRepositoryPassword") as String
 
 val androidSourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
     from(android.sourceSets["main"].java.srcDirs)
 }
 
@@ -178,6 +177,17 @@ afterEvaluate {
                         developer {
                             id = developerId
                             name = developerName
+                        }
+                    }
+                    withXml {
+                        val dependenciesNode = asNode().appendNode("dependencies")
+                        configurations.getByName("releaseRuntimeClasspath").resolvedConfiguration.firstLevelModuleDependencies.forEach {
+                            val dependencyNode = dependenciesNode.appendNode("dependency")
+
+                            dependencyNode.appendNode("groupId", it.moduleGroup)
+                            dependencyNode.appendNode("artifactId", it.moduleName)
+                            dependencyNode.appendNode("version", it.moduleVersion)
+                            dependencyNode.appendNode("scope", "runtime")
                         }
                     }
                 }

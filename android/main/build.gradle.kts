@@ -57,7 +57,7 @@ android {
 }
 
 dependencies {
-
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar, *.aar"))))
     api(project(":core"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -81,7 +81,7 @@ extra.apply {
 
 // artifact related variables
 val groupName: String = rootProject.extra.get("groupName") as String
-val packagingType: String = rootProject.extra.get("groupName") as String
+val packagingType: String = rootProject.extra.get("packagingType") as String
 var publishArtifactId: String = project.extra.get("artifactId") as String
 val artifactName = project.extra.get("artifactName") as String
 val artifactDescription = project.extra.get("artifactDescription") as String
@@ -113,7 +113,6 @@ val wso2NexusRepositoryPassword: String =
     rootProject.extra.get("wso2NexusRepositoryPassword") as String
 
 val androidSourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
     from(android.sourceSets["main"].java.srcDirs)
 }
 
@@ -156,6 +155,33 @@ afterEvaluate {
                         developer {
                             id = developerId
                             name = developerName
+                        }
+                    }
+                    withXml {
+                        val dependenciesNode = asNode().appendNode("dependencies")
+                        configurations.getByName("releaseRuntimeClasspath").resolvedConfiguration.firstLevelModuleDependencies.forEach {
+                            val dependencyNode = dependenciesNode.appendNode("dependency")
+
+                            val finalGroupId: String =
+                                if(it.moduleGroup != "android") it.moduleGroup
+                                else groupName
+
+                            val finalArtifactId: String =
+                                if(it.moduleName == "core") "android.ui.core"
+                                else it.moduleName
+
+                            val finalVersion: String =
+                                if(it.moduleVersion !== "unspecified") it.moduleVersion
+                                else versionNumber
+
+                            val finalScope: String =
+                                if(it.moduleVersion !== "unspecified") "runtime"
+                                else "compile"
+
+                            dependencyNode.appendNode("groupId", finalGroupId)
+                            dependencyNode.appendNode("artifactId", finalArtifactId)
+                            dependencyNode.appendNode("version", finalVersion)
+                            dependencyNode.appendNode("scope", finalScope)
                         }
                     }
                 }
