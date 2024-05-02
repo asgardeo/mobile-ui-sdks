@@ -119,9 +119,9 @@ gradle_assemble() {
 # Release Android SDKs WSO2 nexus repository
 gradle_publish_release_to_wso2_nexus() {
   echo 
-  ./gradlew publishToWso2Nexus 
-  ./gradlew findWso2NexusStagingRepository closeWso2NexusStagingRepository
-  ./gradlew findWso2NexusStagingRepository releaseWso2NexusStagingRepository
+  ./gradlew publishToWso2Nexus -Dorg.gradle.internal.publish.checksums.insecure=true
+  ./gradlew findWso2NexusStagingRepository closeWso2NexusStagingRepository -Dorg.gradle.internal.publish.checksums.insecure=true
+  ./gradlew findWso2NexusStagingRepository releaseWso2NexusStagingRepository -Dorg.gradle.internal.publish.checksums.insecure=true
 }
 
 # Function to generate API docs
