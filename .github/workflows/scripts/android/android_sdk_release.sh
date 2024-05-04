@@ -163,7 +163,7 @@ commit_and_push() {
   bash ./commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH "Bump versions of Mobile-SKDs Android SDKs"
 
   # Go to android scripts directory
-  cd .github/workflows/scripts/android
+  #cd .github/workflows/scripts/android
 }
 
 # Function to create GitHub release
@@ -183,13 +183,13 @@ create_github_release() {
   bash ./create_github_release.sh $GH_TOKEN $release_tag $release_body
 
   # Go to android scripts directory
-  cd .github/workflows/scripts/android
+  #cd .github/workflows/scripts/android
 }
 
 # Call the functions in sequence
 update_versions
 update_nexus_credentials
-release_android_sdks
+#release_android_sdks
 update_snapshot_version
 commit_and_push
 create_github_release

@@ -135,6 +135,7 @@ val wso2NexusRepositoryPassword: String =
     rootProject.extra.get("wso2NexusRepositoryPassword") as String
 
 val androidSourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
     from(android.sourceSets["main"].java.srcDirs)
 }
 
