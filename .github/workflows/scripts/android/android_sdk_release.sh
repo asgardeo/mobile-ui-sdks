@@ -30,6 +30,8 @@ NEXUS_PASSWORD=$3
 GH_TOKEN=$4
 # Github action run number
 GITHUB_RUN_NUMBER=$5
+# Github repository
+GITHUB_REPOSITORY=$6
 # The release branch name
 RELEASE_BRANCH=release-action-$GITHUB_RUN_NUMBER
 
@@ -180,7 +182,7 @@ create_github_release() {
   # Create the release body
   local release_body="Released on: $release_date\n\nReleased Versions:\nandroid: $MAIN_VERSION\nandroid-core: $CORE_VERSION"
 
-  bash ./create_github_release.sh $GH_TOKEN $release_tag $release_body
+  bash ./create_github_release.sh $GH_TOKEN $release_tag $release_body $GITHUB_REPOSITORY
 
   # Go to android scripts directory
   #cd .github/workflows/scripts/android

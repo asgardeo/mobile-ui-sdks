@@ -23,6 +23,7 @@
 GH_TOKEN=$1 # Get the release tag and body
 RELEASE_TAG=$2
 RELEASE_BODY=$3
+GITHUB_REPOSITORY=$4
 
 # Go to root directory
 go_to_root_dir() {
@@ -34,12 +35,12 @@ go_to_root_dir
 
 # Create the release using the GitHub API
 curl --request POST \
-     --url https://api.github.com/repos/${{ github.repository }}/releases \
+     --url https://api.github.com/repos/$GITHUB_REPOSITORY/releases \
      --header "authorization: Bearer $GH_TOKEN" \
      --header "content-type: application/json" \
      --data "{
-              "tag_name": "$RELEASE_TAG",
-              "name": "$RELEASE_NAME",
-              "body": "$RELEASE_BODY"
+              "tag_name": $RELEASE_TAG,
+              "name": $RELEASE_NAME,
+              "body": $RELEASE_BODY
             }"
 
