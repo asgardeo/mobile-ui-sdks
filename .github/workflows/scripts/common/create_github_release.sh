@@ -39,7 +39,7 @@ RELEASE_NAME=$RELEASE_TAG
 RELEASE_URL=$(curl -s -X POST \
   -H "Authorization: token $GH_TOKEN" \
   -d "{\"tag_name\": \"$RELEASE_TAG\", \"name\": \"$RELEASE_NAME\", \"body\": \"$RELEASE_BODY\", \"draft\": false, \"prerelease\": false}" \
-  "https://api.github.com/repos/<username>/<repository>/releases" \
+  "https://api.github.com/repos/asgardeo/mobile-ui-sdks/releases" \
   | jq -r '.html_url')
 
 echo "Release created: $RELEASE_URL"
