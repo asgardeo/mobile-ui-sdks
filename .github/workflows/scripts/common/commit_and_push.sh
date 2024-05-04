@@ -38,7 +38,7 @@ create_and_checkout_release_branch() {
 
 commit_and_push() {
     # Stage the gradle.properties file
-    git add android/gradle.properties
+    git add ../android/gradle.properties
 
     # Commit the changes
     git commit -m "$RELEASE_COMMIT_MESSAGE"
