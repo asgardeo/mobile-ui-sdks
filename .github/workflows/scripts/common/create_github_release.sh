@@ -33,14 +33,21 @@ go_to_root_dir() {
 # Go to root directory
 go_to_root_dir
 
+RELEASE_NAME=$RELEASE_TAG
+
+# Create a new tag
+git tag ${RELEASE_TAG}
+
+# Push the new tag
+git push origin ${RELEASE_TAG}
+
 # Create the release using the GitHub API
 curl --request POST \
      --url https://api.github.com/repos/$GITHUB_REPOSITORY/releases \
-     --header "authorization: Bearer $GH_TOKEN" \
+     --header "Authorization: token $GH_TOKEN" \
      --header "content-type: application/json" \
      --data "{
               "tag_name": $RELEASE_TAG,
               "name": $RELEASE_NAME,
               "body": $RELEASE_BODY
             }"
-
