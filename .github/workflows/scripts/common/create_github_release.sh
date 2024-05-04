@@ -32,14 +32,14 @@ go_to_root_dir() {
 # Go to root directory
 go_to_root_dir
 
-# Create a release
-RELEASE_NAME=$RELEASE_TAG
-RELEASE_URL=$(curl -s -X POST \
-    -H "Accept: application/vnd.github+json" \
-    -H "Authorization: token $GH_TOKEN" \
-    -H "X-GitHub-Api-Version: 2022-11-28" \
-    -d "{\"tag_name\": \"$RELEASE_TAG\", \"name\": \"$RELEASE_NAME\", \"body\": \"$RELEASE_BODY\", \"draft\": false, \"prerelease\": false}" \
-    "https://api.github.com/repos/asgardeo/mobile-ui-sdks/releases" \
-    | jq -r '.html_url')
+# Create the release using the GitHub API
+curl --request POST \
+     --url https://api.github.com/repos/${{ github.repository }}/releases \
+     --header "authorization: Bearer $GH_TOKEN" \
+     --header "content-type: application/json" \
+     --data "{
+              "tag_name": "$RELEASE_TAG",
+              "name": "$RELEASE_NAME",
+              "body": "$RELEASE_BODY"
+            }"
 
-echo "Release created: $RELEASE_URL"
