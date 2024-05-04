@@ -38,8 +38,12 @@ RELEASE_NAME=$RELEASE_TAG
 # Create a new tag
 git tag ${RELEASE_TAG}
 
+echo "Tag created: ${RELEASE_TAG}"
+
 # Push the new tag
 git push origin ${RELEASE_TAG}
+
+echo "Tag pushed: ${RELEASE_TAG}"
 
 # Create the release using the GitHub API
 curl --request POST \
