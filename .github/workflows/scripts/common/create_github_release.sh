@@ -27,7 +27,7 @@ GITHUB_REPOSITORY=$4
 
 # Go to root directory
 go_to_root_dir() {
-    cd ../../../../
+  cd ../../../../
 }
 
 # Go to root directory
