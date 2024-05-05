@@ -20,26 +20,39 @@
 
 #!/bin/bash
 
-GH_TOKEN=$1
-
-# Get the release tag, and body
+GH_TOKEN=$1 # Get the release tag and body
 RELEASE_TAG=$2
 RELEASE_BODY=$3
+GITHUB_REPOSITORY=$4
 
 # Go to root directory
 go_to_root_dir() {
-  cd ../../../../
+    cd ../../../../
 }
 
 # Go to root directory
 go_to_root_dir
 
-# Create a release
 RELEASE_NAME=$RELEASE_TAG
-RELEASE_URL=$(curl -s -X POST \
-  -H "Authorization: token $GH_TOKEN" \
-  -d "{\"tag_name\": \"$RELEASE_TAG\", \"name\": \"$RELEASE_NAME\", \"body\": \"$RELEASE_BODY\", \"draft\": false, \"prerelease\": false}" \
-  "https://api.github.com/repos/<username>/<repository>/releases" \
-  | jq -r '.html_url')
 
-echo "Release created: $RELEASE_URL"
+# Create a new tag
+git tag ${RELEASE_TAG}
+
+echo "Tag created: ${RELEASE_TAG}"
+
+# Push the new tag
+git push origin ${RELEASE_TAG}
+
+echo "Tag pushed: ${RELEASE_TAG}"
+
+# Create the release using the GitHub API
+curl --request POST \
+     --url https://api.github.com/repos/$GITHUB_REPOSITORY/releases \
+     --header "Authorization: token $GH_TOKEN" \
+     --header "X-GitHub-Api-Version: 2022-11-28" \
+     --header "content-type: application/json" \
+     --data "{
+              "tag_name": $RELEASE_TAG,
+              "name": $RELEASE_NAME,
+              "body": $RELEASE_BODY
+            }"

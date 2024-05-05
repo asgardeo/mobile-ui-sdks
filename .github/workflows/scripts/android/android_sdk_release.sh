@@ -30,6 +30,8 @@ NEXUS_PASSWORD=$3
 GH_TOKEN=$4
 # Github action run number
 GITHUB_RUN_NUMBER=$5
+# Github repository
+GITHUB_REPOSITORY=$6
 # The release branch name
 RELEASE_BRANCH=release-action-$GITHUB_RUN_NUMBER
 
@@ -119,7 +121,9 @@ gradle_assemble() {
 # Release Android SDKs WSO2 nexus repository
 gradle_publish_release_to_wso2_nexus() {
   echo 
-  ./gradlew publishReleasePublicationToWso2NexusRepository
+  ./gradlew publishToWso2Nexus -Dorg.gradle.internal.publish.checksums.insecure=true
+  ./gradlew findWso2NexusStagingRepository closeWso2NexusStagingRepository -Dorg.gradle.internal.publish.checksums.insecure=true
+  ./gradlew findWso2NexusStagingRepository releaseWso2NexusStagingRepository -Dorg.gradle.internal.publish.checksums.insecure=true
 }
 
 # Function to generate API docs
@@ -161,7 +165,7 @@ commit_and_push() {
   bash ./commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH "Bump versions of Mobile-SKDs Android SDKs"
 
   # Go to android scripts directory
-  cd .github/workflows/scripts/android
+  #cd .github/workflows/scripts/android
 }
 
 # Function to create GitHub release
@@ -178,16 +182,16 @@ create_github_release() {
   # Create the release body
   local release_body="Released on: $release_date\n\nReleased Versions:\nandroid: $MAIN_VERSION\nandroid-core: $CORE_VERSION"
 
-  bash ./create_github_release.sh $GH_TOKEN $release_tag $release_body
+  bash ./create_github_release.sh $GH_TOKEN $release_tag $release_body $GITHUB_REPOSITORY
 
   # Go to android scripts directory
-  cd .github/workflows/scripts/android
+  #cd .github/workflows/scripts/android
 }
 
 # Call the functions in sequence
 update_versions
 update_nexus_credentials
-release_android_sdks
+#release_android_sdks
 update_snapshot_version
 commit_and_push
 create_github_release

@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+ *  Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *         http://www.apache.org/licenses/LICENSE-2.0
  *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
@@ -57,7 +57,7 @@ android {
 }
 
 dependencies {
-
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar, *.aar"))))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -103,7 +103,7 @@ extra.apply {
 
 // artifact related variables
 val groupName: String = rootProject.extra.get("groupName") as String
-val packagingType: String = rootProject.extra.get("groupName") as String
+val packagingType: String = rootProject.extra.get("packagingType") as String
 var publishArtifactId: String = project.extra.get("artifactId") as String
 val artifactName = project.extra.get("artifactName") as String
 val artifactDescription = project.extra.get("artifactDescription") as String
@@ -178,6 +178,17 @@ afterEvaluate {
                         developer {
                             id = developerId
                             name = developerName
+                        }
+                    }
+                    withXml {
+                        val dependenciesNode = asNode().appendNode("dependencies")
+                        configurations.getByName("releaseRuntimeClasspath").resolvedConfiguration.firstLevelModuleDependencies.forEach {
+                            val dependencyNode = dependenciesNode.appendNode("dependency")
+
+                            dependencyNode.appendNode("groupId", it.moduleGroup)
+                            dependencyNode.appendNode("artifactId", it.moduleName)
+                            dependencyNode.appendNode("version", it.moduleVersion)
+                            dependencyNode.appendNode("scope", "runtime")
                         }
                     }
                 }

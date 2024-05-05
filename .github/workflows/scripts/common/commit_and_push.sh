@@ -23,11 +23,11 @@
 GITHUB_RUN_NUMBER=$1
 RELEASE_BRANCH=$2
 RELEASE_COMMIT_MESSAGE=$3
-MASTER_BRANCH="main"
+MASTER_BRANCH="release-test"
 
 # Go to root directory
 go_to_root_dir() {
-  cd ../../../../
+  cd ../../../
 }
 
 # Create and checkout a new branch for the release.
@@ -38,7 +38,7 @@ create_and_checkout_release_branch() {
 
 commit_and_push() {
     # Stage the gradle.properties file
-    git add android/gradle.properties
+    git add ../android/gradle.properties
 
     # Commit the changes
     git commit -m "$RELEASE_COMMIT_MESSAGE"
