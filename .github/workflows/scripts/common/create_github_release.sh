@@ -48,9 +48,8 @@ echo "Tag pushed: ${RELEASE_TAG}"
 # Create the release using the GitHub API
 curl --request POST \
      --url https://api.github.com/repos/$GITHUB_REPOSITORY/releases \
-     --header "Authorization: token $GH_TOKEN" \
-     --header "X-GitHub-Api-Version: 2022-11-28" \
-     --header "content-type: application/json" \
+     --header "Authorization: Bearer $GH_TOKEN" \
+     --header "Content-Type: application/json" \
      --data "{
               "tag_name": $RELEASE_TAG,
               "name": $RELEASE_NAME,
