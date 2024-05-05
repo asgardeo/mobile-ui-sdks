@@ -51,6 +51,7 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
     private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
         AuthenticationCoreConfig(
             discoveryEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/token/.well-known/openid-configuration",
+            authnEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/authn",
             redirectUri = "wso2sample://oauth2",
             clientId = "<client_id>",
             scope = "openid profile email"
@@ -356,6 +357,14 @@ authenticationProvider.authenticateWithGoogle(
 ```
 
 #### Using legacy one tap (Not recommended for newer applications)
+
+If you are using legacy one tap, make sure to add the Google web client ID you added in Asgardeo in the `AuthenticationCoreConfig` object used to initialized the `AsgardeoAuth` object
+
+```kotlin
+...
+googleWebClientId = <Google web client ID>
+...
+```
 
 ```kotlin
 val launcher: ActivityResultLauncher<Intent> = rememberLauncherForActivityResult(
