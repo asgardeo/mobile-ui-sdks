@@ -45,13 +45,15 @@ git push origin ${RELEASE_TAG}
 
 echo "Tag pushed: ${RELEASE_TAG}"
 
-# Create the release using the GitHub API
-curl --request POST \
-     --url https://api.github.com/repos/$GITHUB_REPOSITORY/releases \
-     --header "Authorization: Bearer $GH_TOKEN" \
-     --header "Content-Type: application/json" \
-     --data "{
-              "tag_name": $RELEASE_TAG,
-              "name": $RELEASE_NAME,
-              "body": $RELEASE_BODY
-            }"
+# Create a new release
+CREATE_RELEASE_RESPONSE=$(curl --fail --location --request POST "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" \
+        --header "Authorization: Bearer $GH_TOKEN" \
+        --header "Content-Type: application/json" \
+        --data '{
+        "tag_name": "'"$RELEASE_TAG"'",
+        "name": "'"$RELEASE_NAME"'",
+        "body": "'"$RELEASE_BODY"'",
+        }')
+
+RELEASE_ID=$(echo $CREATE_RELEASE_RESPONSE | jq -r '.id')
+echo "Created GitHub release for Hotfix $RELEASE_TAG with release_id $RELEASE_ID"
