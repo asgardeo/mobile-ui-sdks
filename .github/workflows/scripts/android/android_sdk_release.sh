@@ -191,7 +191,7 @@ create_github_release() {
 # Call the functions in sequence
 update_versions
 update_nexus_credentials
-#release_android_sdks
+release_android_sdks
 update_snapshot_version
 commit_and_push
 create_github_release
