@@ -27,7 +27,7 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 
     ```groovy
     dependencies {
-        implementation 'io.asgardeo:android:1.0.0'
+        implementation 'io.asgardeo:android:0.1.1'
     }
     ```
 
@@ -51,6 +51,7 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
     private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
         AuthenticationCoreConfig(
             discoveryEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/token/.well-known/openid-configuration",
+            authnEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/authn",
             redirectUri = "wso2sample://oauth2",
             clientId = "<client_id>",
             scope = "openid profile email"
@@ -81,6 +82,8 @@ val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticat
 @Composable
 internal fun LandingScreen() {
     val state = authenticationProvider.getAuthenticationStateFlow()
+
+    // Initiate a call to /authorize endpoint only if a valid AT is not available
     authenticationProvider.isLoggedInStateFlow(context)
     handleAuthenticationState(state)
 }
@@ -89,16 +92,28 @@ private fun handleAuthenticationState(state: AuthenticationState) {
     authStateJob = state.collect {
         when (it) {
             is AuthenticationState.Initial -> {
+                // pre /authorize
                 authenticationProvider.initializeAuthentication(context)
             }
             is AuthenticationState.Unauthorized -> {
-                // Display login form
+               /** 
+                * Gets called when /authorize /authn responds with an “INCOMPLETE” state. 
+                * This means authentication flow is still not completed and a particular step is getting
+                * challenged for authentication.
+                */
                 LoginForm(it.authenticationFlow)
             }
             is AuthenticationState.Error -> {
-                // Display Error Toast
+               /** 
+                * Gets called when /authorize /authn responds with an “FAILED_INCOMPLETE” state 
+                * which responds at an error of a particular authentication step
+                */
             }
             is AuthenticationState.Authorized -> {
+               /** 
+                * Gets called when /authn responds with an “SUCCESS” state. This means 
+                * authentication flow is completed
+                */
                 onSuccessfulLogin()
             }
             is AuthenticationState.Loading -> {
@@ -343,6 +358,14 @@ authenticationProvider.authenticateWithGoogle(
 
 #### Using legacy one tap (Not recommended for newer applications)
 
+If you are using legacy one tap, make sure to add the Google web client ID you added in Asgardeo in the `AuthenticationCoreConfig` object used to initialized the `AsgardeoAuth` object
+
+```kotlin
+...
+googleWebClientId = <Google web client ID>
+...
+```
+
 ```kotlin
 val launcher: ActivityResultLauncher<Intent> = rememberLauncherForActivityResult(
     ActivityResultContracts.StartActivityForResult()
@@ -397,8 +420,8 @@ To perform redirect based authentication using a federated authenticator, first,
 ```gradle
 android.defaultConfig.manifestPlaceholders = [
      ...
-     'redirectUriHost': '<host>',
-     'redirectUriScheme': '<scheme>'
+     'callbackUriHost': '<host>',
+     'callbackUriScheme': '<scheme>'
      ...	
 ]
 ```
