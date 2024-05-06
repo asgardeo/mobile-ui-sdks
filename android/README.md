@@ -45,7 +45,7 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 
 ### Start the authentication process
 
-1. First, you need to initialize the SDK object, `AsgardeoAuth`, to authenticate users into your application. This can be done in a repository if you are using an MVVM pattern in your application.
+1. First, you need to initialize the SDK object, `AsgardeoAuth`, to authenticate users into your application. This can be done in a repository if you are using an [MVVM](https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/) pattern in your application.
 
     ```kotlin
     private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
@@ -71,8 +71,9 @@ val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticat
 
 - `AuthenticationState.Initial`: Initial state of the authentication process.
 - `AuthenticationState.Loading`: SDK is calling an API to handle the authentication and waiting for the result.
-- `AuthenticationState.Unauthenticated`: User is not authenticated. In this state, the list of available authenticators will be returned to you in a `AuthenticationFlowNotSuccess` object.
+- `AuthenticationState.Unauthenticated`: This means authentication flow is still not completed and a particular step is getting challenged for authentication. In this state, the list of available authenticators will be returned to you in a `AuthenticationFlowNotSuccess` object.
 - `AuthenticationState.Authenticated`: User is authenticated.
+- `AuthenticationState.Error`: An error occured during the authentcation flow.
 
 3. To start the authentication process, call `authenticationProvider.isLoggedInStateFlow`, this will check if there is an active session available and if available, the authentication state will emit `AuthenticationState.Authenticated`, else will emit `AuthenticationState.Initial`.
 
@@ -95,9 +96,9 @@ private fun handleAuthenticationState(state: AuthenticationState) {
                 // pre /authorize
                 authenticationProvider.initializeAuthentication(context)
             }
-            is AuthenticationState.Unauthorized -> {
+            is AuthenticationState.Unauthenticated -> {
                /** 
-                * Gets called when /authorize /authn responds with an “INCOMPLETE” state. 
+                * Gets called when /authorize and /authn responds with an “INCOMPLETE” state. 
                 * This means authentication flow is still not completed and a particular step is getting
                 * challenged for authentication.
                 */
@@ -105,11 +106,11 @@ private fun handleAuthenticationState(state: AuthenticationState) {
             }
             is AuthenticationState.Error -> {
                /** 
-                * Gets called when /authorize /authn responds with an “FAILED_INCOMPLETE” state 
+                * Gets called when /authorize and /authn responds with an “FAILED_INCOMPLETE” state 
                 * which responds at an error of a particular authentication step
                 */
             }
-            is AuthenticationState.Authorized -> {
+            is AuthenticationState.Authenticated -> {
                /** 
                 * Gets called when /authn responds with an “SUCCESS” state. This means 
                 * authentication flow is completed
@@ -124,6 +125,7 @@ private fun handleAuthenticationState(state: AuthenticationState) {
 }
 ```
 
+Assuming the authentication process is, basic as first factor and TOTP as second factor, you can develop the UI as follows using the `AuthenticatorTypes` provided by the SDK to populate the login form.
 ```kotlin
 /**
  * Assuming the authentication process is, basic as first factor and TOTP as second factor
@@ -145,7 +147,10 @@ internal fun LoginForm() {
         }
     }
 }
+```
 
+In the BasicAuth component you can call the authentication function provided by the `AuthenticationProvider` to authenticate with username and password. Similarly this can be done in other components as well (ex: `TotpAuth`)
+```kotlin
 @Composable
 internal fun BasicAuth(authenticator: Authenticator) {
     BasicAuthComponent(
@@ -345,6 +350,15 @@ authenticationProvider.authenticateWithTotp(
 ```
 
 ### Use Google authentication
+Before using the Google autenticator make sure to add the Google web client ID you added in Asgardeo in the `AuthenticationCoreConfig` object used to initialized the `AsgardeoAuth` object
+
+```kotlin
+...
+googleWebClientId = <Google web client ID>
+...
+```
+
+this will use to get the `idToken` of the Google web client that you add in Asgardeo.
 
 #### Using credential manager API (Supports API 34 and above)
 
@@ -356,14 +370,6 @@ authenticationProvider.authenticateWithGoogle(
 ```
 
 #### Using legacy one tap (Not recommended for newer applications)
-
-If you are using legacy one tap, make sure to add the Google web client ID you added in Asgardeo in the `AuthenticationCoreConfig` object used to initialized the `AsgardeoAuth` object
-
-```kotlin
-...
-googleWebClientId = <Google web client ID>
-...
-```
 
 ```kotlin
 val launcher: ActivityResultLauncher<Intent> = rememberLauncherForActivityResult(
