@@ -126,8 +126,7 @@ private fun handleAuthenticationState(state: AuthenticationState) {
 
 ```kotlin
 /**
- * Assuming the authentication process is MFA with first factor is basic
- * authenticator and second factor is TOTP
+ * Assuming the authentication process is, basic as first factor and TOTP as second factor
  */
 @Composable
 internal fun LoginForm() {
