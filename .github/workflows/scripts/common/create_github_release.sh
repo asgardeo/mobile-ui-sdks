@@ -22,8 +22,10 @@
 
 GH_TOKEN=$1 # Get the release tag and body
 RELEASE_TAG=$2
-RELEASE_BODY=$3
-GITHUB_REPOSITORY=$4
+GITHUB_REPOSITORY=$3
+MAIN_VERSION=$4
+CORE_VERSION=$5
+MASTER_BRANCH="main"
 
 # Go to root directory
 go_to_root_dir() {
@@ -45,14 +47,20 @@ git push origin ${RELEASE_TAG}
 
 echo "Tag pushed: ${RELEASE_TAG}"
 
+echo "Creating release for the repository: $GITHUB_REPOSITORY"
+
+local release_date=$(date +'%Y-%m-%d')
+
 # Create a new release
 CREATE_RELEASE_RESPONSE=$(curl --fail --location --request POST "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" \
         --header "Authorization: Bearer $GH_TOKEN" \
-        --header "Content-Type: application/json" \
+        --header "Accept: application/vnd.github+json" \
+        --header "X-GitHub-Api-Version: 2022-11-28" \
         --data '{
         "tag_name": "'"$RELEASE_TAG"'",
+        "target_commitish": "'"$MASTER_BRANCH"'",
         "name": "'"$RELEASE_NAME"'",
-        "body": "'"$RELEASE_BODY"'",
+        "body": "Released on: '"$release_date"'\n\nReleased Versions:\nandroid: '"$MAIN_VERSION"'\nandroid-core: '"$CORE_VERSION"'"
         }')
 
 RELEASE_ID=$(echo $CREATE_RELEASE_RESPONSE | jq -r '.id')

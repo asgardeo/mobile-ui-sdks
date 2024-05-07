@@ -179,13 +179,13 @@ create_github_release() {
   # Create the release body
   local release_body="Released on: $release_date\n\nReleased Versions:\nandroid: $MAIN_VERSION\nandroid-core: $CORE_VERSION"
 
-  bash ./create_github_release.sh $GH_TOKEN $release_tag $release_body $GITHUB_REPOSITORY
+  bash ./create_github_release.sh $GH_TOKEN $release_tag $GITHUB_REPOSITORY $MAIN_VERSION $CORE_VERSION
 }
 
 # Call the functions in sequence
 update_versions
 update_nexus_credentials
-release_android_sdks
+#release_android_sdks
 update_snapshot_version
 commit_and_push
 create_github_release
