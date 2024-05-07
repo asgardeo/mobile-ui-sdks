@@ -54,12 +54,13 @@ local release_date=$(date +'%Y-%m-%d')
 # Create a new release
 CREATE_RELEASE_RESPONSE=$(curl --fail --location --request POST "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" \
         --header "Authorization: Bearer $GH_TOKEN" \
-        --header "Content-Type: application/json" \
+        --header "Accept: application/vnd.github+json" \
+        --header "X-GitHub-Api-Version: 2022-11-28" \
         --data '{
         "tag_name": "'"$RELEASE_TAG"'",
         "target_commitish": "'"$MASTER_BRANCH"'",
-        "name": "Released on: '"$release_date"'\n\nReleased Versions:\nandroid: '"$MAIN_VERSION"'\nandroid-core: '"$CORE_VERSION"'",
-        "body": "'"$RELEASE_BODY"'",
+        "name": "'"$RELEASE_NAME"'",
+        "body": "Released on: '"$release_date"'\n\nReleased Versions:\nandroid: '"$MAIN_VERSION"'\nandroid-core: '"$CORE_VERSION"'"
         }')
 
 RELEASE_ID=$(echo $CREATE_RELEASE_RESPONSE | jq -r '.id')
