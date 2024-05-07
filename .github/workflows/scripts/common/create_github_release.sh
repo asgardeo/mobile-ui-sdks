@@ -25,7 +25,7 @@ RELEASE_TAG=$2
 GITHUB_REPOSITORY=$3
 MAIN_VERSION=$4
 CORE_VERSION=$5
-MASTER_BRANCH="main"
+MASTER_BRANCH="release-test1"
 
 # Go to root directory
 go_to_root_dir() {
