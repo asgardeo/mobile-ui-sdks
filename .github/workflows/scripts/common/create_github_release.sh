@@ -45,6 +45,7 @@ git push origin ${RELEASE_TAG}
 
 echo "Tag pushed: ${RELEASE_TAG}"
 
+echo "Creating release with the body: $RELEASE_BODY"
 echo "Creating release for the repository: $GITHUB_REPOSITORY"
 
 # Create a new release
