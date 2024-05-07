@@ -23,7 +23,7 @@
 GITHUB_RUN_NUMBER=$1
 RELEASE_BRANCH=$2
 RELEASE_COMMIT_MESSAGE=$3
-MASTER_BRANCH="release-test1"
+MASTER_BRANCH="main"
 
 # Go to root directory
 go_to_root_dir() {
@@ -54,30 +54,30 @@ merge_to_master() {
     # Pull the latest changes from the master branch
     git pull origin "$MASTER_BRANCH"
 
-    # # Merge release branch into master with a merge commit
-    # git merge --no-ff "$RELEASE_BRANCH" -m "[Mobile-SDKs Release] [GitHub Action #$GITHUB_RUN_NUMBER] [Release] [skip ci] Merge release branch $RELEASE_BRANCH"
-
-    # # Push the merge commit to master
-    # git push origin "$MASTER_BRANCH"
-
-    # echo "Merged $RELEASE_BRANCH into $MASTER_BRANCH"
-
-    # Create a new branch for the pull request
-    PR_BRANCH="pr-merge-$RELEASE_BRANCH"
-    git checkout -b "$PR_BRANCH"
-
-    # Merge the release branch into the new branch
+    # Merge release branch into master with a merge commit
     git merge --no-ff "$RELEASE_BRANCH" -m "[Mobile-SDKs Release] [GitHub Action #$GITHUB_RUN_NUMBER] [Release] [skip ci] Merge release branch $RELEASE_BRANCH"
 
-    # Push the new branch to the remote repository
-    git push origin "$PR_BRANCH"
+    # Push the merge commit to master
+    git push origin "$MASTER_BRANCH"
 
-    # Create a pull request using the GitHub API
-    PR_TITLE="[Mobile-SDKs Release] [Release] Merge $RELEASE_BRANCH into $MASTER_BRANCH"
-    PR_BODY="This pull request merges the $RELEASE_BRANCH branch into the $MASTER_BRANCH branch."
-    PR_URL=$(gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base "$MASTER_BRANCH" --head "$PR_BRANCH")
+    echo "Merged $RELEASE_BRANCH into $MASTER_BRANCH"
 
-    echo "Pull request created: $PR_URL"
+    # # Create a new branch for the pull request
+    # PR_BRANCH="pr-merge-$RELEASE_BRANCH"
+    # git checkout -b "$PR_BRANCH"
+
+    # # Merge the release branch into the new branch
+    # git merge --no-ff "$RELEASE_BRANCH" -m "[Mobile-SDKs Release] [GitHub Action #$GITHUB_RUN_NUMBER] [Release] [skip ci] Merge release branch $RELEASE_BRANCH"
+
+    # # Push the new branch to the remote repository
+    # git push origin "$PR_BRANCH"
+
+    # # Create a pull request using the GitHub API
+    # PR_TITLE="[Mobile-SDKs Release] [Release] Merge $RELEASE_BRANCH into $MASTER_BRANCH"
+    # PR_BODY="This pull request merges the $RELEASE_BRANCH branch into the $MASTER_BRANCH branch."
+    # PR_URL=$(gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base "$MASTER_BRANCH" --head "$PR_BRANCH")
+
+    # echo "Pull request created: $PR_URL"
 }
 
 delete_release_branch() {
