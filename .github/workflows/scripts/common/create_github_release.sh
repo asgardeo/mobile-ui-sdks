@@ -22,8 +22,8 @@
 
 GH_TOKEN=$1 # Get the release tag and body
 RELEASE_TAG=$2
-RELEASE_BODY=$3
-GITHUB_REPOSITORY=$4
+GITHUB_REPOSITORY=$3
+RELEASE_BODY=$4
 
 # Go to root directory
 go_to_root_dir() {
