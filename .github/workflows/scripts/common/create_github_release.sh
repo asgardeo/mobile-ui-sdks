@@ -23,7 +23,9 @@
 GH_TOKEN=$1 # Get the release tag and body
 RELEASE_TAG=$2
 GITHUB_REPOSITORY=$3
-RELEASE_BODY=$4
+MAIN_VERSION=$4
+CORE_VERSION=$5
+MASTER_BRANCH="release-test1"
 
 # Go to root directory
 go_to_root_dir() {
@@ -45,8 +47,9 @@ git push origin ${RELEASE_TAG}
 
 echo "Tag pushed: ${RELEASE_TAG}"
 
-echo "Creating release with the body: $RELEASE_BODY"
 echo "Creating release for the repository: $GITHUB_REPOSITORY"
+
+local release_date=$(date +'%Y-%m-%d')
 
 # Create a new release
 CREATE_RELEASE_RESPONSE=$(curl --fail --location --request POST "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" \
@@ -54,7 +57,8 @@ CREATE_RELEASE_RESPONSE=$(curl --fail --location --request POST "https://api.git
         --header "Content-Type: application/json" \
         --data '{
         "tag_name": "'"$RELEASE_TAG"'",
-        "name": "'"$RELEASE_NAME"'",
+        "target_commitish": "'"$MASTER_BRANCH"'",
+        "name": "Released on: '"$release_date"'\n\nReleased Versions:\nandroid: '"$MAIN_VERSION"'\nandroid-core: '"$CORE_VERSION"'",
         "body": "'"$RELEASE_BODY"'",
         }')
 
