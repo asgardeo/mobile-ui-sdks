@@ -59,8 +59,8 @@ jobs:
 
       - name: 🦾 Set up Git Bot
         run: |
-          git config user.name ${{ env.BOT_USERNAME }}}
-          git config user.email ${{ env.BOT_EMAIL }}}
+          git config user.name ${{ env.BOT_USERNAME }}
+          git config user.email ${{ env.BOT_EMAIL }}
 
       - name: ☕️ Set up Adopt JDK 17
         if: ${{ github.event.inputs.sdkType == 'android'}}
