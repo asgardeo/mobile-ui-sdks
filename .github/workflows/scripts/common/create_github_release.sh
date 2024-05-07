@@ -45,6 +45,8 @@ git push origin ${RELEASE_TAG}
 
 echo "Tag pushed: ${RELEASE_TAG}"
 
+echo "Creating release for the repository: $GITHUB_REPOSITORY"
+
 # Create a new release
 CREATE_RELEASE_RESPONSE=$(curl --fail --location --request POST "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" \
         --header "Authorization: Bearer $GH_TOKEN" \
