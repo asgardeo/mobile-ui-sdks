@@ -19,10 +19,12 @@
 package io.asgardeo.android.core.provider.providers.token
 
 import android.content.Context
+import io.asgardeo.android.core.provider.providers.token.impl.TokenProviderImpl
 
 /**
  * The [TokenProvider] interface provides the functionality to get the tokens, validate the tokens,
- * refresh the tokens, and clear the tokens.
+ * refresh the tokens, and clear the tokens. This interface is used in [TokenProviderImpl]
+ *
  */
 interface TokenProvider {
     /**

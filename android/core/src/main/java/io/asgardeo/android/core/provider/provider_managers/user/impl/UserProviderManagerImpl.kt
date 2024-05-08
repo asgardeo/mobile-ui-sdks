@@ -27,8 +27,8 @@ import java.lang.ref.WeakReference
 /**
  * UserProviderManagerImpl is responsible for managing the actions related to the user details.
  *
- * @property authenticationCore [AuthenticationCoreDef] instance to get the user details
- * @property tokenProviderManager [TokenProviderManager] instance to get the access token
+ * @param authenticationCore [AuthenticationCoreDef] instance to get the user details
+ * @param tokenProviderManager [TokenProviderManager] instance to get the access token
  */
 class UserProviderManagerImpl private constructor(
     private val authenticationCore: AuthenticationCoreDef,

@@ -21,7 +21,7 @@ package io.asgardeo.android.core.models.exceptions
 /**
  * Exception to be thrown to the exception related to the Authenticator
  *
- * @property message Message related to the exception
+ * @param message Message related to the exception
  */
 class AuthenticationCoreException(
     override val message: String?

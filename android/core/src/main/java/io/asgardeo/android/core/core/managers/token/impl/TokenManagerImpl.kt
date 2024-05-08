@@ -32,7 +32,7 @@ import io.asgardeo.android.core.util.JsonUtil
 /**
  * Use to manage the tokens.
  *
- * @property context The [Context] instance.
+ * @param context The [Context] instance.
  */
 internal class TokenManagerImpl internal constructor(private val context: Context) : TokenManager {
     // Get the token data store

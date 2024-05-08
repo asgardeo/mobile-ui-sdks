@@ -41,8 +41,8 @@ import java.lang.ref.WeakReference
  * Implementation of the [AuthenticateHandlerProviderManager] interface.
  * This provider manager is responsible for handling the common authentication processes.
  *
- * @property authenticationCore The authentication core
- * @property authenticationStateProviderManager The authentication state provider manager
+ * @param authenticationCore The authentication core
+ * @param authenticationStateProviderManager The authentication state provider manager
  */
 class AuthenticateHandlerProviderManagerImpl private constructor(
     private val authenticationCore: AuthenticationCoreDef,

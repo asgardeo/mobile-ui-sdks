@@ -23,9 +23,9 @@ import io.asgardeo.android.core.models.autheniticator.Authenticator
 /**
  * Exception to be thrown to the exception related to an [Authenticator]
  *
- * @property message Message related to the exception
- * @property authenticator Authenticator type
- * @property code Code of the exception
+ * @param message Message related to the exception
+ * @param authenticator Authenticator type
+ * @param code Code of the exception
  */
 class AuthenticatorException(
     override val message: String?,

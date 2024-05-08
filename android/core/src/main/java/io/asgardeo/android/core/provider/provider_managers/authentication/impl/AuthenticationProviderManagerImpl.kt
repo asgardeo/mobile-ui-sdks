@@ -49,10 +49,10 @@ import java.lang.ref.WeakReference
  *
  * emit: [AuthenticationState.Error] - An error occurred during the authentication process
  *
- * @property authenticationCore The [AuthenticationCoreDef] instance
- * @property nativeAuthenticationHandlerCore The [NativeAuthenticationHandlerCoreDef] instance
- * @property authenticationStateProviderManager The [AuthenticationStateProviderManager] instance
- * @property authenticateHandlerProviderManager The [AuthenticateHandlerProviderManager] instance
+ * @param authenticationCore The [AuthenticationCoreDef] instance
+ * @param nativeAuthenticationHandlerCore The [NativeAuthenticationHandlerCoreDef] instance
+ * @param authenticationStateProviderManager The [AuthenticationStateProviderManager] instance
+ * @param authenticateHandlerProviderManager The [AuthenticateHandlerProviderManager] instance
  */
 internal class AuthenticationProviderManagerImpl private constructor(
     private val authenticationCore: AuthenticationCoreDef,

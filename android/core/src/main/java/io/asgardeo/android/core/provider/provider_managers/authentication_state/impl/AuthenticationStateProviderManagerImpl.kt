@@ -44,7 +44,7 @@ import java.lang.ref.WeakReference
  *
  * emit: [AuthenticationState.Error] - An error occurred during the authentication process
  *
- * @property authenticationCore The [AuthenticationCoreDef] instance
+ * @param authenticationCore The [AuthenticationCoreDef] instance
  */
 internal class AuthenticationStateProviderManagerImpl private constructor(
     private val authenticationCore: AuthenticationCoreDef,

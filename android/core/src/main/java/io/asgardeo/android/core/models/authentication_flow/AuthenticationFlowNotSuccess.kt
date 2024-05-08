@@ -27,11 +27,11 @@ import io.asgardeo.android.core.util.JsonUtil
 /**
  * Authentication flow data class. Which is used to hold the data of an authentication flow.
  *
- * @property flowId Id of the authentication flow
- * @property flowStatus Status of the authentication flow
- * @property flowType Type of the authentication flow
- * @property nextStep Next step of the authentication flow
- * @property links Links of the authentication flow
+ * @param flowId Id of the authentication flow
+ * @param flowStatus Status of the authentication flow
+ * @param flowType Type of the authentication flow
+ * @param nextStep Next step of the authentication flow
+ * @param links Links of the authentication flow
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AuthenticationFlowNotSuccess(
@@ -44,8 +44,8 @@ data class AuthenticationFlowNotSuccess(
     /**
      * Authorize flow next step data class.
      *
-     * @property stepType Type of the next step
-     * @property authenticators List of authenticators of the next step
+     * @param stepType Type of the next step
+     * @param authenticators List of authenticators of the next step
      */
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class AuthorizeFlowNotSuccessNextStep(

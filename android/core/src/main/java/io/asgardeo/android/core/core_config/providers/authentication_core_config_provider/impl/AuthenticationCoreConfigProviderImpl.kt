@@ -27,7 +27,7 @@ import java.lang.ref.WeakReference
 /**
  * Implementation of [AuthenticationCoreConfigProvider]
  *
- * @property authenticationCoreConfigManager Manager to update the [AuthenticationCoreConfig] based on the discovery response
+ * @param authenticationCoreConfigManager Manager to update the [AuthenticationCoreConfig] based on the discovery response
  */
 class AuthenticationCoreConfigProviderImpl private constructor(
     private val authenticationCoreConfig: AuthenticationCoreConfig,

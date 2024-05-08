@@ -25,11 +25,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
 import io.asgardeo.android.core.models.autheniticator.Authenticator
 import io.asgardeo.android.core.models.state.AuthenticationState
+import io.asgardeo.android.core.provider.providers.authentication.impl.AuthenticationProviderImpl
 import kotlinx.coroutines.flow.SharedFlow
 
 /**
  * Interface for the authentication provider to be implemented by the application.
- * This has the methods to handle the authentication process.
+ * This has the methods to handle the authentication process. This is used by
+ * [AuthenticationProviderImpl]
  */
 interface AuthenticationProvider {
     /**

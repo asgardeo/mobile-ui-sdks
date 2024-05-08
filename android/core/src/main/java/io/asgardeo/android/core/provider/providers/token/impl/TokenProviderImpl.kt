@@ -27,7 +27,7 @@ import java.lang.ref.WeakReference
  * The [TokenProviderImpl] class provides the functionality to get the tokens, validate the tokens,
  * refresh the tokens, and clear the tokens.
  *
- * @property tokenProviderManager The [TokenProviderManager] instance
+ * @param tokenProviderManager The [TokenProviderManager] instance
  */
 internal class TokenProviderImpl private constructor(
     private val tokenProviderManager: TokenProviderManager

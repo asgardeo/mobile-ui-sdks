@@ -39,8 +39,8 @@ import kotlin.coroutines.suspendCoroutine
 /**
  * Implementation of [DiscoveryManager]
  *
- * @property client OkHttpClient instance to handle network calls
- * @property discoveryManagerImplRequestBuilder Request builder class to build the requests
+ * @param client OkHttpClient instance to handle network calls
+ * @param discoveryManagerImplRequestBuilder Request builder class to build the requests
  */
 class DiscoveryManagerImpl private constructor(
     private val client: OkHttpClient,
