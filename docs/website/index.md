@@ -1,5 +1,4 @@
 ---
-
 # Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
 #
 # WSO2 LLC. licenses this file to you under the Apache License,
@@ -29,12 +28,14 @@ hero:
 
 features:
   - icon:
-      src: /public/android.svg
+      light: /public/android-light.svg
+      dark: /public/android-dark.svg
     title: Android SDK
     details: Android SDK for Asgardeo.
     link: /android/getting-started.html
   - icon:
-      src: /public/ios.svg
+      light: /public/ios-light.svg
+      dark: /public/ios-dark.svg
       width: 50%
     title: iOS SDK
     details: iOS SDK for Asgardeo.

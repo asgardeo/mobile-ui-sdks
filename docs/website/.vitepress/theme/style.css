@@ -113,12 +113,8 @@
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(77.74deg,#eb4f63 11.16%,#fa7b3f 99.55%);
 
-  --vp-home-hero-image-background-image: transparent;
+  --vp-home-hero-image-background-image: -webkit-linear-gradient(77.74deg,#eb4f6497 11.16%,#fa7a3f97 99.55%);
   --vp-home-hero-image-filter: blur(44px);
-}
-
-html.dark {
-    --vp-home-hero-image-background-image: -webkit-linear-gradient(77.74deg,#eb4f63 11.16%,#fa7b3f 99.55%);
 }
 
 @media (prefers-color-scheme: light) {

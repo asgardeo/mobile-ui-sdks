@@ -18,18 +18,16 @@
 
 import { defineConfig } from "vitepress"
 
-// https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Mobile SDKs for Asgardeo",
+  title: "Mobile SDKs",
   description: "Welcome to our comprehensive documentation site for Mobile SDKs for Asgardeo! Here, you'll find everything you need to seamlessly integrate Asgardeo's authentication and identity management solutions into your mobile applications.",
   head: [["link", { rel: "icon", href: "/public/asgardeo-light.svg" }]],
   themeConfig: {
-    siteTitle: "Mobile SDKs for Asgardeo",
+    siteTitle: "Mobile SDKs",
     logo: {
         light: "/public/asgardeo-light.svg",
         dark: "/public/asgardeo-dark.svg",
     },
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Home", link: "/" },
       { text: "Android SDK", link: "/android/getting-started.html" }
@@ -40,12 +38,14 @@ export default defineConfig({
         text: "Android SDK",
         items: [
           { text: "Getting Started", link: "/android/getting-started" },
-          { text: "Use Authenticators", link: "/android/use-authenticators" }
+          { text: "Use Authenticators", link: "/android/use-authenticators" },
+          { text: "APIs", link: "/android/apis" }
         ]
       }
     ],
 
     socialLinks: [
+      { icon: "discord", link: "https://discord.com/invite/wso2" },
       { icon: "github", link: "https://github.com/asgardeo/mobile-ui-sdks" }
     ]
   }
