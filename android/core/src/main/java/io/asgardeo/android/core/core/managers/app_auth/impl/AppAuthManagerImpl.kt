@@ -44,10 +44,10 @@ import kotlin.coroutines.suspendCoroutine
 /**
  * Use to manage the AppAuth SDK.
  *
- * @property customTrustClient The [OkHttpClient] instance.
- * @property clientId The client ID.
- * @property redirectUri The redirect URI.
- * @property serviceConfig The [AuthorizationServiceConfiguration] instance.
+ * @param customTrustClient The [OkHttpClient] instance.
+ * @param clientId The client ID.
+ * @param redirectUri The redirect URI.
+ * @param serviceConfig The [AuthorizationServiceConfiguration] instance.
  */
 internal class AppAuthManagerImpl private constructor(
     private val customTrustClient: OkHttpClient,
@@ -64,10 +64,10 @@ internal class AppAuthManagerImpl private constructor(
         /**
          * Initialize the [AppAuthManagerImpl] class.
          *
-         * @property httpBuilderClient The [OkHttpClient] instance.
-         * @property clientId The client ID.
-         * @property redirectUri The redirect URI.
-         * @property serviceConfig The [AuthorizationServiceConfiguration] instance.
+         * @param httpBuilderClient The [OkHttpClient] instance.
+         * @param clientId The client ID.
+         * @param redirectUri The redirect URI.
+         * @param serviceConfig The [AuthorizationServiceConfiguration] instance.
          *
          * @return The [AppAuthManagerImpl] instance.
          */

@@ -42,7 +42,7 @@ import java.lang.ref.WeakReference
  * This manager is responsible for handling the Passkey Authentication using the
  * Credential Manager API
  *
- * @property passkeyAuthenticationRequestHandlerManagerImplRequestBuilder [PasskeyAuthenticationHandlerManagerImplRequestBuilder] to build the requests
+ * @param passkeyAuthenticationRequestHandlerManagerImplRequestBuilder [PasskeyAuthenticationHandlerManagerImplRequestBuilder] to build the requests
  */
 class PasskeyAuthenticationHandlerManagerImpl private constructor(
     private val passkeyAuthenticationRequestHandlerManagerImplRequestBuilder

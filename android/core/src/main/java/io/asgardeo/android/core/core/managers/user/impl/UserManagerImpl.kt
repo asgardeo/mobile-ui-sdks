@@ -41,9 +41,9 @@ import kotlin.coroutines.suspendCoroutine
  * UserManagerImpl class is the implementation of the [UserManager] interface.
  * Which is used to handle the user details retrieval from the Identity Server.
  *
- * @property authenticationCoreConfig Configuration of the Identity Server [AuthenticationCoreConfig]
- * @property client OkHttpClient instance to handle network calls [OkHttpClient]
- * @property userManagerImplRequestBuilder Request builder class to build the requests [UserManagerImplRequestBuilder]
+ * @param authenticationCoreConfig Configuration of the Identity Server [AuthenticationCoreConfig]
+ * @param client OkHttpClient instance to handle network calls [OkHttpClient]
+ * @param userManagerImplRequestBuilder Request builder class to build the requests [UserManagerImplRequestBuilder]
  */
 class UserManagerImpl private constructor(
     private val authenticationCoreConfig: AuthenticationCoreConfig,

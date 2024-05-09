@@ -42,10 +42,10 @@ import kotlin.coroutines.suspendCoroutine
  * Authenticator manager implementation class
  * This class is responsible for handling the authenticator related operations.
  *
- * @property client The [OkHttpClient] instance.
- * @property authenticatorFactory The [AuthenticatorFactory] instance.
- * @property authenticatorManagerImplRequestBuilder The [AuthenticatorManagerImplRequestBuilder] instance.
- * @property authnUrl The authentication endpoint URL.
+ * @param client The [OkHttpClient] instance.
+ * @param authenticatorFactory The [AuthenticatorFactory] instance.
+ * @param authenticatorManagerImplRequestBuilder The [AuthenticatorManagerImplRequestBuilder] instance.
+ * @param authnUrl The authentication endpoint URL.
  */
 internal class AuthenticatorManagerImpl private constructor(
     private val client: OkHttpClient,
@@ -63,10 +63,10 @@ internal class AuthenticatorManagerImpl private constructor(
         /**
          * Initialize the [AuthenticatorManagerImpl] class.
          *
-         * @property client The [OkHttpClient] instance.
-         * @property authenticatorFactory The [AuthenticatorFactory] instance.
-         * @property authenticatorManagerImplRequestBuilder The [AuthenticatorManagerImplRequestBuilder] instance.
-         * @property authnUrl The authentication endpoint URL.
+         * @param client The [OkHttpClient] instance.
+         * @param authenticatorFactory The [AuthenticatorFactory] instance.
+         * @param authenticatorManagerImplRequestBuilder The [AuthenticatorManagerImplRequestBuilder] instance.
+         * @param authnUrl The authentication endpoint URL.
          *
          * @return The [AppAuthManagerImpl] instance.
          */

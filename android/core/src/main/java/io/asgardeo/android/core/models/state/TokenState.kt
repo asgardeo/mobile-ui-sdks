@@ -23,7 +23,7 @@ import net.openid.appauth.AuthState
 /**
  * Token state model class. This class is used to hold the [AuthState] instance.
  *
- * @property appAuthState The [AuthState] instance.
+ * @param appAuthState The [AuthState] instance.
  */
 class TokenState(private var appAuthState: AuthState) {
     companion object {

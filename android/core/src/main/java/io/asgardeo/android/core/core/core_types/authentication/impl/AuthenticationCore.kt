@@ -43,7 +43,7 @@ import java.lang.ref.WeakReference
 /**
  * Authentication core class which has the core functionality of the Authenticator SDK.
  *
- * @property authenticationCoreConfigProvider Provider to get the updated [AuthenticationCoreConfig] based on the discovery response. [AuthenticationCoreConfigProvider]
+ * @param authenticationCoreConfigProvider Provider to get the updated [AuthenticationCoreConfig] based on the discovery response. [AuthenticationCoreConfigProvider]
  */
 class AuthenticationCore private constructor(
     private val authenticationCoreConfigProvider: AuthenticationCoreConfigProvider

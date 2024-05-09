@@ -45,7 +45,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
 /**
  * [TokenDataStoreImpl] is the implementation of the [TokenDataStore]
  *
- * @property context The [Context] instance.
+ * @param context The [Context] instance.
  */
 internal class TokenDataStoreImpl(private val context: Context) : TokenDataStore {
     companion object {

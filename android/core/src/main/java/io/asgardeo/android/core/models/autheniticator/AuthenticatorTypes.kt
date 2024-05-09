@@ -21,7 +21,7 @@ package io.asgardeo.android.core.models.autheniticator
 /**
  * Enum class for authenticators
  *
- * @property authenticatorType Authenticator type value
+ * @param authenticatorType Authenticator type value
  */
 enum class AuthenticatorTypes(val authenticatorType: String) {
     /**

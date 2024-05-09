@@ -23,8 +23,8 @@ import io.asgardeo.android.core.core.managers.app_auth.AppAuthManager
 /**
  * Exception to be thrown to the exception related to the [AppAuthManager]
  *
- * @property message Message related to the exception
- * @property exceptionMessage Message related to the exception
+ * @param message Message related to the exception
+ * @param exceptionMessage Message related to the exception
  *
  * TODO: Make a mapper function to map the exceptions to the error types, and these need to be SEALED classes
  */

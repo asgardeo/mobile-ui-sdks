@@ -44,7 +44,7 @@ internal object AuthenticationCoreContainer {
     /**
      * Returns an instance of the [AuthnManager] object, based on the given parameters.
      *
-     * @property authenticationCoreConfig The [AuthenticationCoreConfig] instance.
+     * @param authenticationCoreConfig The [AuthenticationCoreConfig] instance.
      *
      * @return [AuthnManager] instance.
      */
@@ -62,7 +62,7 @@ internal object AuthenticationCoreContainer {
     /**
      * Returns an instance of the [AppAuthManager] object, based on the given parameters.
      *
-     * @property authenticationCoreConfig The [AuthenticationCoreConfig] instance.
+     * @param authenticationCoreConfig The [AuthenticationCoreConfig] instance.
      *
      * @return [AppAuthManager] instance.
      */
@@ -83,7 +83,7 @@ internal object AuthenticationCoreContainer {
     /**
      * Returns an instance of the [AuthenticatorManager] object, based on the given parameters.
      *
-     * @property authenticationCoreConfig The [AuthenticationCoreConfig] instance.
+     * @param authenticationCoreConfig The [AuthenticationCoreConfig] instance.
      *
      * @return [AuthenticatorManager] instance.
      */
@@ -110,7 +110,7 @@ internal object AuthenticationCoreContainer {
     /**
      * Returns an instance of the [TokenManager] object, based on the given parameters.
      *
-     * @property context The [Context] instance.
+     * @param context The [Context] instance.
      *
      * @return [TokenManager] instance.
      */
@@ -120,7 +120,7 @@ internal object AuthenticationCoreContainer {
     /**
      * Returns an instance of the [UserManager] object, based on the given parameters.
      *
-     * @property authenticationCoreConfig The [AuthenticationCoreConfig] instance.
+     * @param authenticationCoreConfig The [AuthenticationCoreConfig] instance.
      *
      * @return [UserManager] instance.
      */

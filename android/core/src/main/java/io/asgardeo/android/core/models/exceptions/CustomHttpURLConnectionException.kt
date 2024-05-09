@@ -23,7 +23,7 @@ import io.asgardeo.android.core.models.http_client.CustomHttpURLConnection
 /**
  * Exception to be thrown to the exception related to the [CustomHttpURLConnection]
  *
- * @property message Message related to the exception
+ * @param message Message related to the exception
  */
 class CustomHttpURLConnectionException(
     override val message: String?

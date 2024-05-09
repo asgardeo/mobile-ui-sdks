@@ -23,7 +23,7 @@ import io.asgardeo.android.core.core.managers.authn.AuthnManager
 /**
  * Exception to be thrown to the exception related to [AuthnManager]
  *
- * @property message Message related to the exception
+ * @param message Message related to the exception
  */
 class AuthnManagerException (
     override val message: String?

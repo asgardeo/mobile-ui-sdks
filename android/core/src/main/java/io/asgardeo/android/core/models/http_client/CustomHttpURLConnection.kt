@@ -35,9 +35,9 @@ import javax.net.ssl.X509TrustManager
 /**
  * Use to create the [CustomHttpURLConnection] for the token call from `appauth-android`
  *
- * @property uri The URI of the endpoint.
- * @property trustManager The [X509TrustManager] instance.
- * @property sslSocketFactory The [SSLSocketFactory] instance.
+ * @param uri The URI of the endpoint.
+ * @param trustManager The [X509TrustManager] instance.
+ * @param sslSocketFactory The [SSLSocketFactory] instance.
  *
  * Initializing the [CustomHttpURLConnection] class can throw the following exceptions:
  *
