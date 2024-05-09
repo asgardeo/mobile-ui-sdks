@@ -22,6 +22,8 @@
 
 name: ☄️ Deploy Documentation
 
+on: workflow_dispatch
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -58,7 +60,6 @@ jobs:
       - name: 🟢 Setup node
         id: setup-node
         uses: actions/setup-node@v2
-        working-directory: ${{ env.DOC_DIR }}
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -80,11 +81,9 @@ jobs:
       - name: 🌩 Upload artifact
         id: upload-artifact
         uses: actions/upload-pages-artifact@v3
-        working-directory: ${{ env.DOC_DIR }}
         with:
-          path: .vitepress/dist
+          path: docs/website/.vitepress/dist
 
       - name: 🔥 Deploy to GitHub Pages
         id: deploy-gh-pages
         uses: actions/deploy-pages@v4
-        
