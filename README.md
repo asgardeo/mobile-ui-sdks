@@ -17,11 +17,11 @@
 -->
 
 <h1 align="center" style="color: #343a40;margin: 20px 0;">
-  <p align="center"><span style="color: #47EBD8">Mobile SDKs</span> for <a href="https://wso2.com" style="color:#ff6923">Asgardeo</a></p>
+  <p align="center">Mobile SDKs for <a href="https://wso2.com" style="color:#ff6923">Asgardeo</a></p>
 </h1>
 
 <div align="center">
-  <a href="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/release.yml"><img src="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/release.yml" alt="🚀 Release"></a>
+  <a href="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/release.yml"><img src="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/release.yml/badge.svg" alt="🚀 Release"></a>
   <a href="https://stackoverflow.com/questions/tagged/wso2is"><img src="https://img.shields.io/badge/Ask%20for%20help%20on-Stackoverflow-orange" alt="Stackoverflow"></a>
   <a href="https://discord.gg/wso2"><img src="https://img.shields.io/badge/Join%20us%20on-Discord-%23e01563.svg" alt="Discord"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
