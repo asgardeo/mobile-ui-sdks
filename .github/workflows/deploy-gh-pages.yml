@@ -84,7 +84,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         working-directory: ${{ env.DOC_DIR }}
         with:
-          path: .vitepress/dist
+          path: website/.vitepress/dist
 
       - name: 🔥 Deploy to GitHub Pages
         id: deploy-gh-pages
