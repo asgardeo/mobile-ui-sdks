@@ -46,7 +46,7 @@ import kotlin.coroutines.suspendCoroutine
  * This manager is responsible for handling the Google Native Authentication using the
  * legacy one tap method
  *
- * @property authenticationCoreConfig [AuthenticationCoreConfig] to get the Google Web Client ID
+ * @param authenticationCoreConfig [AuthenticationCoreConfig] to get the Google Web Client ID
  */
 class GoogleNativeLegacyAuthenticationHandlerManagerImpl private constructor(
     private val authenticationCoreConfig: AuthenticationCoreConfig,

@@ -40,8 +40,8 @@ import java.lang.ref.WeakReference
  * This manager is responsible for handling the Google Native Authentication using the
  * Credential Manager API
  *
- * @property authenticationCoreConfig [AuthenticationCoreConfig] to get the Google Web Client ID
- * @property googleNativeAuthenticationHandlerManagerImplRequestBuilder [GoogleNativeAuthenticationHandlerManagerImplRequestBuilder] to build the requests
+ * @param authenticationCoreConfig [AuthenticationCoreConfig] to get the Google Web Client ID
+ * @param googleNativeAuthenticationHandlerManagerImplRequestBuilder [GoogleNativeAuthenticationHandlerManagerImplRequestBuilder] to build the requests
  */
 class GoogleNativeAuthenticationHandlerManagerImpl private constructor(
     private val authenticationCoreConfig: AuthenticationCoreConfig,

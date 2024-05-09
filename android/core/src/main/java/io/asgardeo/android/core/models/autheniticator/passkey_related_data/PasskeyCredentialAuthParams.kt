@@ -26,8 +26,8 @@ import io.asgardeo.android.core.util.JsonUtil
 /**
  * Data class to hold the passkey credential authentication parameters
  *
- * @property requestId The request id
- * @property credential The passkey credential
+ * @param requestId The request id
+ * @param credential The passkey credential
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PasskeyCredentialAuthParams(
@@ -38,12 +38,12 @@ data class PasskeyCredentialAuthParams(
     /**
      * Passkey credential data class
      *
-     * @property rawId The raw id
-     * @property authenticatorAttachment The authenticator attachment
-     * @property id The id
-     * @property response The response
-     * @property clientExtensionResults The client extension results
-     * @property type The type
+     * @param rawId The raw id
+     * @param authenticatorAttachment The authenticator attachment
+     * @param id The id
+     * @param response The response
+     * @param clientExtensionResults The client extension results
+     * @param type The type
      */
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class PasskeyCredential(

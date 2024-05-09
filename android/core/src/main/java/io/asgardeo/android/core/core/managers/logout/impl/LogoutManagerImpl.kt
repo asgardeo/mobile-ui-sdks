@@ -39,9 +39,9 @@ import kotlin.coroutines.suspendCoroutine
  * Implementation of [LogoutManager]
  * This manager is responsible for handling the logout of the user from the application
  *
- * @property authenticationCoreConfig [AuthenticationCoreConfig] to get the logout URL
- * @property client [OkHttpClient] to make the logout request
- * @property logoutRequestBuilder [LogoutManagerImplRequestBuilder] to build the logout request
+ * @param authenticationCoreConfig [AuthenticationCoreConfig] to get the logout URL
+ * @param client [OkHttpClient] to make the logout request
+ * @param logoutRequestBuilder [LogoutManagerImplRequestBuilder] to build the logout request
  */
 class LogoutManagerImpl private constructor(
     private val authenticationCoreConfig: AuthenticationCoreConfig,

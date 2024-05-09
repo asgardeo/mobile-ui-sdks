@@ -24,11 +24,11 @@ import io.asgardeo.android.core.util.JsonUtil
 /**
  * Data class to hold the passkey challenge data
  *
- * @property challenge The challenge string
- * @property allowCredentials The list of allowed credentials
- * @property timeout The timeout value
- * @property userVerification The user verification method
- * @property rpId The rpId value
+ * @param challenge The challenge string
+ * @param allowCredentials The list of allowed credentials
+ * @param timeout The timeout value
+ * @param userVerification The user verification method
+ * @param rpId The rpId value
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PasskeyChallenge(

@@ -21,7 +21,7 @@ package io.asgardeo.android.core.models.prompt_type
 /**
  * Enum class for prompt types
  *
- * @property promptType Prompt type value
+ * @param promptType Prompt type value
  */
 enum class PromptTypes(val promptType: String) {
     /**

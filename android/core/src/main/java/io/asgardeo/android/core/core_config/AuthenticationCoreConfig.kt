@@ -26,20 +26,20 @@ import okhttp3.OkHttpClient
 /**
  * Holds the configuration related to the [AuthenticationCoreDef].
  *
- * @property discoveryEndpoint Discovery endpoint of Asgardeo.
- * @property authorizeEndpoint Authorization endpoint of Asgardeo - optional
- * @property tokenEndpoint Token endpoint of Asgardeo - optional
- * @property userInfoEndpoint User info endpoint of Asgardeo - optional
- * @property logoutEndpoint Logout endpoint of Asgardeo - optional
- * @property authnEndpoint Authentication endpoint of Asgardeo - optional
- * @property redirectUri Redirect uri of the application
- * @property clientId Client id of the application
- * @property scope Scope of the application (ex: openid profile email)
- * @property integrityToken Client attestation integrity token - optional
- * @property googleWebClientId Google web client id - optional
+ * @param discoveryEndpoint Discovery endpoint of Asgardeo.
+ * @param authorizeEndpoint Authorization endpoint of Asgardeo - optional
+ * @param tokenEndpoint Token endpoint of Asgardeo - optional
+ * @param userInfoEndpoint User info endpoint of Asgardeo - optional
+ * @param logoutEndpoint Logout endpoint of Asgardeo - optional
+ * @param authnEndpoint Authentication endpoint of Asgardeo - optional
+ * @param redirectUri Redirect uri of the application
+ * @param clientId Client id of the application
+ * @param scope Scope of the application (ex: openid profile email)
+ * @param integrityToken Client attestation integrity token - optional
+ * @param googleWebClientId Google web client id - optional
  * This is required when the application needs to authenticate with Google, add the client id of the
  * Google connection that is used to create the connection in Asgardeo.
- * @property isDevelopment The flag to check whether the app is in development mode or not.
+ * @param isDevelopment The flag to check whether the app is in development mode or not.
  * If true, the [LessSecureHttpClient] instance will be returned. Otherwise, the default
  * [OkHttpClient] instance will be returned. Default value is `false`. It is not recommended to
  * keep this value as `false` in the production environment.

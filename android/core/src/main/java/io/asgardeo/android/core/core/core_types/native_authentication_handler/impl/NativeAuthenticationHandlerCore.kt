@@ -38,7 +38,7 @@ import java.lang.ref.WeakReference
 /**
  * Implementation of the [NativeAuthenticationHandlerCoreDef]
  *
- * @property authenticationCoreConfigProvider Provider to update the [AuthenticationCoreConfig] based on the discovery response [AuthenticationCoreConfigProvider]
+ * @param authenticationCoreConfigProvider Provider to update the [AuthenticationCoreConfig] based on the discovery response [AuthenticationCoreConfigProvider]
  */
 class NativeAuthenticationHandlerCore private constructor(
     private val authenticationCoreConfigProvider: AuthenticationCoreConfigProvider

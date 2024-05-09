@@ -45,9 +45,9 @@ import kotlin.coroutines.suspendCoroutine
  * AuthnManagerImpl class is the implementation of the [AuthnManager] interface.
  * Which is used to handle the initial authorization and the authentication flow.
  *
- * @property authenticationCoreConfig Configuration of the Identity Server [AuthenticationCoreConfig]
- * @property client OkHttpClient instance to handle network calls [OkHttpClient]
- * @property authenticationCoreRequestBuilder Request builder class to build the requests [AuthnManagerImplRequestBuilder]
+ * @param authenticationCoreConfig Configuration of the Identity Server [AuthenticationCoreConfig]
+ * @param client OkHttpClient instance to handle network calls [OkHttpClient]
+ * @param authenticationCoreRequestBuilder Request builder class to build the requests [AuthnManagerImplRequestBuilder]
  */
 internal class AuthnManagerImpl private constructor(
     private val authenticationCoreConfig: AuthenticationCoreConfig,

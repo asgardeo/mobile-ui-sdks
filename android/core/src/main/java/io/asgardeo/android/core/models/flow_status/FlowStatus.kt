@@ -21,7 +21,7 @@ package io.asgardeo.android.core.models.flow_status
 /**
  * Enum class for flow status
  *
- * @property flowStatus Flow status value
+ * @param flowStatus Flow status value
  */
 enum class FlowStatus(val flowStatus: String) {
     /**

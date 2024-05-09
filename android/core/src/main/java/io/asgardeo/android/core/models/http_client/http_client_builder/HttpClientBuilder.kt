@@ -28,7 +28,7 @@ object HttpClientBuilder {
     /**
      * Returns an instance of the [OkHttpClient] class, based on the given parameters.
      *
-     * @property isDevelopment The flag to check whether the app is in development mode or not.
+     * @param isDevelopment The flag to check whether the app is in development mode or not.
      * If true, the [LessSecureHttpClient] instance will be returned. Otherwise, the default
      * [OkHttpClient] instance will be returned.
      *

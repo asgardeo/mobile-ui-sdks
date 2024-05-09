@@ -27,9 +27,9 @@ import io.asgardeo.android.core.util.JsonUtil
 /**
  * Data class to hold the challenge info of the passkey authenticator
  *
- * @property requestId The request id
- * @property publicKeyCredentialRequestOptions The public key credential request options
- * @property request The request
+ * @param requestId The request id
+ * @param publicKeyCredentialRequestOptions The public key credential request options
+ * @param request The request
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ChallengeInfo (

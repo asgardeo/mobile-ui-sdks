@@ -23,7 +23,7 @@ import io.asgardeo.android.core.core.managers.logout.LogoutManager
 /**
  * Exception to be thrown to the exception related to [LogoutManager]
  *
- * @property message Message related to the exception
+ * @param message Message related to the exception
  */
 class LogoutException (
     override val message: String?

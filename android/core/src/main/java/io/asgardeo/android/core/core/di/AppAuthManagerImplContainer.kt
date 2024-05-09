@@ -33,7 +33,7 @@ internal object AppAuthManagerImplContainer {
     /**
      * Returns an instance of the [OkHttpClient] class, based on the given parameters.
      *
-     * @property isDevelopment The flag to check whether the app is in development mode or not.
+     * @param isDevelopment The flag to check whether the app is in development mode or not.
      * If true, the [LessSecureHttpClient] instance will be returned. Otherwise, the default
      * [OkHttpClient] instance will be returned. Default value is `false`. It is not recommended to
      * keep this value as `true` in production environment.
@@ -46,7 +46,7 @@ internal object AppAuthManagerImplContainer {
     /**
      * Returns the client ID passed as a parameter.
      *
-     * @property clientId The client ID.
+     * @param clientId The client ID.
      *
      * @return The client ID.
      */
@@ -55,7 +55,7 @@ internal object AppAuthManagerImplContainer {
     /**
      * Returns the redirect URI passed as a parameter.
      *
-     * @property redirectUri The redirect URI.
+     * @param redirectUri The redirect URI.
      *
      * @return The redirect URI.
      */
@@ -64,8 +64,8 @@ internal object AppAuthManagerImplContainer {
     /**
      * Returns the [AuthorizationServiceConfiguration] instance, based on the given parameters.
      *
-     * @property authorizeEndpoint The authorize endpoint.
-     * @property tokenEndpoint The token endpoint.
+     * @param authorizeEndpoint The authorize endpoint.
+     * @param tokenEndpoint The token endpoint.
      *
      * @return [AuthorizationServiceConfiguration] instance.
      */

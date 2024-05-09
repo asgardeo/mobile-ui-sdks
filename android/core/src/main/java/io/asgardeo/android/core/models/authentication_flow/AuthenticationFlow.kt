@@ -23,7 +23,7 @@ import io.asgardeo.android.core.util.JsonUtil
 /**
  * Authentication flow data class. Which is used to hold the data of an authentication flow.
  *
- * @property flowStatus Status of the authentication flow
+ * @param flowStatus Status of the authentication flow
  */
 abstract class AuthenticationFlow(open val flowStatus: String) {
     /**
