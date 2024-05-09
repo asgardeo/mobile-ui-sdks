@@ -141,8 +141,8 @@ release_android_sdks() {
     regenerate_gradle_wrapper
     check_gradle_wrapper
     gradle_build
-    gradle_assemble
-    gradle_publish_release_to_wso2_nexus
+    #gradle_assemble
+    #gradle_publish_release_to_wso2_nexus
     generate_api_docs
 
     # Go to scripts directory

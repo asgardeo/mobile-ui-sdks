@@ -21,25 +21,25 @@ import { defineConfig } from "vitepress"
 export default defineConfig({
   title: "Mobile SDKs",
   description: "Welcome to our comprehensive documentation site for Mobile SDKs for Asgardeo! Here, you'll find everything you need to seamlessly integrate Asgardeo's authentication and identity management solutions into your mobile applications.",
-  head: [["link", { rel: "icon", href: "/public/asgardeo-light.svg" }]],
+  head: [["link", { rel: "icon", href: "/asgardeo-light.svg" }]],
   themeConfig: {
     siteTitle: "Mobile SDKs",
     logo: {
-        light: "/public/asgardeo-light.svg",
-        dark: "/public/asgardeo-dark.svg",
+        light: "/asgardeo-light.svg",
+        dark: "/asgardeo-dark.svg",
     },
     nav: [
       { text: "Home", link: "/" },
-      { text: "Android SDK", link: "/android/getting-started.html" }
+      { text: "Android SDK", link: "android/getting-started.html" }
     ],
 
     sidebar: [
       {
         text: "Android SDK",
         items: [
-          { text: "Getting Started", link: "/android/getting-started" },
-          { text: "Use Authenticators", link: "/android/use-authenticators" },
-          { text: "APIs", link: "/android/apis" }
+          { text: "Getting Started", link: "android/getting-started" },
+          { text: "Use Authenticators", link: "android/use-authenticators" },
+          { text: "APIs", link: "android/apis" }
         ]
       }
     ],

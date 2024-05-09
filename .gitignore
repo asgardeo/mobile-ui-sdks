@@ -26,3 +26,4 @@ replay_pid*
 *.DS_Store
 *node_modules
 docs/website/.vitepress/cache
+docs/website/.vitepress/dist

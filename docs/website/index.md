@@ -22,25 +22,25 @@ hero:
   name: "Mobile SDKs for Asgardeo"
   tagline: "Welcome to our comprehensive documentation site for Mobile SDKs for Asgardeo! \nHere, you'll find everything you need to seamlessly integrate Asgardeo's authentication and identity management solutions into your mobile applications."
   image:
-    dark: /public/phone.svg
-    light: /public/phone_white.svg
+    dark: /phone.svg
+    light: /phone_white.svg
     alt: VitePress
 
 features:
   - icon:
-      light: /public/android-light.svg
-      dark: /public/android-dark.svg
+      light: /android-light.svg
+      dark: /android-dark.svg
     title: Android SDK
     details: Android SDK for Asgardeo.
     link: /android/getting-started.html
   - icon:
-      light: /public/ios-light.svg
-      dark: /public/ios-dark.svg
+      light: /ios-light.svg
+      dark: /ios-dark.svg
       width: 50%
     title: iOS SDK
     details: iOS SDK for Asgardeo.
   - icon:
-      src: /public/flutter.svg
+      src: /flutter.svg
       width: 50%
     title: Flutter SDK
     details: Flutter SDK for Asgardeo.
