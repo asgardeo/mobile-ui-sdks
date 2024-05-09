@@ -20,6 +20,7 @@ import { defineConfig } from "vitepress"
 
 export default defineConfig({
   base: "/mobile-ui-sdks/",
+  ignoreDeadLinks: true,
   title: "Mobile SDKs",
   description: "Welcome to our comprehensive documentation site for Mobile SDKs for Asgardeo! Here, you'll find everything you need to seamlessly integrate Asgardeo's authentication and identity management solutions into your mobile applications.",
   head: [["link", { rel: "icon", href: "/asgardeo-light.svg" }]],
