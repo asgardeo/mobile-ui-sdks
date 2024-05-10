@@ -22,6 +22,8 @@
 
 <div align="center">
   <a href="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/release.yml"><img src="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/release.yml/badge.svg" alt="🚀 Release"></a>
+  <a href="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/deploy-gh-pages.yml"><img src="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/deploy-gh-pages.yml/badge.svg" alt="☄️ Deploy Documentation"></a>
+  
   <a href="https://stackoverflow.com/questions/tagged/wso2is"><img src="https://img.shields.io/badge/Ask%20for%20help%20on-Stackoverflow-orange" alt="Stackoverflow"></a>
   <a href="https://discord.gg/wso2"><img src="https://img.shields.io/badge/Join%20us%20on-Discord-%23e01563.svg" alt="Discord"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
@@ -35,7 +37,7 @@ This repository holds the mobile SDKs to support the integreation of your mobile
 
 | Package | Description | Version |
 | --- | --- | --- |
-| [`🤖 Android`](./android) | Android SDK for Asgardeo  | In Development |
+| [`🤖 Android`](./android) | Android SDK for Asgardeo  | ![Maven Central Version](https://img.shields.io/maven-central/v/io.asgardeo/android.ui?logo=sonatype) |
 | [`🍎 iOS`](./iOS) | iOS SDK for Asgardeo   | In Development |
 | [`🐦 Flutter`](./flutter) | Flutter SDK for Asgardeo   | In Development |
 
@@ -43,7 +45,7 @@ This repository holds the mobile SDKs to support the integreation of your mobile
 
 For more information on how to use each SDK, check out the following documentation.
 
-- [🤖 Android](./android/README.md)
+- <a href="https://asgardeo.github.io/mobile-ui-sdks/android/getting-started.html" target="_blank">🤖 Android</a>
 
 ## Contributing
 
