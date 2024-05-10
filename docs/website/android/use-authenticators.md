@@ -18,13 +18,13 @@
 
 # How to use authenticators with the Android SDK
 
-The Asgardeo Auth SDK provides out-of-the-box support for some authenticators, which are accessible via the `AuthenticationProvider`. Each of the following functions will emit the aforementioned `AuthenticationStates`, except for the `AuthenticationState.Initial`.
+The Asgardeo Auth SDK provides out-of-the-box support for some authenticators, which are accessible via the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a>. Each of the following functions will emit the aforementioned <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>, except for the **AuthenticationState.Initial**.
 
-Before utilizing these authenticators, you need to integrate them into your application's login flow. You can find more information about this in the following link: [link_to_documentation].
+Before utilizing these authenticators, you need to integrate them into your application's login flow. You can find more information about this in the following [link](https://wso2.com/asgardeo/docs/guides/authentication/).
 
 ## Use any authentication mechanism
 
-If you are using any other authentication mechanism like email OTP, you can use the `authenticate` function. For this, you need to pass the authenticator id or authenticator which can be retrieved from the `authenticationFlow` returned from the `Authentication.Unauthenticated` state.
+If you are using any other authentication mechanism like twitter login, you can use the `authenticate` function. For this, you need to pass the authenticator id or authenticator which can be retrieved from the `authenticationFlow` returned from the **Authentication.Unauthenticated** state.
 
 This can be used in two ways:
 
@@ -88,12 +88,16 @@ authenticationProvider.authenticateWithTotp(
 ```
 
 ## Use Google authentication
-Before using the Google autenticator make sure to add the Google web client ID you added in Asgardeo in the `AuthenticationCoreConfig` object used to initialized the `AsgardeoAuth` object
+Before using the Google autenticator make sure to add the Google web client ID you added in Asgardeo in the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.core_config/-authentication-core-config/index.html" target="_blank">AuthenticationCoreConfig</a> object used to initialized the `AsgardeoAuth` object
 
 ```kotlin
-...
-googleWebClientId = <Google web client ID>
-...
+private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
+        AuthenticationCoreConfig(
+            ...
+            googleWebClientId = "<google_web_client_id>" // [!code highlight]
+            ...
+        )
+    )
 ```
 
 this will use to get the `idToken` of the Google web client that you add in Asgardeo.
@@ -135,7 +139,7 @@ class YourActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        authenticationProvider.handleGoogleNativeLegacyAuthenticateResult(
+        authenticationProvider.handleGoogleNativeLegacyAuthenticateResult( // [!code highlight]
             context,
             result.resultCode,
             result.data
@@ -163,20 +167,23 @@ To perform redirect based authentication using a federated authenticator, first,
 ```gradle
 android.defaultConfig.manifestPlaceholders = [
      ...
-     'callbackUriHost': '<host>',
-     'callbackUriScheme': '<scheme>'
+     'callbackUriHost': '<host>', // [!code highlight]
+     'callbackUriScheme': '<scheme>' // [!code highlight]
      ...	
 ]
 ```
 
-After authenticating with the federated IdP, normally, the IdP will redirect the user to Asgardeo commonauth endpoint to continue the flow. However, with application-native authentication, this is changed. The IdP should redirect to the application. To support this, you should configure the deep link in the federated IdP side. Add that deep link in the `<data>` section. For example, if you are using the `wso2sample://oauth2` deep link, you should fill the `<data>` section as follows:
+For example, if you want to add the deep link as *wso2sample://callback*, then the code snippet should be as follows,
 
-```xml
-<data
-    android:host="oauth2"
-    android:scheme="wso2sample" 
-/>
+```gradle
+android.defaultConfig.manifestPlaceholders = [
+     ...
+     'callbackUriHost': 'callback', // [!code highlight]
+     'callbackUriScheme': 'wso2sample' // [!code highlight]
+     ...	
+]
 ```
+Also this deep link should be configured in the federated IdP side as a valid redirect URI.
 
 ## Use redirect Github authentication
 

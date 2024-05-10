@@ -18,4 +18,4 @@
 
 # APIs of the Android SDK
 
-To see the full details of the APIs of the Android SDK, refer to following [API documentation](https://asgardeo.github.io/android-sdk/).
+To see the full details of the APIs of the Android SDK, refer to following <a href="/mobile-ui-sdks/android/api/" target="_blank">API documentation</a>.

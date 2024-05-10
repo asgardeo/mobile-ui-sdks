@@ -126,12 +126,6 @@ gradle_publish_release_to_wso2_nexus() {
   ./gradlew findWso2NexusStagingRepository releaseWso2NexusStagingRepository -Dorg.gradle.internal.publish.checksums.insecure=true
 }
 
-# Function to generate API docs
-generate_api_docs() {
-  echo
-  ./gradlew dokkaHtmlMultiModule
-}
-
 # run gradle tasks to release Android SDKs to WSO2 nexus repository
 release_android_sdks() {
     # Go to android sdk directory
@@ -141,9 +135,8 @@ release_android_sdks() {
     regenerate_gradle_wrapper
     check_gradle_wrapper
     gradle_build
-    #gradle_assemble
-    #gradle_publish_release_to_wso2_nexus
-    generate_api_docs
+    gradle_assemble
+    gradle_publish_release_to_wso2_nexus
 
     # Go to scripts directory
     go_to_scripts_dir

@@ -15,10 +15,11 @@
  * specific language governing permissions and limitations
  * under the License.
 -->
-
 # Asgardeo Android SDK
 
-The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) to utilize OpenID Connect (OIDC) authentication with the Asgardeo serving as the Consumer Identity and Access Management (CIAM) Provider through application-native authentication. This SDK assists you in creating custom login flows directly within the applications themselves, without relying on browser redirects, thereby prioritizing user experience.
+The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) to utilize OpenID Connect (OIDC) authentication with the Asgardeo serving as the Consumer Identity and Access Management (CIAM) Provider through application-native authentication. 
+
+This SDK assists you in creating custom login flows directly within the applications themselves, without relying on browser redirects, thereby prioritizing user experience.
 
 ## Prerequisite
 
@@ -41,25 +42,27 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
 
     ```groovy
     dependencies {
-        implementation 'io.asgardeo:android:0.1.2'
+        implementation 'io.asgardeo:android:<latest-version>'
     }
     ```
+
+    You can find the latest version of the SDK from the [Maven Repository](https://central.sonatype.com/artifact/io.asgardeo/android.ui).
 
 2. Add a redirect scheme in the Android application. You need to add the `appAuthRedirectScheme` in the application `build.gradle` file.
 
     This should be consistent with the CallBack Url of the Service Provider that you configured in the Asgardeo.
 
-    For example, if you have configured the `callBackUrl` as `wso2sample://oauth2`, then the `appAuthRedirectScheme` should be `wso2sample`.
+    For example, if you have configured the callBackUrl as *wso2sample://oauth2*, then the `appAuthRedirectScheme` should be *wso2sample*.
 
     ```groovy
     android.defaultConfig.manifestPlaceholders = [
-        'appAuthRedirectScheme': 'wso2sample'
+        'appAuthRedirectScheme': 'wso2sample' // [!code highlight]
     ]
     ```
 
 ### Start the authentication process
 
-1. First, you need to initialize the SDK object, `AsgardeoAuth`, to authenticate users into your application. This can be done in a repository if you are using an [MVVM](https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/) pattern in your application.
+1. First, you need to initialize the SDK object `AsgardeoAuth`, to authenticate users into your application. This can be done in a repository if you are using an [MVVM](https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/) pattern in your application.
 
     ```kotlin
     private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
@@ -72,24 +75,24 @@ The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) t
         )
     )
     ```
+    <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.core_config/-authentication-core-config/index.html" target="_blank">AuthenticationCoreConfig</a> holds the configuration details that are required to set up the communication between the SDK and the Asgardeo.
 
-    `AuthenticationCoreConfig` holds the configuration details that are required to set up the communication between the SDK and the Asgardeo.
-
-2. After that, you need to get the `AuthenticationProvider` from the created `AsgardeoAuth` instance. This will assist you in handling the authentication process.
+2. After that, you need to get the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> from the created `AsgardeoAuth` instance. This will assist you in handling the authentication process.
 
 ```kotlin
 val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticationProvider()
 ```
 
-`AuthenticationProvider` handles the authentication process using `SharedFlow`. This will help you to handle each state of the authentication process easily. There are four states in the authentication process:
+<a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> handles the authentication process using `SharedFlow`. This will help you to handle each state of the authentication process easily. There are four states in the authentication process (<a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>):
 
-- `AuthenticationState.Initial`: Initial state of the authentication process.
-- `AuthenticationState.Loading`: SDK is calling an API to handle the authentication and waiting for the result.
-- `AuthenticationState.Unauthenticated`: This means authentication flow is still not completed and a particular step is getting challenged for authentication. In this state, the list of available authenticators will be returned to you in a `AuthenticationFlowNotSuccess` object.
-- `AuthenticationState.Authenticated`: User is authenticated.
-- `AuthenticationState.Error`: An error occured during the authentcation flow.
+- **AuthenticationState.Initial**: Initial state of the authentication process.
+- **AuthenticationState.Loading**: SDK is calling an API to handle the authentication and waiting for the result.
+- **AuthenticationState.Unauthenticated**: This means authentication flow is still not completed and a particular step is getting challenged for authentication. In this state, the list of available authenticators will be returned to you in a 
+<a href="mobile-ui-sdks/android/api/core/io.asgardeo.android.core.models.authentication_flow/-authentication-flow-not-success/index.html" target="_blank">AuthenticationFlowNotSuccess</a> object.
+- **AuthenticationState.Authenticated**: User is authenticated.
+- **AuthenticationState.Error**: An error occured during the authentcation flow.
 
-3. To start the authentication process, call `authenticationProvider.isLoggedInStateFlow`, this will check if there is an active session available and if available, the authentication state will emit `AuthenticationState.Authenticated`, else will emit `AuthenticationState.Initial`.
+3. To start the authentication process, call `authenticationProvider.isLoggedInStateFlow`, this will check if there is an active session available and if available, the authentication state will emit **AuthenticationState.Authenticated**, else will emit **AuthenticationState.Initial**.
 
     After that, you can call the `authenticationProvider.initializeAuthentication` to initialize the authentication process.
 
@@ -99,7 +102,7 @@ internal fun LandingScreen() {
     val state = authenticationProvider.getAuthenticationStateFlow()
 
     // Initiate a call to /authorize endpoint only if a valid AT is not available
-    authenticationProvider.isLoggedInStateFlow(context)
+    authenticationProvider.isLoggedInStateFlow(context)  // [!code highlight]
     handleAuthenticationState(state)
 }
 
@@ -108,7 +111,7 @@ private fun handleAuthenticationState(state: AuthenticationState) {
         when (it) {
             is AuthenticationState.Initial -> {
                 // pre /authorize
-                authenticationProvider.initializeAuthentication(context)
+                authenticationProvider.initializeAuthentication(context)  // [!code highlight]
             }
             is AuthenticationState.Unauthenticated -> {
                /** 
@@ -139,7 +142,7 @@ private fun handleAuthenticationState(state: AuthenticationState) {
 }
 ```
 
-Assuming the authentication process is, basic as first factor and TOTP as second factor, you can develop the UI as follows using the `AuthenticatorTypes` provided by the SDK to populate the login form.
+Assuming the authentication process is, basic as first factor and TOTP as second factor, you can develop the UI as follows using the <a href="mobile-ui-sdks/android/api/core/io.asgardeo.android.core.models.autheniticator/-authenticator-types/index.html" target="_blank">AuthenticatorTypes</a> provided by the SDK to populate the login form.
 ```kotlin
 /**
  * Assuming the authentication process is, basic as first factor and TOTP as second factor
@@ -151,11 +154,11 @@ internal fun LoginForm() {
 ) {
     authenticationFlow.nextStep.authenticators.forEach {
         when (it.authenticator) {
-            AuthenticatorTypes.BASIC_AUTHENTICATOR.authenticatorType -> {
+            AuthenticatorTypes.BASIC_AUTHENTICATOR.authenticatorType -> { // [!code highlight]
                 BasicAuth(authenticatorType = it)
             }
 
-            AuthenticatorTypes.TOTP_AUTHENTICATOR.authenticatorType -> {
+            AuthenticatorTypes.TOTP_AUTHENTICATOR.authenticatorType -> { // [!code highlight]
                 TotpAuth(authenticatorType = it)
             }
         }
@@ -163,7 +166,7 @@ internal fun LoginForm() {
 }
 ```
 
-In the BasicAuth component you can call the authentication function provided by the `AuthenticationProvider` to authenticate with username and password. Similarly this can be done in other components as well (ex: `TotpAuth`)
+In the BasicAuth component you can call the authentication function provided by the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> to authenticate with username and password. Similarly this can be done in other components as well.
 ```kotlin
 @Composable
 internal fun BasicAuth(authenticator: Authenticator) {
@@ -210,7 +213,7 @@ After the user is authenticated, to get user-related information, we can use the
 ```kotlin
 coroutineScope.launch {
     runCatching {
-        authenticationProvider.getUserDetails(<context>)
+        authenticationProvider.getUserDetails(<context>) // [!code highlight]
     }.onSuccess { userDetails ->
         Profile(userDetails)
     }.onFailure { e ->
@@ -221,7 +224,7 @@ coroutineScope.launch {
 
 ### Get token information
 
-To get information, you can use the `TokenProvider`. This will assist you in getting token-related information and performing actions on the tokens.
+To get information, you can use the <a href="mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.token/-token-provider/index.html" target="_blank">TokenProvider</a>. This will assist you in getting token-related information and performing actions on the tokens.
 
 ```kotlin
 val tokenProvider: TokenProvider = asgardeoAuth.getTokenProvider()
@@ -239,7 +242,7 @@ val scope:String? = tokenProvider.getScope(context)
 
 ### Perform action based on the tokens
 
-If you want to perform any action based on the tokens that are returned, you can use the `performAction` function in the `TokenProvider`.
+If you want to perform any action based on the tokens that are returned, you can use the `performAction` function in the <a href="mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.token/-token-provider/index.html" target="_blank">TokenProvider</a>.
 
 ```kotlin
 tokenProvider.performAction(context) { accessToken, idToken, ->
@@ -249,7 +252,7 @@ tokenProvider.performAction(context) { accessToken, idToken, ->
 
 ### Logout
 
-If you want to perform a logout, you can call the `logout` function in the `AuthenticationProvider`. This will emit the state `AuthenticationState.Initial` if the logout is successful, and if an error occurs, it will emit `AuthenticationState.Error`.
+If you want to perform a logout, you can call the `logout` function in the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a>. This will emit the state **AuthenticationState.Initial** if the logout is successful, and if an error occurs, it will emit **AuthenticationState.Error**.
 
 ```kotlin
 authenticationProvider.logout(context)
