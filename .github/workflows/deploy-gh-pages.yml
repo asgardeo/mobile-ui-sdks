@@ -77,6 +77,16 @@ jobs:
         working-directory: ${{ env.DOC_DIR }}
         run: |
           npm run docs:build
+      
+      - name: ☕️ Set up Adopt JDK 17 (For Android SDK API Docs Generation)
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "adopt"
+
+      - name: 🤖 Generate Android SDK API Docs
+        working-directory: .github/workflows/scripts/docs/android
+        run: bash ./dokka_build.sh
 
       - name: 🌩 Upload artifact
         id: upload-artifact
