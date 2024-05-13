@@ -282,7 +282,7 @@ You can also use client attestation with the SDK as well.
     2. `androidAttestationServiceCredentials`
        The downloaded JSON secret of the Service Account. Note that this attribute is defined as a JSON object hence use the JSON key as it is.
 
-5. Now you can call the "Google Play Integrity API" from your application and pass the integrity token that you will get from the API result to the `integrityToken` value of the `AuthenticationCoreConfig`.
+5. Now you can call the **Google Play Integrity API** from your application and pass the integrity token that you will get from the API result to the `integrityToken` value of the `AuthenticationCoreConfig`.
 
 ```kotlin
 private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
