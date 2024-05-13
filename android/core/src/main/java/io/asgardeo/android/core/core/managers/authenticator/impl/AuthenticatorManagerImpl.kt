@@ -18,6 +18,7 @@
 
 package io.asgardeo.android.core.core.managers.authenticator.impl
 
+import android.util.Log
 import io.asgardeo.android.core.core.managers.app_auth.impl.AppAuthManagerImpl
 import io.asgardeo.android.core.core.managers.authenticator.AuthenticatorManager
 import io.asgardeo.android.core.models.autheniticator.Authenticator
@@ -54,6 +55,8 @@ internal class AuthenticatorManagerImpl private constructor(
     private val authnUrl: String
 ) : AuthenticatorManager {
     companion object {
+        private const val TAG = "AuthenticatorManager"
+
         /**
          * Instance of the [AuthenticatorManagerImpl] class.
          */
@@ -126,12 +129,11 @@ internal class AuthenticatorManagerImpl private constructor(
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
-                        val exception =
-                            AuthenticatorException(
-                                e.message,
-                                authenticator.authenticator
-                            )
-                        continuation.resumeWithException(exception)
+                        Log.e(
+                            TAG,
+                            "${e.message.toString()}. ${e.stackTraceToString()}",
+                        )
+                        continuation.resumeWithException(e)
                     }
 
                     @Throws(IOException::class)
@@ -160,6 +162,11 @@ internal class AuthenticatorManagerImpl private constructor(
                                             AuthenticatorException.AUTHENTICATOR_NOT_FOUND_OR_MORE_THAN_ONE,
                                             authenticator.authenticator
                                         )
+
+                                    Log.e(
+                                        TAG,
+                                        "${exception.message.toString()}. ${exception.stackTraceToString()}",
+                                    )
                                     continuation.resumeWithException(exception)
                                 }
                             } else {
@@ -170,15 +177,19 @@ internal class AuthenticatorManagerImpl private constructor(
                                         authenticator.authenticator,
                                         response.code.toString()
                                     )
+
+                                Log.e(
+                                    TAG,
+                                    "${exception.message.toString()}. ${exception.stackTraceToString()}",
+                                )
                                 continuation.resumeWithException(exception)
                             }
                         } catch (e: IOException) {
-                            val exception =
-                                AuthenticatorException(
-                                    e.message,
-                                    authenticator.authenticator
-                                )
-                            continuation.resumeWithException(exception)
+                            Log.e(
+                                TAG,
+                                "${e.message.toString()}. ${e.stackTraceToString()}",
+                            )
+                            continuation.resumeWithException(e)
                         }
                     }
                 })

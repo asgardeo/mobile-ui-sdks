@@ -31,11 +31,6 @@ class AuthenticationCoreException(
          * Authenticator exception TAG
          */
         const val AUTHORIZATION_SERVICE_EXCEPTION = "Authorization Service Exception"
-
-        /**
-         * Message to be shown when authenticator is not initialized
-         */
-        const val AUTHORIZATION_SERVICE_NOT_INITIALIZED = "Authorization Service is not initialized"
     }
 
     override fun toString(): String {

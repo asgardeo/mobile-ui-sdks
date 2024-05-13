@@ -28,36 +28,6 @@ object AuthenticatorUtil {
      * Check whether there are duplicates authenticators of the given authenticator in the given step
      *
      * @param authenticators List of authenticators
-     * @param authenticatorTypeString Authenticator type string
-     *
-     * @return Boolean value whether there are duplicates authenticators of the given authenticator in the given step
-     */
-    internal fun hasDuplicatesAuthenticatorsInGivenStep(
-        authenticators: ArrayList<Authenticator>,
-        authenticatorTypeString: String
-    ): Boolean {
-        return authenticators.count { it.authenticator == authenticatorTypeString } > 1
-    }
-
-    /**
-     * Get the authenticator from the authenticator list
-     *
-     * @param authenticators List of authenticators
-     * @param authenticatorTypeString Authenticator type string
-     *
-     * @return [Authenticator] object, `null` if the authenticator is not found
-     */
-    internal fun getAuthenticatorFromAuthenticatorsList(
-        authenticators: ArrayList<Authenticator>,
-        authenticatorTypeString: String
-    ): Authenticator? {
-        return authenticators.find { it.authenticator == authenticatorTypeString }
-    }
-
-    /**
-     * Check whether there are duplicates authenticators of the given authenticator in the given step
-     *
-     * @param authenticators List of authenticators
      * @param authenticatorIdString Authenticator id string
      *
      * @return Boolean value whether there are duplicates authenticators of the given authenticator in the given step

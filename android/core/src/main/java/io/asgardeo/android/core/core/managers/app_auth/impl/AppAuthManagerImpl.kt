@@ -20,6 +20,7 @@ package io.asgardeo.android.core.core.managers.app_auth.impl
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import io.asgardeo.android.core.core.managers.app_auth.AppAuthManager
 import io.asgardeo.android.core.models.exceptions.AppAuthManagerException
 import io.asgardeo.android.core.models.http_client.CustomHttpURLConnection
@@ -56,6 +57,8 @@ internal class AppAuthManagerImpl private constructor(
     private val serviceConfig: AuthorizationServiceConfiguration
 ) : AppAuthManager {
     companion object {
+        private const val TAG = "AppAuthManager"
+
         /**
          * Instance of the [AppAuthManagerImpl] class.
          */
@@ -143,15 +146,23 @@ internal class AppAuthManagerImpl private constructor(
 
                     when {
                         exception != null -> {
+                            Log.e(
+                                TAG,
+                                "${exception.message.toString()}. ${exception.stackTraceToString()}",
+                            )
                             continuation.resumeWithException(exception)
                         }
 
                         tokenResponse == null -> {
-                            continuation.resumeWithException(
-                                AppAuthManagerException(
-                                    AppAuthManagerException.EMPTY_TOKEN_RESPONSE
-                                )
+                            val e = AppAuthManagerException(
+                                AppAuthManagerException.EMPTY_TOKEN_RESPONSE
                             )
+
+                            Log.e(
+                                TAG,
+                                "${e.message.toString()}. ${e.stackTraceToString()}",
+                            )
+                            continuation.resumeWithException(e)
                         }
 
                         else -> {
@@ -160,6 +171,10 @@ internal class AppAuthManagerImpl private constructor(
                     }
                 }
             } catch (exception: Exception) {
+                Log.e(
+                    TAG,
+                    "${exception.message.toString()}, auth code exchange failed. ${exception.stackTraceToString()}",
+                )
                 continuation.resumeWithException(exception)
             } finally {
                 authService.dispose()
@@ -187,11 +202,15 @@ internal class AppAuthManagerImpl private constructor(
 
             // Check we have a refresh token
             if (refreshToken.isNullOrBlank()) {
-                continuation.resumeWithException(
-                    AppAuthManagerException(
-                        AppAuthManagerException.INVALID_REFRESH_TOKEN
-                    )
+                val e = AppAuthManagerException(
+                    AppAuthManagerException.INVALID_REFRESH_TOKEN
                 )
+
+                Log.e(
+                    TAG,
+                    "${e.message.toString()}. ${e.stackTraceToString()}",
+                )
+                continuation.resumeWithException(e)
             }
 
             // Create the refresh token grant request
@@ -217,6 +236,10 @@ internal class AppAuthManagerImpl private constructor(
                             if (exception.type == AuthorizationException.TYPE_OAUTH_TOKEN_ERROR &&
                                 exception.code == AuthorizationException.TokenRequestErrors.INVALID_GRANT.code
                             ) {
+                                Log.e(
+                                    TAG,
+                                    "${exception.message.toString()}. ${exception.stackTraceToString()}",
+                                )
                                 continuation.resumeWithException(
                                     AppAuthManagerException(
                                         AppAuthManagerException.INVALID_REFRESH_TOKEN,
@@ -225,17 +248,25 @@ internal class AppAuthManagerImpl private constructor(
                                 )
 
                             } else {
+                                Log.e(
+                                    TAG,
+                                    "${exception.message.toString()}. ${exception.stackTraceToString()}",
+                                )
                                 continuation.resumeWithException(exception)
                             }
                         }
 
                         // Sanity check
                         tokenResponse == null -> {
-                            continuation.resumeWithException(
-                                AppAuthManagerException(
-                                    AppAuthManagerException.EMPTY_TOKEN_RESPONSE
-                                )
+                            val e = AppAuthManagerException(
+                                AppAuthManagerException.EMPTY_TOKEN_RESPONSE
                             )
+
+                            Log.e(
+                                TAG,
+                                "${e.message.toString()}. ${e.stackTraceToString()}",
+                            )
+                            continuation.resumeWithException(e)
                         }
 
                         // return the token response
@@ -246,12 +277,11 @@ internal class AppAuthManagerImpl private constructor(
                     }
                 }
             } catch (exception: Exception) {
-                continuation.resumeWithException(
-                    AppAuthManagerException(
-                        AppAuthManagerException.TOKEN_REQUEST_FAILED,
-                        exception.message
-                    )
+                Log.e(
+                    TAG,
+                    "${exception.message.toString()}, token refresh failed. ${exception.stackTraceToString()}",
                 )
+                continuation.resumeWithException(exception)
             } finally {
                 authService.dispose()
             }
@@ -282,6 +312,10 @@ internal class AppAuthManagerImpl private constructor(
                 appAuthState.performActionWithFreshTokens(authService)
                 { accessToken, idToken, exception ->
                     if (exception != null) {
+                        Log.e(
+                            TAG,
+                            "${exception.message.toString()}. ${exception.stackTraceToString()}",
+                        )
                         continuation.resumeWithException(exception)
                     } else {
                         CoroutineScope(Dispatchers.IO).launch {
@@ -290,6 +324,10 @@ internal class AppAuthManagerImpl private constructor(
                             }.onSuccess {
                                 continuation.resume(tokenState)
                             }.onFailure {
+                                Log.e(
+                                    TAG,
+                                    "${it.message.toString()}. ${it.stackTraceToString()}",
+                                )
                                 continuation.resumeWithException(it)
                             }
                             tokenState.updateAppAuthState(appAuthState)
@@ -297,9 +335,15 @@ internal class AppAuthManagerImpl private constructor(
                     }
                 }
             } else {
-                continuation.resumeWithException(
-                    AppAuthManagerException(AppAuthManagerException.INVALID_AUTH_STATE)
+                val e = AppAuthManagerException(
+                    AppAuthManagerException.INVALID_AUTH_STATE
                 )
+
+                Log.e(
+                    TAG,
+                    "${e.message.toString()}. ${e.stackTraceToString()}",
+                )
+                continuation.resumeWithException(e)
             }
         }
     }

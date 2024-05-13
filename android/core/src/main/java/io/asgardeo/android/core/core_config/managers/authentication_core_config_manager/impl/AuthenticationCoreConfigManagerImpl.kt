@@ -18,7 +18,6 @@
 
 package io.asgardeo.android.core.core_config.managers.authentication_core_config_manager.impl
 
-import android.util.Log
 import com.fasterxml.jackson.databind.JsonNode
 import io.asgardeo.android.core.core_config.AuthenticationCoreConfig
 import io.asgardeo.android.core.core_config.AuthenticationCoreConfigFactory
@@ -97,15 +96,6 @@ class AuthenticationCoreConfigManagerImpl private constructor(
                         authenticationCoreConfig
                     )
             } catch (e: Exception) {
-                Log.println(
-                    Log.ERROR,
-                    "DiscoveryManager",
-                    e.message.toString()
-                            + " "
-                            + "hence setting the values based on the base url derived from the discovery endpoint"
-                            + " "
-                            + e.stackTraceToString()
-                )
                 discoveryResponse = null
             }
 

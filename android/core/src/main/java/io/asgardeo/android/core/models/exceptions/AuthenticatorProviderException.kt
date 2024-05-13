@@ -38,16 +38,6 @@ class AuthenticatorProviderException(
          * Message for the case where the authenticator is not found
          */
         const val AUTHENTICATOR_NOT_FOUND = "Authenticator not found"
-
-        /**
-         * Message for the case where the authenticator is not supported
-         */
-        const val NOT_REDIRECT_PROMPT = "Authenticator does not support redirect prompt"
-
-        /**
-         * Message for the case where the redirect URI is not found
-         */
-        const val REDIRECT_URI_NOT_FOUND = "Redirect URI not found"
     }
 
     override fun toString(): String {

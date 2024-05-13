@@ -18,6 +18,7 @@
 
 package io.asgardeo.android.core.core_config.managers.discovery_manager.impl
 
+import android.util.Log
 import com.fasterxml.jackson.databind.JsonNode
 import io.asgardeo.android.core.core_config.managers.discovery_manager.DiscoveryManager
 import io.asgardeo.android.core.models.exceptions.AuthnManagerException
@@ -48,6 +49,8 @@ class DiscoveryManagerImpl private constructor(
 ) : DiscoveryManager {
 
     companion object {
+        private const val TAG = "DiscoveryManager"
+
         /**
          * Instance of the [DiscoveryManagerImpl] that will be used throughout the application
          */
@@ -94,6 +97,10 @@ class DiscoveryManagerImpl private constructor(
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
+                        Log.e(
+                            TAG,
+                            "${e.message.toString()} hence setting the values based on the base url derived from the discovery endpoint. ${e.stackTraceToString()}",
+                        )
                         continuation.resumeWithException(e)
                     }
 
@@ -105,14 +112,22 @@ class DiscoveryManagerImpl private constructor(
                                     JsonUtil.getJsonObject(response.body!!.string())
                                 )
                             } else {
-                                continuation.resumeWithException(
-                                    DiscoveryManagerException(
-                                        if (response.message != "") response.message
-                                        else DiscoveryManagerException.CANNOT_DISCOVER_ENDPOINTS
-                                    )
+                                val exception = DiscoveryManagerException(
+                                    if (response.message != "") response.message
+                                    else DiscoveryManagerException.CANNOT_DISCOVER_ENDPOINTS
                                 )
+
+                                Log.e(
+                                    TAG,
+                                    "${exception.message.toString()} hence setting the values based on the base url derived from the discovery endpoint. ${exception.stackTraceToString()}",
+                                )
+                                continuation.resumeWithException(exception)
                             }
                         } catch (e: Exception) {
+                            Log.e(
+                                TAG,
+                                "${e.message.toString()}. ${e.stackTraceToString()}",
+                            )
                             continuation.resumeWithException(e)
                         }
                     }

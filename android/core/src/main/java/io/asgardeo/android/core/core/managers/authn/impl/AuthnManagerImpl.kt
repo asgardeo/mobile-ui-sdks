@@ -18,10 +18,11 @@
 
 package io.asgardeo.android.core.core.managers.authn.impl
 
+import android.util.Log
 import com.fasterxml.jackson.databind.JsonNode
-import io.asgardeo.android.core.core_config.AuthenticationCoreConfig
 import io.asgardeo.android.core.core.managers.authn.AuthnManager
 import io.asgardeo.android.core.core.managers.flow.FlowManager
+import io.asgardeo.android.core.core_config.AuthenticationCoreConfig
 import io.asgardeo.android.core.models.autheniticator.Authenticator
 import io.asgardeo.android.core.models.authentication_flow.AuthenticationFlow
 import io.asgardeo.android.core.models.exceptions.AuthenticatorException
@@ -56,6 +57,8 @@ internal class AuthnManagerImpl private constructor(
     private val flowManager: FlowManager
 ) : AuthnManager {
     companion object {
+        private const val TAG = "AuthnManager"
+
         /**
          * Instance of the [AuthnManagerImpl] that will be used throughout the application
          */
@@ -111,6 +114,10 @@ internal class AuthnManagerImpl private constructor(
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
+                    Log.e(
+                        TAG,
+                        "${e.message.toString()}. ${e.stackTraceToString()}",
+                    )
                     continuation.resumeWithException(e)
                 }
 
@@ -131,13 +138,19 @@ internal class AuthnManagerImpl private constructor(
                             )
                         } else {
                             // throw an `AuthnManagerException` if the request does not return 200
-                            continuation.resumeWithException(
-                                AuthnManagerException(
-                                    response.message
-                                )
+                            val exception = AuthnManagerException(response.message)
+
+                            Log.e(
+                                TAG,
+                                "${exception.message.toString()}. ${exception.stackTraceToString()}",
                             )
+                            continuation.resumeWithException(exception)
                         }
                     } catch (e: Exception) {
+                        Log.e(
+                            TAG,
+                            "${e.message.toString()}. ${e.stackTraceToString()}",
+                        )
                         continuation.resumeWithException(e)
                     }
                 }
@@ -178,6 +191,10 @@ internal class AuthnManagerImpl private constructor(
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
+                    Log.e(
+                        TAG,
+                        "${e.message.toString()}. ${e.stackTraceToString()}",
+                    )
                     continuation.resumeWithException(e)
                 }
 
@@ -199,11 +216,19 @@ internal class AuthnManagerImpl private constructor(
                             )
                         } else {
                             // Throw an [AuthnManagerException] if the request does not return 200 response.message
-                            continuation.resumeWithException(
-                                AuthnManagerException(response.message)
+                            val exception = AuthnManagerException(response.message)
+
+                            Log.e(
+                                TAG,
+                                "${exception.message.toString()}. ${exception.stackTraceToString()}",
                             )
+                            continuation.resumeWithException(exception)
                         }
                     } catch (e: Exception) {
+                        Log.e(
+                            TAG,
+                            "${e.message.toString()}. ${e.stackTraceToString()}",
+                        )
                         continuation.resumeWithException(e)
                     }
                 }

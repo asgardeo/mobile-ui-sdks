@@ -23,8 +23,6 @@ import io.asgardeo.android.core.core.managers.token.impl.TokenManagerImpl
 
 /**
  * Factory class to get the instance of the [TokenManager].
- *
- * @param instances The [MutableMap] instance.
  */
 internal object TokenManagerFactory {
     private val instances = mutableMapOf<Context, TokenManager>()
