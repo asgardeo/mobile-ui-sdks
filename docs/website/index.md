@@ -32,7 +32,7 @@ features:
       dark: /android-dark.svg
     title: Android SDK
     details: Android SDK for Asgardeo.
-    link: /android/getting-started.html
+    link: /android/introduction.html
   - icon:
       light: /ios-light.svg
       dark: /ios-dark.svg
