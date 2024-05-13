@@ -18,9 +18,10 @@
 
 package io.asgardeo.android.core.core.managers.logout.impl
 
-import io.asgardeo.android.core.core_config.AuthenticationCoreConfig
+import android.util.Log
 import io.asgardeo.android.core.core.managers.authn.impl.AuthnManagerImpl
 import io.asgardeo.android.core.core.managers.logout.LogoutManager
+import io.asgardeo.android.core.core_config.AuthenticationCoreConfig
 import io.asgardeo.android.core.models.exceptions.LogoutException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -49,11 +50,13 @@ class LogoutManagerImpl private constructor(
     private val logoutRequestBuilder: LogoutManagerImplRequestBuilder
 ) : LogoutManager {
     companion object {
+        private const val TAG = "LogoutManager"
+
         /**
          * Instance of the [LogoutManagerImpl] that will be used throughout the application
          */
-        private var logoutManagerImplInstance: WeakReference<LogoutManagerImpl>
-            = WeakReference(null)
+        private var logoutManagerImplInstance: WeakReference<LogoutManagerImpl> =
+            WeakReference(null)
 
         /**
          * Initialize the [LogoutManagerImpl] instance and return the instance.
@@ -101,6 +104,10 @@ class LogoutManagerImpl private constructor(
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
+                        Log.e(
+                            TAG,
+                            "${e.message.toString()}. ${e.stackTraceToString()}",
+                        )
                         continuation.resumeWithException(e)
                     }
 
@@ -108,11 +115,21 @@ class LogoutManagerImpl private constructor(
                         try {
                             if (response.code != 200) {
                                 // Throw an [LogoutException] if the request does not return 200 response.message
-                                continuation.resumeWithException(LogoutException(response.message))
+                                val exception = LogoutException(response.message)
+
+                                Log.e(
+                                    TAG,
+                                    "${exception.message.toString()}. ${exception.stackTraceToString()}",
+                                )
+                                continuation.resumeWithException(exception)
                             } else {
                                 continuation.resume(Unit)
                             }
                         } catch (e: Exception) {
+                            Log.e(
+                                TAG,
+                                "${e.message.toString()}. ${e.stackTraceToString()}",
+                            )
                             continuation.resumeWithException(e)
                         }
                     }

@@ -18,10 +18,11 @@
 
 package io.asgardeo.android.core.core.managers.user.impl
 
+import android.util.Log
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.JsonNode
-import io.asgardeo.android.core.core_config.AuthenticationCoreConfig
 import io.asgardeo.android.core.core.managers.user.UserManager
+import io.asgardeo.android.core.core_config.AuthenticationCoreConfig
 import io.asgardeo.android.core.models.exceptions.UserManagerException
 import io.asgardeo.android.core.util.JsonUtil
 import kotlinx.coroutines.Dispatchers
@@ -52,6 +53,8 @@ class UserManagerImpl private constructor(
 ) : UserManager {
 
     companion object {
+        private const val TAG = "UserManager"
+
         /**
          * Instance of the [UserManagerImpl] that will be used throughout the application
          */
@@ -101,6 +104,10 @@ class UserManagerImpl private constructor(
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
+                        Log.e(
+                            TAG,
+                            "${e.message.toString()}, getting user details failed. ${e.stackTraceToString()}",
+                        )
                         continuation.resumeWithException(e)
                     }
 
@@ -118,13 +125,21 @@ class UserManagerImpl private constructor(
                                     JsonUtil.jsonNodeToObject(responseObject, stepTypeReference)
                                 )
                             } else {
-                                continuation.resumeWithException(
-                                    UserManagerException(
-                                        UserManagerException.USER_MANAGER_EXCEPTION
-                                    )
+                                val exception = UserManagerException(
+                                    UserManagerException.USER_MANAGER_EXCEPTION
                                 )
+
+                                Log.e(
+                                    TAG,
+                                    "${exception.message.toString()}, getting user details failed. ${exception.stackTraceToString()}",
+                                )
+                                continuation.resumeWithException(exception)
                             }
                         } catch (e: Exception) {
+                            Log.e(
+                                TAG,
+                                "${e.message.toString()}, getting user details failed. ${e.stackTraceToString()}",
+                            )
                             continuation.resumeWithException(e)
                         }
                     }
