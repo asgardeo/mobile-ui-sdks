@@ -23,8 +23,6 @@ import io.asgardeo.android.core.data.token.impl.TokenDataStoreImpl
 
 /**
  * Factory class to get the instance of the [TokenDataStore].
- *
- * @param instances The [MutableMap] instance.
  */
 internal object TokenDataStoreFactory {
     private val instances = mutableMapOf<Context, TokenDataStore>()

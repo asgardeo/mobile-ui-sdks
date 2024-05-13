@@ -39,11 +39,6 @@ class AppAuthManagerException(
         const val APP_AUTH_MANAGER_EXCEPTION = "App Auth Manager Exception"
 
         /**
-         * Message to be shown when authenticator is not initialized
-         */
-        const val TOKEN_REQUEST_FAILED = "Token request failed"
-
-        /**
          * Message to be shown when token response is empty
          */
         const val EMPTY_TOKEN_RESPONSE = "Token response is empty"

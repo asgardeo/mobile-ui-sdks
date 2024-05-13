@@ -38,11 +38,6 @@ class RedirectAuthenticationException (
         const val NOT_REDIRECT_PROMPT = "Authenticator is not a redirection prompt"
 
         /**
-         * Message to be shown when the redirect authenticator is not selected
-         */
-        const val AUTHENTICATOR_NOT_SELECTED = "Redirect authenticator is not selected"
-
-        /**
          * Message to be shown when the authentication parameters are not found
          */
         const val AUTHENTICATION_PARAMS_NOT_FOUND = "Authentication parameters not found"
