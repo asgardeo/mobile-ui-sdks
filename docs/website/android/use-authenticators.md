@@ -185,7 +185,7 @@ android.defaultConfig.manifestPlaceholders = [
 ```
 Also this deep link should be configured in the federated IdP side as a valid redirect URI.
 
-## Use redirect Github authentication
+### Use redirect Github authentication
 
 ```kotlin
 authenticationProvider.authenticateWithGithubRedirect(
@@ -194,7 +194,7 @@ authenticationProvider.authenticateWithGithubRedirect(
 )
 ```
 
-## Use redirect Microsoft authentication
+### Use redirect Microsoft authentication
 
 ```kotlin
 authenticationProvider.authenticateWithMicrosoftRedirect(

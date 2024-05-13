@@ -23,23 +23,40 @@ export default defineConfig({
   ignoreDeadLinks: true,
   title: "Mobile SDKs",
   description: "Welcome to our comprehensive documentation site for Mobile SDKs for Asgardeo! Here, you'll find everything you need to seamlessly integrate Asgardeo's authentication and identity management solutions into your mobile applications.",
-  head: [["link", { rel: "icon", href: "/mobile-ui-sdks/asgardeo-dark.svg" }]],
+  head: [
+    [
+        "link", 
+        { rel: "icon", href: "/mobile-ui-sdks/asgardeo-dark.svg" }
+    ]
+  ],
   themeConfig: {
     siteTitle: "Mobile SDKs",
+    search: {
+        provider: 'local'
+    },
     logo: {
         light: "/asgardeo-light.svg",
         dark: "/asgardeo-dark.svg",
     },
     nav: [
       { text: "Home", link: "/" },
-      { text: "Android SDK", link: "/android/getting-started.html" }
+      { text: "Android SDK", link: "/android/introduction.html" }
     ],
-
     sidebar: [
       {
         text: "Android SDK",
         items: [
-          { text: "Getting Started", link: "/android/getting-started" },
+          { 
+            text: "Getting Started", 
+            items: [
+                { text: "Introduction", link: "/android/introduction.html" },
+                { text: "Start", link: "/android/start.html" },
+                { text: "Get User Details", link: "/android/user-details.html" },
+                { text: "Get Token Information", link: "/android/token-information.html" },
+                { text: "Logout", link: "/android/logout.html" },
+                { text: "Client Attestation", link: "/android/client-attestation.html" },
+            ] 
+        },
           { text: "Use Authenticators", link: "/android/use-authenticators" },
           { text: "APIs", link: "/android/apis" }
         ]
