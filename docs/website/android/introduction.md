@@ -15,6 +15,7 @@
  * specific language governing permissions and limitations
  * under the License.
 -->
+
 # Asgardeo Android SDK
 
 The Asgardeo Auth Android SDK enables Android applications (written in Kotlin) to utilize OpenID Connect (OIDC) authentication with Asgardeo serving as the Consumer Identity and Access Management (CIAM) Provider through application-native authentication. 

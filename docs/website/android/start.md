@@ -15,6 +15,7 @@
  * specific language governing permissions and limitations
  * under the License.
 -->
+
 # Start the Authentication Process
 
 1. Initialize the SDK object `AsgardeoAuth`, to authenticate users into your application. This can be done in a repository if you are using an [MVVM](https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/) pattern in your application.

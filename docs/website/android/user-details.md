@@ -15,7 +15,8 @@
  * specific language governing permissions and limitations
  * under the License.
 -->
-# Get user details
+
+# Get User Details
 
 After the user is authenticated, to get user-related information, we can use the following function. This will return the user details in a `LinkedHashMap`.
 

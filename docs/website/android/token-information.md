@@ -15,7 +15,8 @@
  * specific language governing permissions and limitations
  * under the License.
 -->
-# Get token information
+
+# Get Token Information
 
 To get information, you can use the <a href="mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.token/-token-provider/index.html" target="_blank">TokenProvider</a>. This will assist you in getting token-related information and performing actions on the tokens.
 

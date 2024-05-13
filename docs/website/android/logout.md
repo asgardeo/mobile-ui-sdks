@@ -15,6 +15,7 @@
  * specific language governing permissions and limitations
  * under the License.
 -->
+
 # Logout
 
 If you want to perform a logout, you can call the `logout` function in the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a>. This will emit the state **AuthenticationState.Initial** if the logout is successful, and if an error occurs, it will emit **AuthenticationState.Error**.
