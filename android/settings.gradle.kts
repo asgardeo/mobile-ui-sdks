@@ -26,7 +26,6 @@ pluginManagement {
             }
         }
         mavenCentral()
-        mavenLocal()
         gradlePluginPortal()
     }
 }
@@ -35,10 +34,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        mavenLocal()
     }
 }
 
 rootProject.name = "android"
-include(":core-auth-direct")
 include(":main")
+include(":core")
+include(":core-auth-direct")

@@ -58,7 +58,7 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar, *.aar"))))
-    api(project(":core-auth-direct"))
+    api(project(":core"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -168,7 +168,7 @@ afterEvaluate {
                                 else groupName
 
                             val finalArtifactId: String =
-                                if(it.moduleName == "core") "android.ui.core"
+                                if(it.moduleName == "core") "asgardeo-android-core"
                                 else it.moduleName
 
                             val finalVersion: String =
@@ -188,10 +188,6 @@ afterEvaluate {
                 }
             }
         }
-
-//        signing {
-//            sign(publishing.publications["release"])
-//        }
 
         repositories {
             maven {
