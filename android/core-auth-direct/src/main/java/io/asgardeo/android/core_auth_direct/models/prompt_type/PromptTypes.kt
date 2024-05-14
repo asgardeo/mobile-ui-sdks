@@ -16,29 +16,20 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.models.prompt_type
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+/**
+ * Enum class for prompt types
+ *
+ * @param promptType Prompt type value
+ */
+enum class PromptTypes(val promptType: String) {
+    /**
+     * User prompt type
+     */
+    USER_PROMPT("USER_PROMPT"),
+    /**
+     * Redirection prompt type
+     */
+    REDIRECTION_PROMPT("REDIRECTION_PROMPT"),
+}

@@ -16,29 +16,26 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.models.exceptions
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+import io.asgardeo.android.core_auth_direct.core.managers.logout.LogoutManager
+
+/**
+ * Exception to be thrown to the exception related to [LogoutManager]
+ *
+ * @param message Message related to the exception
+ */
+class LogoutException (
+    override val message: String?
+): Exception(message) {
+    companion object {
+        /**
+         * Logout exception TAG
+         */
+        const val LOGOUT_EXCEPTION = "Logout Exception"
+    }
+
+    override fun toString(): String {
+        return "$LOGOUT_EXCEPTION: $message"
+    }
+}

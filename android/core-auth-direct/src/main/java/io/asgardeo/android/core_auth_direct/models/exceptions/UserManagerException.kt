@@ -16,29 +16,19 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.models.exceptions
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+class UserManagerException(
+    override val message: String?
+) : Exception(message) {
+    companion object {
+        /**
+         * User manager exception TAG
+         */
+        const val USER_MANAGER_EXCEPTION = "UserManager Exception"
+    }
+
+    override fun toString(): String {
+        return "$USER_MANAGER_EXCEPTION: $message"
+    }
+}

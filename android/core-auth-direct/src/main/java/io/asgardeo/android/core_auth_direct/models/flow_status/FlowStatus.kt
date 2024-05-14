@@ -16,29 +16,26 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.models.flow_status
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+/**
+ * Enum class for flow status
+ *
+ * @param flowStatus Flow status value
+ */
+enum class FlowStatus(val flowStatus: String) {
+    /**
+     * Flow status is fail and incomplete.
+     */
+    FAIL_INCOMPLETE("FAIL_INCOMPLETE"),
+
+    /**
+     * Flow status is incomplete.
+     */
+    INCOMPLETE("INCOMPLETE"),
+
+    /**
+     * Flow status is success.
+     */
+    SUCCESS("SUCCESS_COMPLETED"),
+}

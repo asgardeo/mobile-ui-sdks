@@ -16,29 +16,21 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
+package io.asgardeo.android.core_auth_direct.models.authentication_flow
+
+import io.asgardeo.android.core_auth_direct.util.JsonUtil
+
+/**
+ * Authentication flow data class. Which is used to hold the data of an authentication flow.
+ *
+ * @param flowStatus Status of the authentication flow
+ */
+abstract class AuthenticationFlow(open val flowStatus: String) {
+    /**
+     * Convert the object to a json string
+     */
+    fun toJsonString(): String {
+        return JsonUtil.getJsonString(this)
     }
 }
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")

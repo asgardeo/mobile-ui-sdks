@@ -16,29 +16,31 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.models.exceptions
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+/**
+ * Exception to be thrown to the exception related to the Authenticator
+ *
+ * @param message Message related to the exception
+ */
+class AuthenticationCoreException(
+    override val message: String?
+): Exception(message) {
+    companion object {
+        /**
+         * Authenticator exception TAG
+         */
+        const val AUTHORIZATION_SERVICE_EXCEPTION = "Authorization Service Exception"
+    }
+
+    override fun toString(): String {
+        return "$AUTHORIZATION_SERVICE_EXCEPTION: $message"
+    }
+
+    /**
+     * Print the exception
+     */
+    fun printException() {
+        println(toString())
+    }
+}

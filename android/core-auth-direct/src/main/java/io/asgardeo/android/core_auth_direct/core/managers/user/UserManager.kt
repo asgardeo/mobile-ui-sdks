@@ -16,29 +16,18 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.core.managers.user
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+/**
+ * UserManager is responsible for managing the user details.
+ */
+interface UserManager {
+    /**
+     * Get the basic user information of the authenticated.
+     *
+     * @param accessToken Access token to authorize the request
+     *
+     * @return User details as a [LinkedHashMap]
+     */
+    suspend fun getBasicUserInfo(accessToken: String?): LinkedHashMap<String, Any>?
+}

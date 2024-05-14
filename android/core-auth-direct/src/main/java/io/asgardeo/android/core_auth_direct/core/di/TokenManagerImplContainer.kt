@@ -16,29 +16,19 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.core.di
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+import io.asgardeo.android.core_auth_direct.core.managers.token.impl.TokenManagerImpl
+import io.asgardeo.android.core_auth_direct.data.token.TokenDataStoreFactory
+
+/**
+ * Dependency container for the [TokenManagerImpl] class.
+ */
+internal object TokenManagerImplContainer {
+    /**
+     * Returns an instance of the [TokenDataStoreFactory] class.
+     *
+     * @return [TokenDataStoreFactory] instance.
+     */
+    internal fun getTokenDataStoreFactory(): TokenDataStoreFactory = TokenDataStoreFactory
+}

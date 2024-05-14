@@ -24,7 +24,7 @@ plugins {
 }
 
 android {
-    namespace = "io.asgardeo.android"
+    namespace = "io.asgardeo.android.core_auth_direct"
     compileSdk = 34
 
     defaultConfig {
@@ -58,20 +58,42 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar, *.aar"))))
-    api(project(":core-auth-direct"))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // For Google and Passkey authentication
+    implementation(libs.androidx.credentials)
+    // optional - needed for credentials support from play services, for devices running
+    // Android 13 and below.
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+    implementation(libs.play.services.auth)
+
+    // HTTP client
+    implementation(libs.okhttp)
+
+    // JSON parser
+    implementation(libs.jackson.module.kotlin)
+
+    // App auth module
+    implementation(libs.appauth)
+
+    // Data store
+    implementation(libs.androidx.datastore.preferences)
 }
 
 extra.apply {
-    set("artifactId", properties["MAIN_PACKAGE_NAME"])
-    set("artifactName", "main")
+    set("artifactId", properties["MAIN_PACKAGE_NAME"].toString()+".core")
+    set("artifactName", "core-auth-direct")
     set(
         "artifactDescription",
-        "A library that provides all the necessary functionalities to integrate your Android application with Asgardeo."
+        "A library that provides all the necessary authentication functionality to integrate your Android application with Asgardeo."
     )
-    set("versionNumber", properties["MAIN_VERSION"])
+    set("versionNumber", properties["CORE_VERSION"])
 }
 
 // apply("${rootDir}/publish.gradle")
@@ -163,26 +185,10 @@ afterEvaluate {
                         configurations.getByName("releaseRuntimeClasspath").resolvedConfiguration.firstLevelModuleDependencies.forEach {
                             val dependencyNode = dependenciesNode.appendNode("dependency")
 
-                            val finalGroupId: String =
-                                if(it.moduleGroup != "android") it.moduleGroup
-                                else groupName
-
-                            val finalArtifactId: String =
-                                if(it.moduleName == "core") "android.ui.core"
-                                else it.moduleName
-
-                            val finalVersion: String =
-                                if(it.moduleVersion !== "unspecified") it.moduleVersion
-                                else versionNumber
-
-                            val finalScope: String =
-                                if(it.moduleVersion !== "unspecified") "runtime"
-                                else "compile"
-
-                            dependencyNode.appendNode("groupId", finalGroupId)
-                            dependencyNode.appendNode("artifactId", finalArtifactId)
-                            dependencyNode.appendNode("version", finalVersion)
-                            dependencyNode.appendNode("scope", finalScope)
+                            dependencyNode.appendNode("groupId", it.moduleGroup)
+                            dependencyNode.appendNode("artifactId", it.moduleName)
+                            dependencyNode.appendNode("version", it.moduleVersion)
+                            dependencyNode.appendNode("scope", "runtime")
                         }
                     }
                 }

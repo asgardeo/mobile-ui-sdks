@@ -16,29 +16,26 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.models.exceptions
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+import io.asgardeo.android.core_auth_direct.core.managers.authn.AuthnManager
+
+/**
+ * Exception to be thrown to the exception related to [AuthnManager]
+ *
+ * @param message Message related to the exception
+ */
+class AuthnManagerException (
+    override val message: String?
+): Exception(message) {
+    companion object {
+        /**
+         * Authenticator exception TAG
+         */
+        const val AUTHN_MANAGER_EXCEPTION = "AuthnManager Exception"
+    }
+
+    override fun toString(): String {
+        return "$AUTHN_MANAGER_EXCEPTION: $message"
+    }
+}

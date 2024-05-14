@@ -16,29 +16,20 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.core_config.managers.discovery_manager
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+import com.fasterxml.jackson.databind.JsonNode
+
+/**
+ * Manager to handle the discovery endpoint.
+ */
+interface DiscoveryManager {
+    /**
+     * Call the discovery endpoint and return the response.
+     *
+     * @param discoveryEndpoint Discovery endpoint
+     *
+     * @return Discovery response as a [JsonNode]
+     */
+    suspend fun callDiscoveryEndpoint(discoveryEndpoint: String): JsonNode
+}

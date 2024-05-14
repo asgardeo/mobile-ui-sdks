@@ -16,29 +16,21 @@
  *  under the License.
  */
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        mavenLocal()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
-    }
-}
+package io.asgardeo.android.core_auth_direct.provider.provider_managers.user
 
-rootProject.name = "android"
-include(":core-auth-direct")
-include(":main")
+import android.content.Context
+
+/**
+ * UserProviderManager is responsible for managing the actions related to the user details.
+ */
+internal interface UserProviderManager {
+    /**
+     * Get the basic user information of the authenticated user from the server using the
+     * userinfo endpoint.
+     *
+     * @param context The [Context] of the application
+     *
+     * @return User details as a [LinkedHashMap]
+     */
+     suspend fun getBasicUserInfo(context: Context): LinkedHashMap<String, Any>?
+}
