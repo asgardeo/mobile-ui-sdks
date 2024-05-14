@@ -45,7 +45,7 @@ This repository holds the mobile SDKs to support the integreation of your mobile
 
 For more information on how to use each SDK, check out the following documentation.
 
-- <a href="https://asgardeo.github.io/mobile-ui-sdks/android/getting-started.html" target="_blank">🤖 Android</a>
+- <a href="https://asgardeo.github.io/mobile-ui-sdks/android/introduction.html" target="_blank">🤖 Android</a>
 
 ## Contributing
 

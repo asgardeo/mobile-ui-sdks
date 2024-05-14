@@ -18,4 +18,4 @@
 
 # Asgardeo Android SDK
 
-To see the full details of the Asgardeo Android SDK, refer to following <a href="https://asgardeo.github.io/mobile-ui-sdks/android/getting-started.html" target="_blank">documentation link</a>.
+To see the full details of the Asgardeo Android SDK, refer to following <a href="https://asgardeo.github.io/mobile-ui-sdks/android/introduction.html" target="_blank">documentation link</a>.
