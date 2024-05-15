@@ -18,7 +18,7 @@
 
 # Get Token Information
 
-To get information, you can use the <a href="mobile-ui-sdks/android/api/core/io.asgardeo.android.core_auth_direct.provider.providers.token/-token-provider/index.html" target="_blank">TokenProvider</a>. This will assist you in getting token-related information and performing actions on the tokens.
+To get information, you can use the <a href="mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.token/-token-provider/index.html" target="_blank">TokenProvider</a>. This will assist you in getting token-related information and performing actions on the tokens.
 
 ```kotlin
 val tokenProvider: TokenProvider = asgardeoAuth.getTokenProvider()
@@ -36,7 +36,7 @@ val scope:String? = tokenProvider.getScope(context)
 
 ## Perform action based on the tokens
 
-If you want to perform any action based on the tokens that are returned, you can use the `performAction` function in the <a href="mobile-ui-sdks/android/api/core/io.asgardeo.android.core_auth_direct.provider.providers.token/-token-provider/index.html" target="_blank">TokenProvider</a>.
+If you want to perform any action based on the tokens that are returned, you can use the `performAction` function in the <a href="mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.token/-token-provider/index.html" target="_blank">TokenProvider</a>.
 
 ```kotlin
 tokenProvider.performAction(context) { accessToken, idToken, ->

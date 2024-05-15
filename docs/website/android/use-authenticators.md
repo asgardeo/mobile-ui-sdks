@@ -18,7 +18,7 @@
 
 # How to use authenticators with the Android SDK
 
-The Asgardeo Auth SDK provides out-of-the-box support for some authenticators, which are accessible via the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a>. Each of the following functions will emit the aforementioned <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core_auth_direct.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>, except for the **AuthenticationState.Initial**.
+The Asgardeo Auth SDK provides out-of-the-box support for some authenticators, which are accessible via the <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a>. Each of the following functions will emit the aforementioned <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>, except for the **AuthenticationState.Initial**.
 
 Before utilizing these authenticators, you need to integrate them into your application's login flow. You can find more information about this in the following [link](https://wso2.com/asgardeo/docs/guides/authentication/).
 
@@ -88,7 +88,7 @@ authenticationProvider.authenticateWithTotp(
 ```
 
 ## Use Google authentication
-Before using the Google autenticator make sure to add the Google web client ID you added in Asgardeo in the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core_auth_direct.core_config/-authentication-core-config/index.html" target="_blank">AuthenticationCoreConfig</a> object used to initialized the `AsgardeoAuth` object
+Before using the Google autenticator make sure to add the Google web client ID you added in Asgardeo in the <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.core_config/-authentication-core-config/index.html" target="_blank">AuthenticationCoreConfig</a> object used to initialized the `AsgardeoAuth` object
 
 ```kotlin
 private val asgardeoAuth: AsgardeoAuth = AsgardeoAuth.getInstance(
