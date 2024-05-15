@@ -137,7 +137,7 @@ release_android_sdks() {
     check_gradle_wrapper
     gradle_build
     gradle_assemble
-    #gradle_publish_release_to_wso2_nexus
+    gradle_publish_release_to_wso2_nexus
 
     # Go to scripts directory
     go_to_scripts_dir
