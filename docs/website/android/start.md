@@ -44,7 +44,7 @@ val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticat
 - **AuthenticationState.Initial**: Initial state of the authentication process.
 - **AuthenticationState.Loading**: SDK is calling an API to handle the authentication and waiting for the result.
 - **AuthenticationState.Unauthenticated**: This means the authentication flow is still not completed and a particular step is getting challenged for authentication. In this state, the list of available authenticators will be returned to you in a 
-<a href="mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.authentication_flow/-authentication-flow-not-success/index.html" target="_blank">AuthenticationFlowNotSuccess</a> object.
+<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.authentication_flow/-authentication-flow-not-success/index.html" target="_blank">AuthenticationFlowNotSuccess</a> object.
 - **AuthenticationState.Authenticated**: User is authenticated.
 - **AuthenticationState.Error**: An error occurred during the authentication flow.
 
@@ -98,7 +98,7 @@ private fun handleAuthenticationState(state: AuthenticationState) {
 }
 ```
 
-Assuming that you have configured Username and Password as the first authentication step and TOTP as the second step, you can develop the UI as follows using the <a href="mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.autheniticator/-authenticator-types/index.html" target="_blank">AuthenticatorTypes</a> provided by the SDK to populate the login form.
+Assuming that you have configured Username and Password as the first authentication step and TOTP as the second step, you can develop the UI as follows using the <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.autheniticator/-authenticator-types/index.html" target="_blank">AuthenticatorTypes</a> provided by the SDK to populate the login form.
 ```kotlin
 /**
  * Assuming the authentication process is, basic as first factor and TOTP as second factor
