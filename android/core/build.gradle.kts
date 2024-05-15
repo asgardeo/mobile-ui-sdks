@@ -1,3 +1,5 @@
+import java.net.URI
+
 /*
  *  Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
  *
@@ -16,8 +18,6 @@
  *  under the License.
  */
 
-import java.net.URI
-
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -29,10 +29,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-
-        aarMetadata {
-            minCompileSdk = rootProject.extra.get("minCompileSdkVersion").toString().toInt()
-        }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -58,40 +54,18 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar, *.aar"))))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    api(project(":core-auth-direct"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    // For Google and Passkey authentication
-    implementation(libs.androidx.credentials)
-    // optional - needed for credentials support from play services, for devices running
-    // Android 13 and below.
-    implementation(libs.androidx.credentials.play.services.auth)
-    implementation(libs.googleid)
-    implementation(libs.play.services.auth)
-
-    // HTTP client
-    implementation(libs.okhttp)
-
-    // JSON parser
-    implementation(libs.jackson.module.kotlin)
-
-    // App auth module
-    implementation(libs.appauth)
-
-    // Data store
-    implementation(libs.androidx.datastore.preferences)
 }
 
 extra.apply {
-    set("artifactId", properties["MAIN_PACKAGE_NAME"].toString()+".core")
+    set("artifactId", properties["MAIN_PACKAGE_NAME"].toString()+"-core")
     set("artifactName", "core")
     set(
         "artifactDescription",
-        "A library that provides all the necessary authentication functionality to integrate your Android application with Asgardeo."
+        "A package that provides all the core functionalities to implement Android tools related to Asgardeo."
     )
     set("versionNumber", properties["CORE_VERSION"])
 }
@@ -100,7 +74,6 @@ extra.apply {
 // publish.gradle.kts
 
 // TOOD: the following code block to a separate gradle.kts file. Currently placed here due to an Android Studio bug, where new gradle.kts files are not recognized.
-
 // artifact related variables
 val groupName: String = rootProject.extra.get("groupName") as String
 val packagingType: String = rootProject.extra.get("packagingType") as String
@@ -185,19 +158,31 @@ afterEvaluate {
                         configurations.getByName("releaseRuntimeClasspath").resolvedConfiguration.firstLevelModuleDependencies.forEach {
                             val dependencyNode = dependenciesNode.appendNode("dependency")
 
-                            dependencyNode.appendNode("groupId", it.moduleGroup)
-                            dependencyNode.appendNode("artifactId", it.moduleName)
-                            dependencyNode.appendNode("version", it.moduleVersion)
-                            dependencyNode.appendNode("scope", "runtime")
+                            val finalGroupId: String =
+                                if(it.moduleGroup != "android") it.moduleGroup
+                                else groupName
+
+                            val finalArtifactId: String =
+                                if(it.moduleName == "core-auth-direct") "asgardeo-android-core-auth-direct"
+                                else it.moduleName
+
+                            val finalVersion: String =
+                                if(it.moduleVersion !== "unspecified") it.moduleVersion
+                                else versionNumber
+
+                            val finalScope: String =
+                                if(it.moduleVersion !== "unspecified") "runtime"
+                                else "compile"
+
+                            dependencyNode.appendNode("groupId", finalGroupId)
+                            dependencyNode.appendNode("artifactId", finalArtifactId)
+                            dependencyNode.appendNode("version", finalVersion)
+                            dependencyNode.appendNode("scope", finalScope)
                         }
                     }
                 }
             }
         }
-
-//        signing {
-//            sign(publishing.publications["release"])
-//        }
 
         repositories {
             maven {
