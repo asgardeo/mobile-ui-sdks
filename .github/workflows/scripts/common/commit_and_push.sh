@@ -23,7 +23,7 @@
 GITHUB_RUN_NUMBER=$1
 RELEASE_BRANCH=$2
 RELEASE_COMMIT_MESSAGE=$3
-MASTER_BRANCH="main"
+MASTER_BRANCH="release-test"
 
 # Go to root directory
 go_to_root_dir() {
