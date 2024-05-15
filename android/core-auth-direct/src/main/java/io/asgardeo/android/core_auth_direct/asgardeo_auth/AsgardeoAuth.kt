@@ -1,0 +1,119 @@
+/*
+ *  Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied. See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+package io.asgardeo.android.core_auth_direct.asgardeo_auth
+
+import io.asgardeo.android.core_auth_direct.asgardeo_auth.di.AsgardeoAuthContainer
+import io.asgardeo.android.core_auth_direct.core_config.AuthenticationCoreConfig
+import io.asgardeo.android.core_auth_direct.core.core_types.authentication.AuthenticationCoreDef
+import io.asgardeo.android.core_auth_direct.core.core_types.authentication.impl.AuthenticationCore
+import io.asgardeo.android.core_auth_direct.core.core_types.native_authentication_handler.NativeAuthenticationHandlerCoreDef
+import io.asgardeo.android.core_auth_direct.core_config.providers.authentication_core_config_provider.AuthenticationCoreConfigProvider
+import io.asgardeo.android.core_auth_direct.provider.di.AuthenticationProviderImplContainer
+import io.asgardeo.android.core_auth_direct.provider.di.TokenProviderImplContainer
+import io.asgardeo.android.core_auth_direct.provider.providers.authentication.AuthenticationProvider
+import io.asgardeo.android.core_auth_direct.provider.providers.authentication.impl.AuthenticationProviderImpl
+import io.asgardeo.android.core_auth_direct.provider.providers.token.TokenProvider
+import io.asgardeo.android.core_auth_direct.provider.providers.token.impl.TokenProviderImpl
+import java.lang.ref.WeakReference
+
+/**
+ * The [AsgardeoAuth] class act as the entry point for the SDK.
+ * This class will initialize the [AuthenticationProvider] and [TokenProvider] instances,
+ * which will be used throughout the application for authentication and token management.
+ *
+ * @param authenticationCoreConfig Configuration of the Authenticator [AuthenticationCoreConfig]
+ */
+class AsgardeoAuth private constructor(
+    private val authenticationCoreConfig: AuthenticationCoreConfig
+) {
+    /**
+     * Instance of the [AuthenticationCoreConfigProvider] that will be used throughout the application
+     */
+    private val authenticationCoreConfigProvider: AuthenticationCoreConfigProvider by lazy {
+        AsgardeoAuthContainer.getAuthenticationCoreConfigProvider(authenticationCoreConfig)
+    }
+
+    /**
+     * Instance of the [AuthenticationCore] that will be used throughout the application
+     */
+    private val authenticationCore: AuthenticationCoreDef by lazy {
+        AsgardeoAuthContainer.getAuthenticationCoreDef(authenticationCoreConfigProvider)
+    }
+
+    /**
+     * Instance of the [NativeAuthenticationHandlerCoreDef] that will be used throughout the application
+     */
+    private val nativeAuthenticationHandlerCore: NativeAuthenticationHandlerCoreDef by lazy {
+        AsgardeoAuthContainer.getNativeAuthenticationHandlerCoreDef(authenticationCoreConfigProvider)
+    }
+
+    companion object {
+        /**
+         * Instance of the [AsgardeoAuth] that will be used throughout the application
+         */
+        private var asgardeoAuthInstance = WeakReference<AsgardeoAuth?>(null)
+
+        /**
+         * Initialize the [AsgardeoAuth] instance and return the instance.
+         *
+         * @param authenticationCoreConfig Configuration of the Authenticator [AuthenticationCoreConfig]
+         *
+         * @return Initialized [AuthenticationCore] instance
+         */
+        fun getInstance(authenticationCoreConfig: AuthenticationCoreConfig): AsgardeoAuth {
+            var asgardeoAuth = asgardeoAuthInstance.get()
+            if (asgardeoAuth == null) {
+                asgardeoAuth = AsgardeoAuth(authenticationCoreConfig)
+                asgardeoAuthInstance = WeakReference(asgardeoAuth)
+            }
+            return asgardeoAuth
+        }
+
+        /**
+         * Get the [AsgardeoAuth] instance.
+         * This method will return null if the [AsgardeoAuth] instance is not initialized.
+         *
+         * @return [AsgardeoAuth] instance
+         */
+        fun getInstance(): AsgardeoAuth? = asgardeoAuthInstance.get()
+    }
+
+    /**
+     * Get the [AuthenticationProvider] instance. This instance will be used for authentication.
+     *
+     * @return [AuthenticationProvider] instance
+     */
+    fun getAuthenticationProvider(): AuthenticationProvider =
+        AuthenticationProviderImpl.getInstance(
+            AuthenticationProviderImplContainer.getAuthenticationProviderManager(
+                authenticationCore,
+                nativeAuthenticationHandlerCore
+            ),
+            AuthenticationProviderImplContainer.getUserProviderManager(authenticationCore)
+        )
+
+    /**
+     * Get the [TokenProvider] instance. This instance will be used for token management.
+     *
+     * @return [TokenProvider] instance
+     */
+    fun getTokenProvider(): TokenProvider = TokenProviderImpl.getInstance(
+        TokenProviderImplContainer.getTokenProviderManager(authenticationCore)
+    )
+}

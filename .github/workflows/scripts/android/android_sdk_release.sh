@@ -65,6 +65,7 @@ update_versions() {
   # Access the versions as variables
   MAIN_VERSION=${MAIN_VERSION}
   CORE_VERSION=${CORE_VERSION}
+  CORE_AUTH_DIRECT_VERSION=${CORE_AUTH_DIRECT_VERSION}
 
   go_to_scripts_dir
 }
@@ -136,7 +137,7 @@ release_android_sdks() {
     check_gradle_wrapper
     gradle_build
     gradle_assemble
-    gradle_publish_release_to_wso2_nexus
+    #gradle_publish_release_to_wso2_nexus
 
     # Go to scripts directory
     go_to_scripts_dir
@@ -155,7 +156,7 @@ commit_and_push() {
   # Go to common scripts directory
   go_to_common_scripts_dir
 
-  bash ./commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH "Bump versions of Mobile-SKDs Android SDKs"
+  bash ./commit_and_push.sh $GITHUB_RUN_NUMBER $RELEASE_BRANCH "Bump versions of Mobile-SDKs Android SDKs"
 }
 
 # Function to create GitHub release
@@ -166,13 +167,13 @@ create_github_release() {
   go_to_common_scripts_dir
 
   # Create the release tag
-  local release_tag="android-v$MAIN_VERSION"
+  local release_tag="asgardeo-android-v$MAIN_VERSION"
   # Get the current date in YYYY-MM-DD format
   local release_date=$(date +'%Y-%m-%d')
   # Create the release body
-  local release_body="Released on: $release_date\n\nReleased Versions:\nandroid: $MAIN_VERSION\nandroid-core: $CORE_VERSION"
+  local release_body="Released on: $release_date\n\nReleased Versions:\nasgardo-android: $MAIN_VERSION\nasgardeo-android-core: $CORE_VERSION\nasgardeo-android-core-auth-direct: $CORE_AUTH_DIRECT_VERSION"
 
-  bash ./create_github_release.sh $GH_TOKEN $release_tag $GITHUB_REPOSITORY $MAIN_VERSION $CORE_VERSION
+  bash ./create_github_release.sh $GH_TOKEN $release_tag $GITHUB_REPOSITORY $MAIN_VERSION $CORE_VERSION $CORE_AUTH_DIRECT_VERSION
 }
 
 # Call the functions in sequence

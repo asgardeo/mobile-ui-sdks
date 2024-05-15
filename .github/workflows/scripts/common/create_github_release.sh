@@ -25,6 +25,7 @@ RELEASE_TAG=$2
 GITHUB_REPOSITORY=$3
 MAIN_VERSION=$4
 CORE_VERSION=$5
+CORE_AUTH_DIRECT_VERSION=$6
 MASTER_BRANCH="main"
 
 # Go to root directory
@@ -60,7 +61,7 @@ CREATE_RELEASE_RESPONSE=$(curl --fail --location --request POST "https://api.git
         "tag_name": "'"$RELEASE_TAG"'",
         "target_commitish": "'"$MASTER_BRANCH"'",
         "name": "'"$RELEASE_NAME"'",
-        "body": "Released on: '"$release_date"'\n\nReleased Versions:\nandroid: '"$MAIN_VERSION"'\nandroid-core: '"$CORE_VERSION"'"
+        "body": "Released on: '"$release_date"'\n\nReleased Versions:\nasgardeo-android: '"$MAIN_VERSION"'\nasgardeo-android-core: '"$CORE_VERSION"' \nasgardeo-android-core-auth-direct: '"$CORE_AUTH_DIRECT_VERSION"'",
         }')
 
 RELEASE_ID=$(echo $CREATE_RELEASE_RESPONSE | jq -r '.id')
