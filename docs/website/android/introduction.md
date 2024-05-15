@@ -43,11 +43,11 @@ This SDK assists you in creating custom login flows directly within the applicat
 
     ```groovy
     dependencies {
-        implementation 'io.asgardeo:android:<latest-version>'
+        implementation 'io.asgardeo:asgardeo-android:<latest-version>'
     }
     ```
 
-    You can find the latest version of the SDK from the [Maven Repository](https://central.sonatype.com/artifact/io.asgardeo/android.ui).
+    You can find the latest version of the SDK from the [Maven Repository](https://central.sonatype.com/artifact/io.asgardeo/asgardeo-android).
 
 2. Add a redirect scheme in the Android application. You need to add the `appAuthRedirectScheme` in the application `build.gradle` file.
 
