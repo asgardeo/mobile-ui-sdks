@@ -37,7 +37,7 @@ This repository holds the mobile SDKs to support the integreation of your mobile
 
 | Package | Description | Version |
 | --- | --- | --- |
-| [`🤖 Android`](./android) | Android SDK for Asgardeo  | ![Maven Central Version](https://img.shields.io/maven-central/v/io.asgardeo/android.ui?logo=sonatype) |
+| [`🤖 Android`](./android) | Android SDK for Asgardeo  | ![Maven Central Version](https://img.shields.io/maven-central/v/io.asgardeo/asgardeo-android?logo=sonatype) |
 | [`🍎 iOS`](./iOS) | iOS SDK for Asgardeo   | In Development |
 | [`🐦 Flutter`](./flutter) | Flutter SDK for Asgardeo   | In Development |
 

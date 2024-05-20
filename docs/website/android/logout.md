@@ -18,7 +18,7 @@
 
 # Logout
 
-If you want to perform a logout, you can call the `logout` function in the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a>. This will emit the state **AuthenticationState.Initial** if the logout is successful, and if an error occurs, it will emit **AuthenticationState.Error**.
+If you want to perform a logout, you can call the `logout` function in the <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a>. This will emit the state **AuthenticationState.Initial** if the logout is successful, and if an error occurs, it will emit **AuthenticationState.Error**.
 
 ```kotlin
 authenticationProvider.logout(context)

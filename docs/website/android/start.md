@@ -31,20 +31,20 @@
         )
     )
     ```
-    <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.core_config/-authentication-core-config/index.html" target="_blank">AuthenticationCoreConfig</a> holds the configuration details that are required to set up the communication between the SDK and the Asgardeo.
+    <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.core_config/-authentication-core-config/index.html" target="_blank">AuthenticationCoreConfig</a> holds the configuration details that are required to set up the communication between the SDK and the Asgardeo.
 
-2. Get the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> from the created `AsgardeoAuth` instance. This will assist you in handling the authentication process.
+2. Get the <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> from the created `AsgardeoAuth` instance. This will assist you in handling the authentication process.
 
 ```kotlin
 val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticationProvider()
 ```
 
-<a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> handles the authentication process using `SharedFlow`. This will help you to handle each state of the authentication process easily. There are four states in the authentication process (<a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>):
+<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> handles the authentication process using `SharedFlow`. This will help you to handle each state of the authentication process easily. There are four states in the authentication process (<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>):
 
 - **AuthenticationState.Initial**: Initial state of the authentication process.
 - **AuthenticationState.Loading**: SDK is calling an API to handle the authentication and waiting for the result.
 - **AuthenticationState.Unauthenticated**: This means the authentication flow is still not completed and a particular step is getting challenged for authentication. In this state, the list of available authenticators will be returned to you in a 
-<a href="mobile-ui-sdks/android/api/core/io.asgardeo.android.core.models.authentication_flow/-authentication-flow-not-success/index.html" target="_blank">AuthenticationFlowNotSuccess</a> object.
+<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.authentication_flow/-authentication-flow-not-success/index.html" target="_blank">AuthenticationFlowNotSuccess</a> object.
 - **AuthenticationState.Authenticated**: User is authenticated.
 - **AuthenticationState.Error**: An error occurred during the authentication flow.
 
@@ -98,7 +98,7 @@ private fun handleAuthenticationState(state: AuthenticationState) {
 }
 ```
 
-Assuming that you have configured Username and Password as the first authentication step and TOTP as the second step, you can develop the UI as follows using the <a href="mobile-ui-sdks/android/api/core/io.asgardeo.android.core.models.autheniticator/-authenticator-types/index.html" target="_blank">AuthenticatorTypes</a> provided by the SDK to populate the login form.
+Assuming that you have configured Username and Password as the first authentication step and TOTP as the second step, you can develop the UI as follows using the <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.autheniticator/-authenticator-types/index.html" target="_blank">AuthenticatorTypes</a> provided by the SDK to populate the login form.
 ```kotlin
 /**
  * Assuming the authentication process is, basic as first factor and TOTP as second factor
@@ -122,7 +122,7 @@ internal fun LoginForm() {
 }
 ```
 
-In the BasicAuth component you can call the authentication function provided by the <a href="/mobile-ui-sdks/android/api/core/io.asgardeo.android.core.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> to authenticate with username and password. Similarly, this can be done in other components as well.
+In the BasicAuth component you can call the authentication function provided by the <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> to authenticate with username and password. Similarly, this can be done in other components as well.
 ```kotlin
 @Composable
 internal fun BasicAuth(authenticator: Authenticator) {
