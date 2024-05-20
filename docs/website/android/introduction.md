@@ -43,7 +43,7 @@ This SDK assists you in creating custom login flows directly within the applicat
 
     ```groovy
     dependencies {
-        implementation 'io.asgardeo:asgardeo-android:<latest-version>'
+        implementation('io.asgardeo:asgardeo-android:<latest-version>')
     }
     ```
 
