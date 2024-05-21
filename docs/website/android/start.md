@@ -48,9 +48,13 @@ val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticat
 - **AuthenticationState.Authenticated**: User is authenticated.
 - **AuthenticationState.Error**: An error occurred during the authentication flow.
 
-3. To start the authentication process, call `authenticationProvider.isLoggedInStateFlow`, this will check if there is an active session available, and if available, the authentication state will emit **AuthenticationState.Authenticated**, else will emit **AuthenticationState.Initial**.
+3. To start the authentication process, call `authenticationProvider.getAuthenticationStateFlow`, this will act as the observer for the authentication state changes.
 
-    After that, you can call the `authenticationProvider.initializeAuthentication` to initialize the authentication process.
+```kotlin
+val state = authenticationProvider.getAuthenticationStateFlow()
+```
+
+After that, you can call `authenticationProvider.isLoggedInStateFlow`, this will check if there is an active session available, and if available, the authentication state will emit **AuthenticationState.Authenticated**, else will emit **AuthenticationState.Initial**. Then call the `authenticationProvider.initializeAuthentication` to initialize the authentication process when the state is **AuthenticationState.Initial**.
 
 ```kotlin
 @Composable
@@ -60,38 +64,50 @@ internal fun LandingScreen() {
     // Initiate a call to /authorize endpoint only if a valid AT is not available
     authenticationProvider.isLoggedInStateFlow(context)  // [!code highlight]
     handleAuthenticationState(state)
+    isLoggedInStateFlow()
+}
+
+private fun isLoggedInStateFlow() {
+    GlobalScope.launch {
+        authenticationProvider.isLoggedInStateFlow(context) // [!code highlight]
+        _state.update { landingScreenState ->
+            landingScreenState.copy(isLoading = false)
+        }
+    }
 }
 
 private fun handleAuthenticationState(state: AuthenticationState) {
-    authStateJob = state.collect {
-        when (it) {
-            is AuthenticationState.Initial -> {
-                // pre /authorize
-                authenticationProvider.initializeAuthentication(context)  // [!code highlight]
-            }
-            is AuthenticationState.Unauthenticated -> {
-               /** 
-                * Gets called when /authorize and /authn responds with an “INCOMPLETE” state. 
-                * This means authentication flow is still not completed and a particular step is getting
-                * challenged for authentication.
-                */
-                LoginForm(it.authenticationFlow)
-            }
-            is AuthenticationState.Error -> {
-               /** 
-                * Gets called when /authorize and /authn responds with an “FAILED_INCOMPLETE” state 
-                * which responds at an error of a particular authentication step
-                */
-            }
-            is AuthenticationState.Authenticated -> {
-               /** 
-                * Gets called when /authn responds with an “SUCCESS” state. This means 
-                * authentication flow is completed
-                */
-                onSuccessfulLogin()
-            }
-            is AuthenticationState.Loading -> {
-                // Show loading
+    GlobalScope.launch {
+        state.collect {
+            when (it) {
+                is AuthenticationState.Initial -> {
+                    // pre /authorize
+                    authenticationProvider.initializeAuthentication(context)  // [!code highlight]
+                }
+                is AuthenticationState.Unauthenticated -> {
+                /** 
+                    * Gets called when /authorize and /authn responds with an “INCOMPLETE” state. 
+                    * This means authentication flow is still not completed and a particular step is getting
+                    * challenged for authentication.
+                    */
+                    LoginForm(it.authenticationFlow)
+                }
+                is AuthenticationState.Error -> {
+                /** 
+                    * Gets called when /authorize and /authn responds with an “FAILED_INCOMPLETE” state 
+                    * which responds at an error of a particular authentication step
+                    */
+                }
+                is AuthenticationState.Authenticated -> {
+                /** 
+                    * Gets called when /authn responds with an “SUCCESS” state. This means 
+                    * authentication flow is completed
+                    */
+                    onSuccessfulLogin()
+                }
+                is AuthenticationState.Loading -> {
+                    // Show loading
+                }
             }
         }
     }
@@ -104,7 +120,7 @@ Assuming that you have configured Username and Password as the first authenticat
  * Assuming the authentication process is, basic as first factor and TOTP as second factor
  */
 @Composable
-internal fun LoginForm() {
+internal fun LoginForm(
     authenticationFlow: AuthenticationFlowNotSuccess,
     onSuccessfulLogin: (User) -> Unit
 ) {
