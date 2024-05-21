@@ -56,6 +56,9 @@ val state = authenticationProvider.getAuthenticationStateFlow()
 
 After that, you can call `authenticationProvider.isLoggedInStateFlow`, this will check if there is an active session available, and if available, the authentication state will emit **AuthenticationState.Authenticated**, else will emit **AuthenticationState.Initial**. Then call the `authenticationProvider.initializeAuthentication` to initialize the authentication process when the state is **AuthenticationState.Initial**.
 
+> [!IMPORTANT]
+> All the suspend functions should be called inside a coroutine scope. Suspended functions in the SDK are designed to be optimezed for `Dispatchers.IO` context.
+
 ```kotlin
 @Composable
 internal fun LandingScreen() {
