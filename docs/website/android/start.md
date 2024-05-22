@@ -64,8 +64,6 @@ After that, you can call `authenticationProvider.isLoggedInStateFlow`, this will
 internal fun LandingScreen() {
     val state = authenticationProvider.getAuthenticationStateFlow()
 
-    // Initiate a call to /authorize endpoint only if a valid AT is not available
-    authenticationProvider.isLoggedInStateFlow(context)  // [!code highlight]
     handleAuthenticationState(state)
     isLoggedInStateFlow()
 }
@@ -73,9 +71,6 @@ internal fun LandingScreen() {
 private fun isLoggedInStateFlow() {
     GlobalScope.launch {
         authenticationProvider.isLoggedInStateFlow(context) // [!code highlight]
-        _state.update { landingScreenState ->
-            landingScreenState.copy(isLoading = false)
-        }
     }
 }
 
