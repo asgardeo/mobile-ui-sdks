@@ -43,3 +43,6 @@ tokenProvider.performAction(context) { accessToken, idToken, ->
     action(accessToken, idToken)
 }
 ```
+
+> [!NOTE]
+> All the functions mentioned above are suspend functions. Therefore, you need to call them inside a coroutine.
