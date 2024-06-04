@@ -62,10 +62,10 @@ After that, you can call `authenticationProvider.isLoggedInStateFlow`, this will
 ```kotlin
 @Composable
 internal fun LandingScreen() {
-    val state = authenticationProvider.getAuthenticationStateFlow()
+    val authenticationStateFlow = authenticationProvider.getAuthenticationStateFlow()
 
-    handleAuthenticationState(state)
     isLoggedInStateFlow()
+    handleAuthenticationState(authenticationStateFlow)
 }
 
 private fun isLoggedInStateFlow() {
@@ -74,7 +74,7 @@ private fun isLoggedInStateFlow() {
     }
 }
 
-private fun handleAuthenticationState(state: AuthenticationState) {
+private fun handleAuthenticationState(authenticationStateFlow: SharedFlow<AuthenticationState>) {
     GlobalScope.launch {
         state.collect {
             when (it) {
@@ -101,6 +101,7 @@ private fun handleAuthenticationState(state: AuthenticationState) {
                     * Gets called when /authn responds with an “SUCCESS” state. This means 
                     * authentication flow is completed
                     */
+
                     onSuccessfulLogin()
                 }
                 is AuthenticationState.Loading -> {
@@ -111,6 +112,9 @@ private fun handleAuthenticationState(state: AuthenticationState) {
     }
 }
 ```
+
+> [!NOTE]
+> You cannot directly use Composable functions inside a coroutine, above its used to show the flow of the application. The best approach you can take is to use [navigation](https://developer.android.com/guide/navigation).
 
 Assuming that you have configured Username and Password as the first authentication step and TOTP as the second step, you can develop the UI as follows using the <a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.autheniticator/-authenticator-types/index.html" target="_blank">AuthenticatorTypes</a> provided by the SDK to populate the login form.
 ```kotlin
@@ -125,11 +129,11 @@ internal fun LoginForm(
     authenticationFlow.nextStep.authenticators.forEach {
         when (it.authenticator) {
             AuthenticatorTypes.BASIC_AUTHENTICATOR.authenticatorType -> { // [!code highlight]
-                BasicAuth(authenticatorType = it)
+                BasicAuth(authenticator = it)
             }
 
             AuthenticatorTypes.TOTP_AUTHENTICATOR.authenticatorType -> { // [!code highlight]
-                TotpAuth(authenticatorType = it)
+                TotpAuth(authenticator = it)
             }
         }
     }
@@ -142,10 +146,14 @@ In the BasicAuth component you can call the authentication function provided by 
 internal fun BasicAuth(authenticator: Authenticator) {
     BasicAuthComponent(
         onLoginClick = { username, password ->
-            authenticationProvider.authenticateWithUsernameAndPassword(  // [!code highlight]
-                username = username,
-                password = password
-            )
+            GlobalScope.launch {
+                authenticationProvider.authenticateWithUsernameAndPassword(
+                    context = context,
+                    authenticatorId = authenticator.authenticatorId,
+                    username = username,
+                    password = password
+                )
+            }
         }
     )
 }
@@ -157,15 +165,16 @@ fun BasicAuthComponent(
     Column() {
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
+
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = "Username"
+            label = { Text(text = "Username") }
         )
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = "Password"
+            label = { Text(text = "Password") }
         )
         Button(onClick = { onLoginClick(username, password) }) {
             Text(text = "Login")
@@ -175,3 +184,8 @@ fun BasicAuthComponent(
 ```
 
 You will not need to handle the authentication state in multiple places, you can do it at the start of the application, and it will handle the state accordingly.
+
+> [!CAUTION]
+> When using `GlobalScope`, make sure to cancel the coroutine when the composable is removed from the screen. This is to avoid memory leaks.
+> Also instead of using `GlobalScope`, you can use `viewModelScope` if you are using the MVVM pattern in your application.
+> For more information on how to handle coroutines in Jetpack Compose, see [the following documentation](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/).

@@ -21,9 +21,9 @@
 After the user is authenticated, to get user-related information, we can use the following function. This will return the user details in a `LinkedHashMap`.
 
 ```kotlin
-coroutineScope.launch {
+GlobalScope.launch {
     runCatching {
-        authenticationProvider.getUserDetails(<context>) // [!code highlight]
+        authenticationProvider.getBasicUserInfo(<context>) // [!code highlight]
     }.onSuccess { userDetails ->
         Profile(userDetails)
     }.onFailure { e ->
@@ -31,3 +31,11 @@ coroutineScope.launch {
     }
 }
 ```
+
+> [!NOTE]
+> You cannot directly use Composable functions inside a coroutine, above its used to show the flow of the application. You can use the `getBasicUserInfo` function in a ViewModel or a Repository and observe the result in the Composable function.
+
+> [!CAUTION]
+> When using `GlobalScope`, make sure to cancel the coroutine when the composable is removed from the screen. This is to avoid memory leaks.
+> Also instead of using `GlobalScope`, you can use `viewModelScope` if you are using the MVVM pattern in your application.
+> For more information on how to handle coroutines in Jetpack Compose, see [the following documentation](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/).

@@ -23,3 +23,6 @@ If you want to perform a logout, you can call the `logout` function in the <a hr
 ```kotlin
 authenticationProvider.logout(context)
 ```
+
+> [!NOTE]
+> The `logout` function is a suspend function. Therefore, you need to call it inside a coroutine.

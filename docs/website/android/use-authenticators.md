@@ -208,6 +208,6 @@ authenticationProvider.authenticateWithMicrosoftRedirect(
 ```kotlin
 authenticationProvider.authenticateWithOpenIdConnect(
    context,
-    authenticatorId = authenticator.authenticatorId
+   authenticatorId = authenticator.authenticatorId
 )
 ```

@@ -57,6 +57,8 @@ This SDK assists you in creating custom login flows directly within the applicat
 
     ```groovy
     android.defaultConfig.manifestPlaceholders = [
-        'appAuthRedirectScheme': 'wso2sample' // [!code highlight]
+        'appAuthRedirectScheme': 'wso2sample',// [!code highlight]
+        'callbackUriHost': '' // [!code highlight],
+        'callbackUriScheme': '' // [!code highlight]
     ]
     ```
