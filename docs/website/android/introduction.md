@@ -43,7 +43,7 @@ This SDK assists you in creating custom login flows directly within the applicat
 
     ```groovy
     dependencies {
-        implementation('io.asgardeo:asgardeo-android:<latest-version>')
+        implementation("io.asgardeo:asgardeo-android:<latest-version>")
     }
     ```
 
@@ -56,9 +56,11 @@ This SDK assists you in creating custom login flows directly within the applicat
     For example, if you have configured the CallBack URL as *wso2sample://oauth2*, then the `appAuthRedirectScheme` should be *wso2sample*.
 
     ```groovy
-    android.defaultConfig.manifestPlaceholders = [
-        'appAuthRedirectScheme': 'wso2sample',// [!code highlight]
-        'callbackUriHost': '' // [!code highlight],
-        'callbackUriScheme': '' // [!code highlight]
-    ]
+    android.defaultConfig.manifestPlaceholders.putAll(
+        mapOf(
+            "appAuthRedirectScheme" to "wso2.apiauth.sample.android",
+            "callbackUriHost" to "",
+            "callbackUriScheme" to ""
+        )
+    )
     ```

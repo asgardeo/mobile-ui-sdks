@@ -51,10 +51,12 @@ val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticat
 3. To start the authentication process, call `authenticationProvider.getAuthenticationStateFlow`, this will act as the observer for the authentication state changes.
 
 ```kotlin
-val state = authenticationProvider.getAuthenticationStateFlow()
+val authenticationStateFlow = authenticationProvider.getAuthenticationStateFlow()
 ```
 
-After that, you can call `authenticationProvider.isLoggedInStateFlow`, this will check if there is an active session available, and if available, the authentication state will emit **AuthenticationState.Authenticated**, else will emit **AuthenticationState.Initial**. Then call the `authenticationProvider.initializeAuthentication` to initialize the authentication process when the state is **AuthenticationState.Initial**.
+After that, you can call `authenticationProvider.isLoggedInStateFlow`, this will check if there is an active session available, and if available, the authentication state will emit **AuthenticationState.Authenticated**, else will emit **AuthenticationState.Initial**. 
+
+Then call the `authenticationProvider.initializeAuthentication` to initialize the authentication process when the state is **AuthenticationState.Initial**.
 
 > [!IMPORTANT]
 > All the suspend functions should be called inside a coroutine scope. Suspended functions in the SDK are designed to be optimezed for `Dispatchers.IO` context.
@@ -64,48 +66,54 @@ After that, you can call `authenticationProvider.isLoggedInStateFlow`, this will
 internal fun LandingScreen() {
     val authenticationStateFlow = authenticationProvider.getAuthenticationStateFlow()
 
-    isLoggedInStateFlow()
-    handleAuthenticationState(authenticationStateFlow)
+    IsLoggedInStateFlow()
+    HandleAuthenticationState(authenticationStateFlow)
 }
 
-private fun isLoggedInStateFlow() {
-    GlobalScope.launch {
-        authenticationProvider.isLoggedInStateFlow(context) // [!code highlight]
+@Composable
+private fun IsLoggedInStateFlow(context: Context) {
+    LaunchedEffect(key1 = Unit) {
+        GlobalScope.launch {
+            authenticationProvider.isLoggedInStateFlow(context)
+        }
     }
 }
 
-private fun handleAuthenticationState(authenticationStateFlow: SharedFlow<AuthenticationState>) {
-    GlobalScope.launch {
-        state.collect {
-            when (it) {
-                is AuthenticationState.Initial -> {
-                    // pre /authorize
-                    authenticationProvider.initializeAuthentication(context)  // [!code highlight]
-                }
-                is AuthenticationState.Unauthenticated -> {
-                /** 
-                    * Gets called when /authorize and /authn responds with an “INCOMPLETE” state. 
-                    * This means authentication flow is still not completed and a particular step is getting
-                    * challenged for authentication.
-                    */
-                    LoginForm(it.authenticationFlow)
-                }
-                is AuthenticationState.Error -> {
-                /** 
-                    * Gets called when /authorize and /authn responds with an “FAILED_INCOMPLETE” state 
-                    * which responds at an error of a particular authentication step
-                    */
-                }
-                is AuthenticationState.Authenticated -> {
-                /** 
-                    * Gets called when /authn responds with an “SUCCESS” state. This means 
-                    * authentication flow is completed
-                    */
+@Composable
+private fun HandleAuthenticationState(authenticationStateFlow: SharedFlow<AuthenticationState>) {
+    LaunchedEffect(key1 = Unit) {
+        GlobalScope.launch {
+            authenticationStateFlow.collect {
+                when (it) {
+                    is AuthenticationState.Initial -> {
+                        // pre /authorize
+                        authenticationProvider.initializeAuthentication(context)  // [!code highlight]
+                    }
+                    is AuthenticationState.Unauthenticated -> {
+                    /** 
+                        * Gets called when /authorize and /authn responds with an “INCOMPLETE” state. 
+                        * This means authentication flow is still not completed and a particular step is getting
+                        * challenged for authentication.
+                        */
+                        LoginForm(it.authenticationFlow)
+                    }
+                    is AuthenticationState.Error -> {
+                    /** 
+                        * Gets called when /authorize and /authn responds with an “FAILED_INCOMPLETE” state 
+                        * which responds at an error of a particular authentication step
+                        */
+                    }
+                    is AuthenticationState.Authenticated -> {
+                    /** 
+                        * Gets called when /authn responds with an “SUCCESS” state. This means 
+                        * authentication flow is completed
+                        */
 
-                    onSuccessfulLogin()
-                }
-                is AuthenticationState.Loading -> {
-                    // Show loading
+                        onSuccessfulLogin()
+                    }
+                    is AuthenticationState.Loading -> {
+                        // Show loading
+                    }
                 }
             }
         }
@@ -174,6 +182,7 @@ fun BasicAuthComponent(
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
+            visualTransformation = PasswordVisualTransformation(),
             label = { Text(text = "Password") }
         )
         Button(onClick = { onLoginClick(username, password) }) {
