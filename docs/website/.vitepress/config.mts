@@ -26,7 +26,7 @@ export default defineConfig({
   head: [
     [
         "link", 
-        { rel: "icon", href: "/mobile-ui-sdks/asgardeo-dark.svg" }
+        { rel: "icon", href: "/mobile-ui-sdks/asgardeo-light.svg" }
     ]
   ],
   themeConfig: {

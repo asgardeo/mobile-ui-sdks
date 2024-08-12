@@ -36,12 +36,12 @@ features:
   - icon:
       light: /ios-light.svg
       dark: /ios-dark.svg
-      width: 50%
+      width: 161.67
     title: iOS SDK
     details: iOS SDK for Asgardeo.
   - icon:
       src: /flutter.svg
-      width: 50%
+      width: 161.67
     title: Flutter SDK
     details: Flutter SDK for Asgardeo.
 ---
