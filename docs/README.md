@@ -38,7 +38,7 @@ This file contains the CSS styles for the documentation site. For more informati
 
 ### website/.vitepress/config.mts
 
-This file contains the main structure of the documentation site. For more information on how to configure the site, see the [VitePress documentation](https://vitepress.dev/reference/frontmatter-config).
+This file contains the main structure of the documentation site. For more information on how to configure the site, see the [VitePress documentation](https://vitepress.dev/reference/site-config).
 
 ### website/android
 
