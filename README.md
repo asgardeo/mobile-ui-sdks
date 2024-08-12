@@ -47,6 +47,10 @@ For more information on how to use each SDK, check out the following documentati
 
 - <a href="https://asgardeo.github.io/mobile-ui-sdks/android/introduction.html" target="_blank">🤖 Android</a>
 
+### Development Guide for Documentation Site
+
+The details about the development guide for the documentation site can be found [here](./docs/README.md).
+
 ## Contributing
 
 Want to report a bug, contribute some code, or improve the documentation?
