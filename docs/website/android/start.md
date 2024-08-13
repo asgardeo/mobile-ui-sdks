@@ -39,7 +39,7 @@
 val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticationProvider()
 ```
 
-<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> handles the authentication process using `SharedFlow`. This will help you to handle each state of the authentication process easily. There are four states in the authentication process (<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>):
+<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> handles the authentication process using [SharedFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#sharedflow). This will help you to handle each state of the authentication process easily. There are four states in the authentication process (<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>):
 
 - **AuthenticationState.Initial**: Initial state of the authentication process.
 - **AuthenticationState.Loading**: SDK is calling an API to handle the authentication and waiting for the result.
@@ -90,7 +90,7 @@ private fun HandleAuthenticationState(authenticationStateFlow: SharedFlow<Authen
                         authenticationProvider.initializeAuthentication(context)  // [!code highlight]
                     }
                     is AuthenticationState.Unauthenticated -> {
-                    /** 
+                      /** 
                         * Gets called when /authorize and /authn responds with an “INCOMPLETE” state. 
                         * This means authentication flow is still not completed and a particular step is getting
                         * challenged for authentication.
@@ -98,13 +98,13 @@ private fun HandleAuthenticationState(authenticationStateFlow: SharedFlow<Authen
                         LoginForm(it.authenticationFlow)
                     }
                     is AuthenticationState.Error -> {
-                    /** 
+                      /** 
                         * Gets called when /authorize and /authn responds with an “FAILED_INCOMPLETE” state 
                         * which responds at an error of a particular authentication step
                         */
                     }
                     is AuthenticationState.Authenticated -> {
-                    /** 
+                      /** 
                         * Gets called when /authn responds with an “SUCCESS” state. This means 
                         * authentication flow is completed
                         */

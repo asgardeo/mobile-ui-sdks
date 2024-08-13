@@ -53,7 +53,7 @@ This SDK assists you in creating custom login flows directly within the applicat
 
     This should be consistent with the CallBack URL of the Service Provider that you configured in the Asgardeo.
 
-    For example, if you have configured the CallBack URL as *wso2sample://oauth2*, then the `appAuthRedirectScheme` should be *wso2sample*.
+    For example, if you have configured the CallBack URL as *wso2.apiauth.sample.android://oauth2*, then the `appAuthRedirectScheme` should be *wso2.apiauth.sample.android*.
 
     ```groovy
     android.defaultConfig.manifestPlaceholders.putAll(
