@@ -4,6 +4,7 @@ We would love for you to contribute to our mobile SDKs and help make it even bet
 As a contributor, here are the guidelines we would like you to follow:
 
 - [Commit Message Guidelines](#commit-message-guidelines)
+- [Releases](#releases)
 
 ## Commit Message Guidelines
 
@@ -65,5 +66,29 @@ The scope should be the name of the npm package affected (as perceived by the pe
 
 The following is the list of supported scopes:
 
-* `android` - Changes to the main `android` package.
-* `android-core` - Changes to the `android-core` package.
+* `asgardeo-android` - Changes to the `main` package.
+* `asgardeo-android-core` - Changes to the `core` package.
+* `asgardeo-android-core-auth-direct` - Changes to the `core-auth-direct` package.
+
+## Releases
+
+After merging a PR, the release process will be handled by the maintainers. The release process will be as follows:
+
+### For Asgardeo Android SDK
+
+The release process for the Asgardeo Android SDK will be as follows:
+
+1. The maintainers will go through the PRs merged since the last release to identify the changes.
+2. The maintainers will go to the following GitHub Actions workflow: [Release](https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/release.yml).
+3. The maintainers will trigger the workflow by clicking on the `Run workflow` button and select `android` as the workflow to run.
+4. The maintainers will provide which version to bump based on the changes identified.
+5. The changes will be published to the [Maven Central repository](https://central.sonatype.com/artifact/io.asgardeo/asgardeo-android). This will take upto 24 hours to reflect the changes in the Maven Central repository.
+
+### For Documentation
+
+The release process for the documentation will be as follows:
+
+1. The maintainers will go through the PRs merged since the last release to identify the changes.
+2. The maintainers will go to the following GitHub Actions workflow: [Deploy Documentation](https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/deploy-gh-pages.yml).
+3. The maintainers will trigger the workflow by clicking on the `Run workflow` button.
+4. The changes will be published to the [GitHub Pages](https://asgardeo.github.io/mobile-ui-sdks/).

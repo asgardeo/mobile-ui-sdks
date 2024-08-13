@@ -1,8 +1,6 @@
 ## Purpose
 > Describe the problems, issues, or needs driving this feature/fix and include links to related issues in the following format: Resolves issue1, issue2, etc.
 
-$subject
-
 ## Related Issues
 > List related issues in the following format: Resolves #123, #456, etc.
 
@@ -11,9 +9,6 @@ $subject
 
 ## Approach
 > Describe how you are implementing the solutions. Include an animated GIF or screenshot if the change affects the UI (email documentation@wso2.com to review all UI text). Include a link to a Markdown file or Google doc if the feature write-up is too long to paste here.
-
-## User stories
-> Summary of user stories addressed by this change>
 
 ## Release note
 > Brief description of the new feature or bug fix as it will appear in the release notes
@@ -26,9 +21,6 @@ $subject
 
 ## Certification
 > Type “Sent” when you have provided new/updated certification questions, plus four answers for each question (correct answer highlighted in bold), based on this change. Certification questions/answers should be sent to certification@wso2.com and NOT pasted in this PR. If there is no impact on certification exams, type “N/A” and explain why.
-
-## Marketing
-> Link to drafts of marketing content that will describe and promote this feature, including product page changes, technical articles, blog posts, videos, etc., if applicable
 
 ## Automation tests
  - Unit tests 
