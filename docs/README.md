@@ -1,6 +1,6 @@
 # Mobile UI SDKs for Asgardeo - Documentation Site
 
-Documentation site for the Mobile UI SDKs for Asgardeo.
+Documentation site for the Mobile UI SDKs for Asgardeo. This site was developed using [VitePress](https://vitepress.dev/) which is a Vue-powered static site generator and a spiritual successor to VuePress, built on top of Vite. 
 
 ## Prerequisite
 
@@ -71,3 +71,7 @@ npm run docs:dev
 ```
 http://localhost:5173/mobile-ui-sdks/
 ```
+
+## Other Information
+
+- For more information on how to improve the documentation, see the [VitePress documentation](https://vitepress.dev/).

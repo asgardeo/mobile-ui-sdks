@@ -54,10 +54,12 @@ export default defineConfig({
                 { text: "Get User Details", link: "/android/user-details.html" },
                 { text: "Get Token Information", link: "/android/token-information.html" },
                 { text: "Logout", link: "/android/logout.html" },
-                { text: "Client Attestation", link: "/android/client-attestation.html" },
+                { text: "Client Attestation", link: "/android/client-attestation.html" }
             ] 
         },
           { text: "Use Authenticators", link: "/android/use-authenticators" },
+          { text: "Error Handling", link: "/android/error-handling.html" },
+          { text: "Best Practices", link: "/android/best-practices.html" },
           { text: "APIs", link: "/android/apis" }
         ]
       }
@@ -65,7 +67,9 @@ export default defineConfig({
 
     socialLinks: [
       { icon: "discord", link: "https://discord.com/invite/wso2" },
-      { icon: "github", link: "https://github.com/asgardeo/mobile-ui-sdks" }
+      { icon: "x", link: "https://x.com/asgardeo" },
+      { icon: "youtube", link: "https://www.youtube.com/user/WSO2TechFlicks" },
+      { icon: "github", link: "https://github.com/asgardeo/mobile-ui-sdks" },
     ]
   }
 })

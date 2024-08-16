@@ -104,6 +104,12 @@ internal class FlowManagerImpl private constructor() : FlowManager {
      */
     override fun manageStateOfAuthorizeFlow(responseObject: JsonNode): AuthenticationFlow {
         return when (responseObject.get("flowStatus").asText()) {
+            /**
+             * TODO: Add exact error message returned from Asgardeo to the FlowManagerException
+             * should be embed into the exception message.
+             *
+             * https://github.com/asgardeo/mobile-ui-sdks/issues/44
+             */
             FlowStatus.FAIL_INCOMPLETE.flowStatus -> {
                 throw FlowManagerException(
                     FlowManagerException.AUTHENTICATION_NOT_COMPLETED
