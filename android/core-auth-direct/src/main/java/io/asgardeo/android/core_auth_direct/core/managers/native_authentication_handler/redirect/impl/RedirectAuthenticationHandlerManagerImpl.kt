@@ -28,7 +28,6 @@ import io.asgardeo.android.core_auth_direct.models.prompt_type.PromptTypes
 import kotlinx.coroutines.CompletableDeferred
 import java.lang.ref.WeakReference
 
-
 /**
  * Implementation of [RedirectAuthenticationHandlerManager]
  * This manager is responsible for handling the redirect authentication process

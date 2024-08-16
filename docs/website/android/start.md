@@ -59,7 +59,7 @@ After that, you can call `authenticationProvider.isLoggedInStateFlow`, this will
 Then call the `authenticationProvider.initializeAuthentication` to initialize the authentication process when the state is **AuthenticationState.Initial**.
 
 > [!IMPORTANT]
-> All the suspend functions should be called inside a coroutine scope. Suspended functions in the SDK are designed to be optimezed for `Dispatchers.IO` context.
+> All the suspend functions should be called inside a coroutine scope. Suspended functions in the SDK are designed to be optimized for `Dispatchers.IO` context.
 
 ```kotlin
 @Composable
@@ -90,7 +90,7 @@ private fun HandleAuthenticationState(authenticationStateFlow: SharedFlow<Authen
                         authenticationProvider.initializeAuthentication(context)  // [!code highlight]
                     }
                     is AuthenticationState.Unauthenticated -> {
-                      /** 
+                       /** 
                         * Gets called when /authorize and /authn responds with an “INCOMPLETE” state. 
                         * This means authentication flow is still not completed and a particular step is getting
                         * challenged for authentication.
@@ -98,13 +98,13 @@ private fun HandleAuthenticationState(authenticationStateFlow: SharedFlow<Authen
                         LoginForm(it.authenticationFlow)
                     }
                     is AuthenticationState.Error -> {
-                      /** 
-                        * Gets called when /authorize and /authn responds with an “FAILED_INCOMPLETE” state 
+                       /** 
+                        * Gets called when /authorize and /authn responds with an “FAIL_INCOMPLETE” state 
                         * which responds at an error of a particular authentication step
                         */
                     }
                     is AuthenticationState.Authenticated -> {
-                      /** 
+                       /** 
                         * Gets called when /authn responds with an “SUCCESS” state. This means 
                         * authentication flow is completed
                         */
