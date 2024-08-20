@@ -39,6 +39,7 @@ concurrency:
 env:
   GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
   DOC_DIR: docs
+  DOCS_SCRIPT_DIR: .github/workflows/scripts/docs
 
 jobs:
   deploy:
@@ -85,7 +86,7 @@ jobs:
           distribution: "adopt"
 
       - name: 🤖 Generate Android SDK API Docs
-        working-directory: .github/workflows/scripts/docs/android
+        working-directory: ${{ env.DOCS_SCRIPT_DIR }}/android
         run: bash ./dokka_build.sh
 
       - name: 🌩 Upload artifact
