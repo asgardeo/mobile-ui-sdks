@@ -50,8 +50,8 @@ jobs:
     - name: ⬇️ Checkout
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0
         token: ${{ env.GH_TOKEN }}
+        fetch-depth: 0
 
     - name: 🌴 Fetch PR branch
       run: |
@@ -106,8 +106,8 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
           token: ${{ env.GH_TOKEN }}
+          fetch-depth: 0
 
       - name: ☕️ Set up Adopt JDK 17
         uses: actions/setup-java@v3
@@ -132,8 +132,8 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
           token: ${{ env.GH_TOKEN }}
+          fetch-depth: 0
 
       - name: 🟢 Setup node
         id: setup-node
