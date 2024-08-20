@@ -41,11 +41,12 @@ on:
         - patch
 
 env:
-    GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
-    BOT_USERNAME: ${{ secrets.RELEASE_BOT_USER_NAME }}
-    BOT_EMAIL: ${{ secrets.RELEASE_BOT_EMAIL }}
-    NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-    NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+  GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
+  BOT_USERNAME: ${{ secrets.RELEASE_BOT_USER_NAME }}
+  BOT_EMAIL: ${{ secrets.RELEASE_BOT_EMAIL }}
+  NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+  NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+  ANDROID_SCRIPT_DIR: .github/workflows/scripts/android
 
 jobs:
   release:
@@ -73,6 +74,6 @@ jobs:
           distribution: "adopt"
 
       - name: 🤖 Release Android SDKs
-        working-directory: .github/workflows/scripts/android
+        working-directory: ${{ env.ANDROID_SCRIPT_DIR }}
         if: ${{ github.event.inputs.sdkType == 'android' }}
         run: bash ./android_sdk_release.sh ${{ github.event.inputs.version }} ${{ env.NEXUS_USERNAME }} ${{ env.NEXUS_PASSWORD }} ${{ env.GH_TOKEN }} ${{ github.run_number }} ${{ github.repository }}
