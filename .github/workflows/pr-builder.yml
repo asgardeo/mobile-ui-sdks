@@ -60,8 +60,6 @@ jobs:
         else
           git fetch origin ${{ github.head_ref }}
         fi
-      with:
-        token: ${{ env.GH_TOKEN }}
 
     - name: 🗃️ Get changed files
       id: changed-files
@@ -75,8 +73,6 @@ jobs:
         fi
         echo "Changed files:"
         cat changed_files.txt
-      with:
-        token: ${{ env.GH_TOKEN }}
 
     - name: 🤖 Check for Android Changes
       id: check_android_changes
