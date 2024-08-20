@@ -34,7 +34,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
   ANDROID_SCRIPT_DIR: .github/workflows/scripts/android
   DOCS_SCRIPT_DIR: .github/workflows/scripts/docs
   DOC_DIR: docs
@@ -50,7 +49,6 @@ jobs:
       - name: ⬇️ Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ env.GH_TOKEN }}
           fetch-depth: 0
 
       - name: 🌴 Fetch PR branch
