@@ -8,7 +8,7 @@ Setup development environment for the Documentation Site for Mobile UI SDKs for 
 
 - Node.js version 18 or higher.
 - Text Editor with Markdown syntax support.
-  - VSCode is recommended.
+  - VSCode is recommended
 
 ## File Structure
 
