@@ -41,12 +41,12 @@ on:
         - patch
 
 env:
-    GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
-    BOT_USERNAME: ${{ secrets.RELEASE_BOT_USER_NAME }}
-    BOT_EMAIL: ${{ secrets.RELEASE_BOT_EMAIL }}
-    NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-    NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-    ANDROID_SCRIPT_DIR: .github/workflows/scripts/android
+  GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
+  BOT_USERNAME: ${{ secrets.RELEASE_BOT_USER_NAME }}
+  BOT_EMAIL: ${{ secrets.RELEASE_BOT_EMAIL }}
+  NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+  NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+  ANDROID_SCRIPT_DIR: .github/workflows/scripts/android
 
 jobs:
   release:

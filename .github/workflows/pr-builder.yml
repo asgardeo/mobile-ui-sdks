@@ -34,10 +34,10 @@ concurrency:
   cancel-in-progress: true
 
 env:
-    GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
-    ANDROID_SCRIPT_DIR: .github/workflows/scripts/android
-    DOCS_SCRIPT_DIR: .github/workflows/scripts/docs
-    DOC_DIR: docs
+  GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
+  ANDROID_SCRIPT_DIR: .github/workflows/scripts/android
+  DOCS_SCRIPT_DIR: .github/workflows/scripts/docs
+  DOC_DIR: docs
 
 jobs:
   check_for_relevant_changes:
