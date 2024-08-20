@@ -47,51 +47,51 @@ jobs:
       android_changed: ${{ steps.check_android_changes.outputs.android_changed }}
       documentation_changed: ${{ steps.check_documentation_changes.outputs.documentation_changed }}
     steps:
-    - name: ⬇️ Checkout
-      uses: actions/checkout@v3
-      with:
-        token: ${{ env.GH_TOKEN }}
-        fetch-depth: 0
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ env.GH_TOKEN }}
+          fetch-depth: 0
 
-    - name: 🌴 Fetch PR branch
-      run: |
-        if [ ${{ github.event.pull_request.head.repo.fork }} == true ]; then
-          git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-${{ github.event.pull_request.number }}
-        else
-          git fetch origin ${{ github.head_ref }}
-        fi
+      - name: 🌴 Fetch PR branch
+        run: |
+          if [ ${{ github.event.pull_request.head.repo.fork }} == true ]; then
+            git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-${{ github.event.pull_request.number }}
+          else
+            git fetch origin ${{ github.head_ref }}
+          fi
 
-    - name: 🗃️ Get changed files
-      id: changed-files
-      run: |
-        if [ ${{ github.event.pull_request.head.repo.fork }} == true ]; then
-          echo "Comparing changes for PR from fork"
-          git diff --name-only origin/${{ github.base_ref }}..pr-${{ github.event.pull_request.number }} > changed_files.txt
-        fi
-        echo "Changed files:"
-        cat changed_files.txt
+      - name: 🗃️ Get changed files
+        id: changed-files
+        run: |
+          if [ ${{ github.event.pull_request.head.repo.fork }} == true ]; then
+            echo "Comparing changes for PR from fork"
+            git diff --name-only origin/${{ github.base_ref }}..pr-${{ github.event.pull_request.number }} > changed_files.txt
+          fi
+          echo "Changed files:"
+          cat changed_files.txt
 
-    - name: 🤖 Check for Android Changes
-      id: check_android_changes
-      run: |
-        echo "Checking for Android changes"
-        android_changed=false
-        if grep -q "android/" changed_files.txt; then
-          android_changed=true
-          echo "Android changes detected"
-        fi
-        echo "android_changed=${android_changed}" >> $GITHUB_OUTPUT
+      - name: 🤖 Check for Android Changes
+        id: check_android_changes
+        run: |
+          echo "Checking for Android changes"
+          android_changed=false
+          if grep -q "android/" changed_files.txt; then
+            android_changed=true
+            echo "Android changes detected"
+          fi
+          echo "android_changed=${android_changed}" >> $GITHUB_OUTPUT
 
-    - name: 📑 Check for Documentation Changes
-      id: check_documentation_changes
-      run: |
-        echo "Checking for Documentation changes"
-        documentation_changed=false
-        if grep -q "docs/" changed_files.txt; then
-          documentation_changed=true
-          echo "Documentation changes detected"
-        fi
-        echo "documentation_changed=${documentation_changed}" >> $GITHUB_OUTPUT
+      - name: 📑 Check for Documentation Changes
+        id: check_documentation_changes
+        run: |
+          echo "Checking for Documentation changes"
+          documentation_changed=false
+          if grep -q "docs/" changed_files.txt; then
+            documentation_changed=true
+            echo "Documentation changes detected"
+          fi
+          echo "documentation_changed=${documentation_changed}" >> $GITHUB_OUTPUT
 
   asgardeo-android-sdk-builder:
     name: 🤖 🚧 Asgardeo Android SDK Builder
