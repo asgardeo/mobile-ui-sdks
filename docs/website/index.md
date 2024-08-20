@@ -20,7 +20,7 @@ layout: home
 
 hero:
   name: "Mobile SDKs for Asgardeo"
-  tagline: "Welcome to our comprehensive documentation site for Mobile SDKs for Asgardeo! \nHere, you'll find everything you need to seamlessly integrate Asgardeo's authentication and identity management solutions into your mobile applications..."
+  tagline: "Welcome to our comprehensive documentation site for Mobile SDKs for Asgardeo! \nHere, you'll find everything you need to seamlessly integrate Asgardeo's authentication and identity management solutions into your mobile applications.."
   image:
     dark: /phone.svg
     light: /phone_white.svg
