@@ -1,0 +1,61 @@
+# -------------------------------------------------------------------------------------
+#
+# Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com).
+#
+# WSO2 LLC. licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+# --------------------------------------------------------------------------------------
+
+# This workflow will run the build for PRs to check for any build related issues.
+
+name: 👷 PR Builder
+
+on:
+  pull_request:
+    types: [ opened, synchronize, labeled ]
+    branches: [ master ]
+    paths-ignore:
+      - "**/*.md"
+      - "**/LICENSE"
+
+# Avoid running multiple builds for the same PR.
+concurrency:
+  group: pr-builder-${{ github.ref }}
+  cancel-in-progress: true
+
+# env:
+#     GH_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }}
+
+jobs:
+  asgardeo-android-sdk-builder:
+    name: 🤖🚧 Asgardeo Android SDK Builder
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        id: checkout
+        uses: actions/checkout@v3
+        # with:
+        #   token: ${{ env.GH_TOKEN }}
+        #   fetch-depth: 0
+
+      - name: ☕️ Set up Adopt JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "adopt"
+
+      - name: 🚧 Build Asgardeo Android SDK
+        working-directory: .github/workflows/scripts/android
+        run: bash ./android_sdk_build.sh
