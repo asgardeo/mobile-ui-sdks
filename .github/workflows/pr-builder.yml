@@ -67,9 +67,6 @@ jobs:
         if [ ${{ github.event.pull_request.head.repo.fork }} == true ]; then
           echo "Comparing changes for PR from fork"
           git diff --name-only origin/${{ github.base_ref }}..pr-${{ github.event.pull_request.number }} > changed_files.txt
-        else
-          echo "Comparing changes for internal PR"
-          git diff --name-only origin/${{ github.base_ref }}..origin/${{ github.head_ref }} > changed_files.txt
         fi
         echo "Changed files:"
         cat changed_files.txt
