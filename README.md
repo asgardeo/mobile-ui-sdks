@@ -22,6 +22,7 @@
 
 <div align="center">
   <a href="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/release.yml"><img src="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/release.yml/badge.svg" alt="🚀 Release"></a>
+  <a href="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/pr-builder.yml"><img src="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/pr-builder.yml/badge.svg" alt="👷 PR Builder"></a>
   <a href="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/deploy-gh-pages.yml"><img src="https://github.com/asgardeo/mobile-ui-sdks/actions/workflows/deploy-gh-pages.yml/badge.svg" alt="☄️ Deploy Documentation"></a>
   
   <a href="https://stackoverflow.com/questions/tagged/wso2is"><img src="https://img.shields.io/badge/Ask%20for%20help%20on-Stackoverflow-orange" alt="Stackoverflow"></a>
