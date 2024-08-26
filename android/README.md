@@ -99,9 +99,9 @@ You can test the changes by running any Android application and including the SD
         }
     }
     ```
-    > [!TIP]
-    > There are some reports that the `mavenLocal()` repository is not being resolved in the `settings.gradle` file. To 
-    > resolve this issue, please refer to this StackOverflow [thread](https://stackoverflow.com/questions/32107205/gradle-does-not-use-the-maven-local-repository-for-a-new-dependency).
+ > [!TIP]
+ > There are some reports that the `mavenLocal()` repository is not being resolved in the `settings.gradle` file. To 
+ > resolve this issue, please refer to this StackOverflow [thread](https://stackoverflow.com/questions/32107205/gradle-does-not-use-the-maven-local-repository-for-a-new-dependency).
 
 
 3. Build and run the sample application using the above mentioned [documentation](https://github.com/wso2/samples-is/blob/master/petcare-sample/b2c/mobile-app/petcare-with-sdk/README.md).
