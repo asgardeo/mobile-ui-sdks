@@ -55,7 +55,7 @@ The Asgardeo Android SDK is developed using Kotlin and is built using the Androi
     ```
     This will publish the SDK to the local Maven repository. You can find the SDK in the following location.
     ```
-    ~/.m2/repository/org/io/asgardeo/asgardeo-android/<MAIN_VERSION>
+    ~/.m2/repository/io/asgardeo/asgardeo-android/<MAIN_VERSION>
     ```
     You can also find the SDK in the `External Libraries` section in the project view of Android Studio.
 3. Note the version of the SDK that you have released to the local Maven repository. You can find the version in the `gradle.properties` file in the root of the SDK project, in the variable `MAIN_VERSION`.
@@ -99,6 +99,10 @@ You can test the changes by running any Android application and including the SD
         }
     }
     ```
+    > [!TIP]
+    > There are some reports that the `mavenLocal()` repository is not being resolved in the `settings.gradle` file. To 
+    > resolve this issue, please refer to this StackOverflow [thread](https://stackoverflow.com/questions/32107205/gradle-does-not-use-the-maven-local-repository-for-a-new-dependency).
+
 
 3. Build and run the sample application using the above mentioned [documentation](https://github.com/wso2/samples-is/blob/master/petcare-sample/b2c/mobile-app/petcare-with-sdk/README.md).
 

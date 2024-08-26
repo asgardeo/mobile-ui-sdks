@@ -103,6 +103,9 @@ internal class FlowManagerImpl private constructor() : FlowManager {
      * TODO: Need to check additional check to flowid to check if the flow is the same as the current flow
      */
     override fun manageStateOfAuthorizeFlow(responseObject: JsonNode): AuthenticationFlow {
+        // Get the messages from the response object
+        val messages: JsonNode? = responseObject.get("nextStep")?.get("messages")
+
         return when (responseObject.get("flowStatus").asText()) {
             /**
              * TODO: Add exact error message returned from Asgardeo to the FlowManagerException
@@ -112,7 +115,8 @@ internal class FlowManagerImpl private constructor() : FlowManager {
              */
             FlowStatus.FAIL_INCOMPLETE.flowStatus -> {
                 throw FlowManagerException(
-                    FlowManagerException.AUTHENTICATION_NOT_COMPLETED
+                    message = FlowManagerException.AUTHENTICATION_NOT_COMPLETED,
+                    messages = if (messages != null) arrayListOf(messages) else arrayListOf()
                 )
             }
 
@@ -126,7 +130,8 @@ internal class FlowManagerImpl private constructor() : FlowManager {
 
             else -> {
                 throw FlowManagerException(
-                    FlowManagerException.AUTHENTICATION_NOT_COMPLETED_UNKNOWN
+                    message = FlowManagerException.AUTHENTICATION_NOT_COMPLETED_UNKNOWN,
+                    messages = if (messages != null) arrayListOf(messages) else arrayListOf()
                 )
             }
         }

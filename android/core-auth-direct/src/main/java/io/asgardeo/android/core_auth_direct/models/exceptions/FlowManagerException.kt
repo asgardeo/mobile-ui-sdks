@@ -24,7 +24,8 @@ import io.asgardeo.android.core_auth_direct.core.managers.flow.FlowManager
  * Exception to be thrown to the exception related to [FlowManager]
  */
 class FlowManagerException(
-    override val message: String?
+    override val message: String?,
+    val messages: ArrayList<Any> = arrayListOf()
 ) : Exception(message) {
     companion object {
         /**

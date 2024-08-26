@@ -53,8 +53,12 @@ is AuthenticationState.Error -> {
 
 Also if you want to show an error message in the TextFields, you have to navigate to the login component and show the error message.
 
-> [!NOTE]
-> There is an issue in the SDK that the exact error message provided from Asgardeo is not correctly passed to the `FlowManagerException`. This is a known issue that is tracked in the [GitHub repository](https://github.com/asgardeo/mobile-ui-sdks/issues/44).
+To view the specific error message, you can use the the `messages` property of the `FlowManagerException` as shown below:
+
+```kotlin
+val messages: ArrayList<any> = (it.throwable as FlowManagerException).messages
+```
+This will return an array of error messages that is returned by Asgardeo, explaining the error in detail.
 
 ### Authenticator Not Found Error
 
