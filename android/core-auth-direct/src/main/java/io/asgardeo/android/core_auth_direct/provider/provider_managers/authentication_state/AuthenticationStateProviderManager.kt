@@ -22,7 +22,7 @@ import android.content.Context
 import io.asgardeo.android.core_auth_direct.models.autheniticator.Authenticator
 import io.asgardeo.android.core_auth_direct.models.authentication_flow.AuthenticationFlow
 import io.asgardeo.android.core_auth_direct.models.state.AuthenticationState
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Authentication state provider manager that is used to manage the authentication state.
@@ -37,9 +37,9 @@ interface AuthenticationStateProviderManager {
     /**
      * Get authentication state flow
      *
-     * @return authentication state flow [SharedFlow<AuthenticationState>]
+     * @return authentication state flow [StateFlow<AuthenticationState>]
      */
-    fun getAuthenticationStateFlow(): SharedFlow<AuthenticationState>
+    fun getAuthenticationStateFlow(): StateFlow<AuthenticationState>
 
     /**
      * Emit the authentication state.

@@ -29,7 +29,6 @@ import io.asgardeo.android.core_auth_direct.models.state.AuthenticationState
 import io.asgardeo.android.core_auth_direct.models.state.TokenState
 import io.asgardeo.android.core_auth_direct.provider.provider_managers.authentication_state.AuthenticationStateProviderManager
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.lang.ref.WeakReference
 
@@ -92,9 +91,9 @@ internal class AuthenticationStateProviderManagerImpl private constructor(
     /**
      * Get authentication state flow
      *
-     * @return authentication state flow [SharedFlow<AuthenticationState>]
+     * @return authentication state flow [StateFlow<AuthenticationState>]
      */
-    override fun getAuthenticationStateFlow(): SharedFlow<AuthenticationState> =
+    override fun getAuthenticationStateFlow(): StateFlow<AuthenticationState> =
         authenticationStateFlow
 
     /**
