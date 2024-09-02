@@ -25,7 +25,7 @@
         AuthenticationCoreConfig(
             discoveryEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/token/.well-known/openid-configuration",
             authnEndpoint = "https://api.asgardeo.io/t/<org_name>/oauth2/authn",
-            redirectUri = "wso2sample://oauth2",
+            redirectUri = "wso2.apiauth.sample.android://oauth2",
             clientId = "<client_id>",
             scope = "openid profile email"
         )
@@ -39,7 +39,7 @@
 val authenticationProvider: AuthenticationProvider = asgardeoAuth.getAuthenticationProvider()
 ```
 
-<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> handles the authentication process using [SharedFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#sharedflow). This will help you to handle each state of the authentication process easily. There are four states in the authentication process (<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>):
+<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.provider.providers.authentication/-authentication-provider/index.html" target="_blank">AuthenticationProvider</a> handles the authentication process using [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#stateflow). This will help you to handle each state of the authentication process easily. There are four states in the authentication process (<a href="/mobile-ui-sdks/android/api/core-auth-direct/io.asgardeo.android.core_auth_direct.models.state/-authentication-state/index.html" target="_blank">AuthenticationState</a>):
 
 - **AuthenticationState.Initial**: Initial state of the authentication process.
 - **AuthenticationState.Loading**: SDK is calling an API to handle the authentication and waiting for the result.
@@ -64,10 +64,11 @@ Then call the `authenticationProvider.initializeAuthentication` to initialize th
 ```kotlin
 @Composable
 internal fun LandingScreen() {
+    val context: Context = LocalContext.current
     val authenticationStateFlow = authenticationProvider.getAuthenticationStateFlow()
 
-    IsLoggedInStateFlow()
-    HandleAuthenticationState(authenticationStateFlow)
+    IsLoggedInStateFlow(context)
+    HandleAuthenticationState(authenticationStateFlow, context)
 }
 
 @Composable
@@ -80,7 +81,7 @@ private fun IsLoggedInStateFlow(context: Context) {
 }
 
 @Composable
-private fun HandleAuthenticationState(authenticationStateFlow: SharedFlow<AuthenticationState>) {
+private fun HandleAuthenticationState(authenticationStateFlow: StateFlow<AuthenticationState>) {
     LaunchedEffect(key1 = Unit) {
         GlobalScope.launch {
             authenticationStateFlow.collect {
