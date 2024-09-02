@@ -26,7 +26,7 @@ import androidx.annotation.RequiresApi
 import io.asgardeo.android.core_auth_direct.models.autheniticator.Authenticator
 import io.asgardeo.android.core_auth_direct.models.state.AuthenticationState
 import io.asgardeo.android.core_auth_direct.provider.providers.authentication.impl.AuthenticationProviderImpl
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Interface for the authentication provider to be implemented by the application.
@@ -37,9 +37,9 @@ interface AuthenticationProvider {
     /**
      * Get authentication state flow
      *
-     * @return authentication state flow [SharedFlow<AuthenticationState>]
+     * @return authentication state flow [StateFlow<AuthenticationState>]
      */
-    fun getAuthenticationStateFlow(): SharedFlow<AuthenticationState>
+    fun getAuthenticationStateFlow(): StateFlow<AuthenticationState>
 
     /**
      * Check whether the user is logged in or not.
